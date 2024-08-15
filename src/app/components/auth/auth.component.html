@@ -1,0 +1,20 @@
+<div class="" style="height: 100vh;">
+<div class="d-flex h-100 justify-content-between align-items-center">
+    <div class="left d-flex h-100 justify-content-center align-items-center flex-grow-1">
+        <div class="">
+            <div class="content">
+              <h1>Welcome to ChatZone</h1>
+              <p>Connect with friends and family instantly, securely, and seamlessly.</p>
+             
+            </div>
+          </div>
+          
+    </div>
+    <div class="right d-flex h-100 justify-content-center align-items-center flex-grow-1">
+       <div >
+        <app-register  *ngIf="currentScreen == 'register'"></app-register>
+        <app-login  *ngIf="currentScreen == 'login'"></app-login>
+       </div>
+    </div>
+</div>
+</div>

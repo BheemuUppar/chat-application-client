@@ -1,0 +1,45 @@
+
+.register-wrapper{
+    padding: 18px;
+    background: #1A1A1E;
+    border-radius: 10px;
+    width: 397px;
+}
+form {
+    width: 100%;
+     color: #8e8e8e;
+  }
+
+  .register{
+    font-family: monospace;
+    text-align: center;
+  }
+
+  input {
+    background-color: #1f1f22;
+    outline: none;
+    border: 0px;
+    border: 2px solid #2c2a2a;
+    border-radius: 6px;
+    padding: 3px 6px;
+    color: white;
+    height: 40px;
+    width: 100%;
+  }
+  
+  .input-container {
+    margin: 3px 0px;
+  }
+  
+  .btn.btn-primary {
+    color: black;
+    border-radius: 4px;
+  }
+  
+  .flip{
+    transform: translateX(-100%) rotateY(-180deg);
+    transform-style: preserve-3d;
+    transform-origin: center right;
+    transition: transform 1s;
+    transform: rotate(0deg);
+}

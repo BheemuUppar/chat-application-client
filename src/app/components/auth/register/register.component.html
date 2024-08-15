@@ -1,0 +1,35 @@
+<div class="register-wrapper shadow-lg">
+    <h1 class="register">Sign up</h1>
+    <form class="d-flex flex-column" >
+
+        <div class="input-container">
+            <label for="username">Name</label>
+            <input type="text" name="username" id="username" class="" placeholder="bheema" />
+        </div>
+        <div class="input-container">
+            <label for="email">Email address</label>
+            <input type="email" name="email" id="email" class="" placeholder="abc@example.com" />
+        </div>
+
+        <div class="input-container">
+            <label for="mobile">Mobile</label>
+            <input type="tel" name="mobile" id="mobile" class="" placeholder="0123456789" />
+        </div>
+
+        <div class="input-container d-flex gap-2">
+           <div>
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" class="" placeholder="Password" />
+           </div>
+           <div >
+            <label for="cnf-password">Confim Password</label>
+            <input type="password" name="cnf-password" id="cnf-password" class="" placeholder="Confirm password" />
+        </div>
+        </div>
+        
+
+        <button type="submit" class="btn btn-primary mt-3">Register</button>
+
+    </form>
+    <p class="mt-4 text-light">Have account?  <a routerLink="/auth/login">Login to account</a></p>
+</div>
