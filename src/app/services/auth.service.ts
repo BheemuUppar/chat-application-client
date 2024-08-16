@@ -13,7 +13,7 @@ export class AuthService {
     return this.http.post(url, params);
   }
 
-  loginUser(params: { name: string; password: string }) {
+  loginUser(params: { username: string; password: string }) {
     let url = 'http://localhost:3000/auth/login';
     return this.http.post(url, params).pipe(
       map((res: any) => {

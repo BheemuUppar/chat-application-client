@@ -4,15 +4,15 @@
 
         <div class="input-container">
             <label for="username">Email address</label>
-            <input type="text" name="username" id="username" class="" placeholder="abc@example.com" />
+            <input type="text" name="username" id="username" [(ngModel)]="username" class="" placeholder="abc@example.com" />
         </div>
 
         <div class="input-container d-flex flex-column">
             <label for="password">Password</label>
-            <input type="password" name="password" id="password" class="" placeholder="Password" />
+            <input type="password" name="password" [(ngModel)]="password" id="password" class="" placeholder="Password" />
         </div>
 
-        <button type="submit" class="btn btn-primary mt-3">Login</button>
+        <button type="button" (click)="login()" class="btn btn-primary mt-3">Login</button>
 
     </form>
     <p class="mt-4 text-light">Not registered?  <a routerLink="/auth/register">Create account</a></p>

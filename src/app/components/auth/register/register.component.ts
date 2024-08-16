@@ -45,7 +45,7 @@ export class RegisterComponent {
     name:this.registerForm.value.name,
     mobile:Number(this.registerForm.value.mobile),
     email:this.registerForm.value.email,
-    password:this.registerForm.value.email,
+    password:this.registerForm.value.password,
 
   }
 
@@ -55,7 +55,7 @@ export class RegisterComponent {
  this.router.navigateByUrl('/auth/login')
     },
     error:(err)=>{
-      alert(err.message)
+      alert(err.error.message)
     }
   })
   
