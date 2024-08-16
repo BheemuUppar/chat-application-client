@@ -1,35 +1,70 @@
 <div class="register-wrapper shadow-lg">
     <h1 class="register">Sign up</h1>
-    <form class="d-flex flex-column" >
+    <form class="d-flex flex-column" [formGroup]="registerForm">
 
         <div class="input-container">
             <label for="username">Name</label>
-            <input type="text" name="username" id="username" class="" placeholder="bheema" />
+            <input type="text" formControlName="name" name="name" id="username" class="" placeholder="bheema" />
+            <div class="error" *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
+                <span>Name field is required </span>
+            </div>
         </div>
         <div class="input-container">
             <label for="email">Email address</label>
-            <input type="email" name="email" id="email" class="" placeholder="abc@example.com" />
+            <input type="email" formControlName="email" name="email" id="email" class=""
+                placeholder="abc@example.com" />
+            <div class="error" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+                <span *ngIf="registerForm.get('email')?.hasError('required')">Email field is required</span>
+                <span *ngIf="registerForm.get('email')?.hasError('email')">Enter valid email address</span>
+            </div>
         </div>
-
         <div class="input-container">
             <label for="mobile">Mobile</label>
-            <input type="tel" name="mobile" id="mobile" class="" placeholder="0123456789" />
+            <input type="tel" formControlName="mobile" name="mobile" id="mobile" class="" placeholder="0123456789" />
+            <div class="error" *ngIf="registerForm.get('mobile')?.invalid && registerForm.get('mobile')?.touched">
+                <span *ngIf="registerForm.get('mobile')?.hasError('required')">Mobile field is required</span>
+                <span *ngIf="registerForm.get('mobile')?.hasError('pattern')">Mobile should contain only numbers</span>
+                <span *ngIf="registerForm.get('mobile')?.hasError('maxlength')">Mobile number should be less than 20
+                    chars</span>
+            </div>
+
         </div>
 
         <div class="input-container d-flex gap-2">
-           <div>
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" class="" placeholder="Password" />
-           </div>
-           <div >
-            <label for="cnf-password">Confim Password</label>
-            <input type="password" name="cnf-password" id="cnf-password" class="" placeholder="Confirm password" />
+            <div style="max-width: 50%;">
+                <label for="password">Password</label>
+                <input type="password" formControlName="password" name="password" id="password" class=""
+                    placeholder="Password" />
+                <div class="error"
+                    *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+                    <span *ngIf="registerForm.get('password')?.hasError('required')">Password field is required</span>
+                    <span *ngIf="registerForm.get('password')?.hasError('pattern')">
+                        Password should contain min 1 uppercase, min 1 uppercase,min 1 lowercase, min 1 special
+                        character
+                    </span>
+                    <span
+                        *ngIf="registerForm.get('password')?.hasError('maxlength') || registerForm.get('password')?.hasError('minlength')">Password
+                        should contain 6-15 characters</span>
+                </div>
+            </div>
+            <div>
+                <label for="cnf-password">Confim Password</label>
+                <input type="password" formControlName="cnf_password" name="cnf_password" id="cnf-password" class=""
+                    placeholder="Confirm password" />
+                <div class="error"
+                    *ngIf="registerForm.get('cnf_password')?.invalid && registerForm.get('cnf_password')?.touched">
+                    <span *ngIf="registerForm.get('cnf_password')?.hasError('required')">Confirm Password is
+                        required</span>
+                    <span *ngIf="registerForm.get('cnf_password')?.hasError('passwordsMismatch')">
+                        Passwords do not match.
+                    </span>
+                </div>
+            </div>
         </div>
-        </div>
-        
 
-        <button type="submit" class="btn btn-primary mt-3">Register</button>
+
+        <button type="submit" class="btn btn-primary mt-3" (click)="onRegister($event)">Register</button>
 
     </form>
-    <p class="mt-4 text-light">Have account?  <a routerLink="/auth/login">Login to account</a></p>
+    <p class="mt-4 text-light">Have account? <a routerLink="/auth/login">Login to account</a></p>
 </div>

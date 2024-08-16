@@ -43,3 +43,8 @@ form {
     transition: transform 1s;
     transform: rotate(0deg);
 }
+
+.error span{
+  color: red;
+  font-size: 12px;
+}
