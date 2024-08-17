@@ -35,4 +35,12 @@
     margin-bottom: 40px;
   }
   
-  
+  @media screen and (max-width: 768px) {
+    .left {
+      display: none !important;
+    }
+    .right{
+      width: 100vw;
+      max-width: 100%;
+    }
+  }
