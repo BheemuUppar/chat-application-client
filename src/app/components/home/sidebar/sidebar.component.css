@@ -1,0 +1,46 @@
+.search-wrapper div {
+  background-color: #2a2a2d;
+  border-radius: 21px;
+  margin: 15px;
+}
+
+.search_input {
+  background: transparent;
+  border: none;
+  padding-left: 10px;
+  color: inherit;
+}
+.search_input:focus-visible {
+  outline: none;
+}
+
+.chat_contact .status small {
+  float: inline-end;
+}
+.chat_contact .name {
+  font-weight: 400;
+  color: #8e8e90;
+}
+.chat_contact {
+  font-weight: 400;
+  color: #8d8d8e;
+}
+.typing {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.typing span {
+  /* display: block !important; */
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+  background-color: white;
+}
+
+.chat_list_wrapper{
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+
+}

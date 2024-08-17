@@ -11,6 +11,7 @@ import { AuthComponent } from './components/auth/auth.component';
 import {HttpClientModule } from '@angular/common/http';
 import { EditProfilePicComponent } from './components/edit-profile-pic/edit-profile-pic.component';
 import { DefaultImageDirective } from './directives/default-image.directive';
+import { SidebarComponent } from './components/home/sidebar/sidebar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +20,8 @@ import { DefaultImageDirective } from './directives/default-image.directive';
     LoginComponent,
     AuthComponent,
     EditProfilePicComponent,
-    DefaultImageDirective
+    DefaultImageDirective,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

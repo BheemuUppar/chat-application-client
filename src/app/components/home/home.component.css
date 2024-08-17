@@ -1,0 +1,12 @@
+.main {
+  min-height: 100vh;
+}
+.main .sidebar {
+  background-color: #1f1f22;
+  width: 30vw;
+  max-width: 30vw;
+  padding: 22px;
+  color: #d8d8d8;
+}
+
+
