@@ -1,7 +1,16 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { jwtDecode } from "jwt-decode";
+import { UserService } from 'src/app/services/user.service';
 
+interface User{
+  id:string,
+  name:string,
+  email:string,
+  mobile:string,
+  profile_path:string | null
+}
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,7 +20,7 @@ export class LoginComponent {
   username!: string;
   password!: string;
 
-  constructor(private authService: AuthService, private router:Router) {
+  constructor(private authService: AuthService, private router:Router, private userService:UserService) {
     if(localStorage.getItem('token'))
     this.router.navigateByUrl('/')
   }
@@ -22,9 +31,20 @@ export class LoginComponent {
       return 
     }
     this.authService.loginUser({username:this.username, password:this.password}).subscribe({
-      next:(res)=>{
+      next:(res:any)=>{
         alert(res.message);
-        this.router.navigateByUrl('/')
+        let decoded : User= jwtDecode(res.token);
+        localStorage.setItem("id", decoded.id)
+        // localStorage.setItem("email", decoded.email)
+        // localStorage.setItem("name", decoded.name)
+        
+        this.getuserdata(Number(decoded.id))
+        if(decoded.profile_path != null){
+          this.router.navigateByUrl('/');
+          
+        }else{
+          this.router.navigateByUrl('upload/profile')
+        }
 
       },
       error:(error)=>{
@@ -32,5 +52,11 @@ export class LoginComponent {
         alert(error.error.message);
       }
     })
+
+  }
+  getuserdata(id:number){
+    this.userService.getUserData(id).subscribe()
   }
 }
+
+

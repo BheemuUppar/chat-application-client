@@ -8,14 +8,16 @@ import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { AuthComponent } from './components/auth/auth.component';
-import {HttpClientModule } from '@angular/common/http'
+import {HttpClientModule } from '@angular/common/http';
+import { EditProfilePicComponent } from './components/edit-profile-pic/edit-profile-pic.component'
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     RegisterComponent,
     LoginComponent,
-    AuthComponent
+    AuthComponent,
+    EditProfilePicComponent
   ],
   imports: [
     BrowserModule,

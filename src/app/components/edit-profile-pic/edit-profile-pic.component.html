@@ -1,0 +1,19 @@
+<div class="d-flex justify-content-center align-items-center flex-column" style="height: 100vh;">
+
+
+    <div class="image">
+        <img [src]="url ? url :'../../../assets/images/default-user-profile.png'" class="profile_pic" height="250" width="250" alt="">
+    </div>
+    <input type="file" name="" id='input_file' accept="image/png" hidden>
+    <span>
+       <button (click)="onClickUpload()"> click to upload</button>
+    </span>
+
+    <div class="button-group">
+        <button (click)="skip()">Skip</button>
+        <button (click)="save()">Next</button>
+    </div>
+
+</div>
+
+<img  [src]="fromserver"  height="200" width="200" alt="">
