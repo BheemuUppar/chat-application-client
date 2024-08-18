@@ -1,0 +1,72 @@
+nav {
+  border-bottom: 1px solid;
+}
+
+.input-container {
+  padding: 20px 34px;
+}
+.input-container input {
+  background-color: #2a2a2d;
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+}
+.input-container svg {
+  color: #fff;
+}
+
+.input-container input:focus-visible {
+  outline: 2px solid transparent;
+}
+
+.send-btn {
+  height: 50px;
+  width: 53px;
+  background: #fc6a83;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.messages {
+  padding: 16px;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+}
+
+.sentMessage .content {
+  max-width: 50%;
+  color: white;
+  float: right;
+  background-color: #2a2a2d;
+  border-radius: 10px;
+  border-bottom-right-radius: 0px;
+}
+.receiveMessage .content {
+    max-width: 50%;
+    float: right;
+    background-image: linear-gradient(to right, #6D64F3 , #BC4EE8);
+    border-radius: 10px;
+    color: white ;
+    border-bottom-left-radius: 0px;
+  }
+.receiveMessage, .sentMessage{
+    display: flex;
+    column-gap: 10px;
+    margin-top: 10px;
+
+}
+.receiveMessage{
+    justify-content: start;
+    
+}
+
+.sentMessage{
+    justify-content: end;
+}
+
+.sentMessage small{
+    color: #717174;
+}

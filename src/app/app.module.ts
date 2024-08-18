@@ -12,6 +12,7 @@ import {HttpClientModule } from '@angular/common/http';
 import { EditProfilePicComponent } from './components/edit-profile-pic/edit-profile-pic.component';
 import { DefaultImageDirective } from './directives/default-image.directive';
 import { SidebarComponent } from './components/home/sidebar/sidebar.component';
+import { ConverstaionComponent } from './components/home/converstaion/converstaion.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +22,8 @@ import { SidebarComponent } from './components/home/sidebar/sidebar.component';
     AuthComponent,
     EditProfilePicComponent,
     DefaultImageDirective,
-    SidebarComponent
+    SidebarComponent,
+    ConverstaionComponent
   ],
   imports: [
     BrowserModule,
