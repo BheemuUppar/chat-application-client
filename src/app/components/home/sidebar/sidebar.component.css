@@ -73,3 +73,15 @@ li.chat_contact {
 li.chat_contact:hover{
 background-color: #2a2a2d;
 }
+
+.search_suggestions{
+  position: absolute;
+    background: white;
+    width: 300px;
+    left: 29px;
+    z-index: 99;
+    top: 130px;
+    max-height: 300px;
+    overflow: auto;
+    color: #000;
+}

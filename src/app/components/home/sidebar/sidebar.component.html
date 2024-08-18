@@ -1,8 +1,9 @@
 <header>
     <div class="d-flex justify-content-between align-items-center  py-1">
         <div class="d-flex align-items-center gap-2 px-3">
-            <div class="profile_img online"><img src="" appDefaultImage alt=""></div>
-            <h3 class="m-0 fs-5 fw-bold ">Bheema</h3>
+            <div class="profile_img online"><img [src]="user.profile_path" appDefaultImage alt=""></div>
+            <h3 class="m-0 fs-5 fw-bold ">{{user.name}}</h3>
+            <!-- <small>{{user.email}}</small> -->
         </div>
         <div class="d-flex align-items-center gap-3">
             <div class="bell">
@@ -30,218 +31,67 @@
             <path
                 d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
         </svg>
-        <input type="text" name="search" class="search_input w-100" id="search" placeholder="Search">
+        <input type="text" name="search" class="search_input w-100" [(ngModel)]="searchText" id="search"
+            placeholder="Search" (input)="fetchUsers()">
 
     </div>
+    <ul *ngIf="users" class="search_suggestions list-unstyled px-0">
+        <li *ngFor="let user of users" class=" d-flex" (click)="startChat(user)" style="cursor: pointer;">
+            <div class="profile_img">
+                <img src="" appDefaultImage alt="">
+            </div>
+            <div class=" ms-3 bg-transparent">
+                <h6 class=" m-0 ">{{user.name}}</h6>
+                <small>{{user.email}}</small>
+            </div>
+        </li>
+        <li *ngIf="users?.length === 0">No users found with {{searchText}}</li>
+    </ul>
 </div>
 
 <div class="chat_list_wrapper pe-2">
-    <ul class="list-unstyled chat_list">
-        <li class="chat_contact  px-3">
-            <div class="d-flex align-items-center">
-                <div class="profile_img online">
-                    <img src="" appDefaultImage alt="">
-                </div>
-                <div class="name ms-3">
-                    <h6 class=" m-0 ">Kiran K</h6>
-                    <div class="typing">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </div>
-                <div class="status flex-grow-1">
-                    <small>Tue</small>
-                  
-                </div>
-            </div>
-        </li>
-        <!--  -->
-        <li class="chat_contact  px-3">
+    <ul class="list-unstyled chat_list" *ngIf="myChatUsers.length>0">
+        <li class="chat_contact  px-3" *ngFor="let user of myChatUsers" >
             <div class="d-flex align-items-center">
                 <div class="profile_img offline">
-                    <img src="" appDefaultImage alt="">
+                    <img [src]="user.profile_path" appDefaultImage alt="">
                 </div>
                 <div class="name ms-3">
-                    <h6 class=" m-0 ">Md yusuf</h6>
+                    <h6 class=" m-0 ">{{user.name}}</h6>
                     <!-- <div class="typing">
                         <span></span>
                         <span></span>
                         <span></span>
                     </div> -->
                     <small class="last_msg">Good Night</small>
-                </div>
-                <div class="status flex-grow-1">
-                    <small>Now</small>
-                  
-                </div>
-            </div>
-        </li>
-        <!--  -->
-        <li class="chat_contact  px-3">
-            <div class="d-flex align-items-center">
-                <div class="profile_img online">
-                    <img src="" appDefaultImage alt="">
-                </div>
-                <div class="name ms-3">
-                    <h6 class=" m-0 ">Kiran K</h6>
-                    <div class="typing">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
+
                 </div>
                 <div class="status flex-grow-1">
                     <small>Tue</small>
-                  
                 </div>
             </div>
         </li>
         <!--  -->
-        <li class="chat_contact  px-3">
+        <!-- <li class="chat_contact  px-3">
             <div class="d-flex align-items-center">
                 <div class="profile_img offline">
                     <img src="" appDefaultImage alt="">
                 </div>
                 <div class="name ms-3">
                     <h6 class=" m-0 ">Md yusuf</h6>
-                    <!-- <div class="typing">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div> -->
+                    
                     <small class="last_msg">Good Night</small>
                 </div>
                 <div class="status flex-grow-1">
                     <small>Now</small>
-                  
+
                 </div>
             </div>
-        </li>
+        </li> -->
+
         <!--  -->
-        <li class="chat_contact  px-3">
-            <div class="d-flex align-items-center">
-                <div class="profile_img online">
-                    <img src="" appDefaultImage alt="">
-                </div>
-                <div class="name ms-3">
-                    <h6 class=" m-0 ">Kiran K</h6>
-                    <div class="typing">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </div>
-                <div class="status flex-grow-1">
-                    <small>Tue</small>
-                  
-                </div>
-            </div>
-        </li>
-        <!--  -->
-        <li class="chat_contact  px-3">
-            <div class="d-flex align-items-center">
-                <div class="profile_img offline">
-                    <img src="" appDefaultImage alt="">
-                </div>
-                <div class="name ms-3">
-                    <h6 class=" m-0 ">Md yusuf</h6>
-                    <!-- <div class="typing">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div> -->
-                    <small class="last_msg">Good Night</small>
-                </div>
-                <div class="status flex-grow-1">
-                    <small>Now</small>
-                  
-                </div>
-            </div>
-        </li>
-        <!--  -->
-        <li class="chat_contact  px-3">
-            <div class="d-flex align-items-center">
-                <div class="profile_img online">
-                    <img src="" appDefaultImage alt="">
-                </div>
-                <div class="name ms-3">
-                    <h6 class=" m-0 ">Kiran K</h6>
-                    <div class="typing">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </div>
-                <div class="status flex-grow-1">
-                    <small>Tue</small>
-                  
-                </div>
-            </div>
-        </li>
-        <!--  -->
-        <li class="chat_contact  px-3">
-            <div class="d-flex align-items-center">
-                <div class="profile_img offline">
-                    <img src="" appDefaultImage alt="">
-                </div>
-                <div class="name ms-3">
-                    <h6 class=" m-0 ">Md yusuf</h6>
-                    <!-- <div class="typing">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div> -->
-                    <small class="last_msg">Good Night</small>
-                </div>
-                <div class="status flex-grow-1">
-                    <small>Now</small>
-                  
-                </div>
-            </div>
-        </li>
-        <!--  -->
-        <li class="chat_contact  px-3">
-            <div class="d-flex align-items-center">
-                <div class="profile_img online">
-                    <img src="" appDefaultImage alt="">
-                </div>
-                <div class="name ms-3">
-                    <h6 class=" m-0 ">Kiran K</h6>
-                    <div class="typing">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </div>
-                <div class="status flex-grow-1">
-                    <small>Tue</small>
-                  
-                </div>
-            </div>
-        </li>
-        <!--  -->
-        <li class="chat_contact  px-3">
-            <div class="d-flex align-items-center">
-                <div class="profile_img offline">
-                    <img src="" appDefaultImage alt="">
-                </div>
-                <div class="name ms-3">
-                    <h6 class=" m-0 ">Md yusuf</h6>
-                    <!-- <div class="typing">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div> -->
-                    <small class="last_msg">Good Night</small>
-                </div>
-                <div class="status flex-grow-1">
-                    <small>Now</small>
-                  
-                </div>
-            </div>
-        </li>
-        <!--  -->
-       
+
     </ul>
+
+    <p *ngIf="myChatUsers.length == 0">No chats</p>
 </div>

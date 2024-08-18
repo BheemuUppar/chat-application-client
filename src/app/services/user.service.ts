@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { map } from 'rxjs';
 
 @Injectable({
@@ -35,6 +35,20 @@ export class UserService {
     return this.http.get(url).pipe(
       map((res: any) => {
         localStorage.setItem('user', JSON.stringify(res.data));
+        return res;
+      })
+    );
+  }
+
+  searchUsers(query: string | number) {
+    let url = 'http://localhost:3000/users/search?search=' + query;
+    return this.http.get(url).pipe(
+      map((res: any) => {
+        let myId = this.user.id;
+       res.data =  res.data.filter((obj: any) => {
+          return obj.id != myId;
+        });
+
         return res;
       })
     );
