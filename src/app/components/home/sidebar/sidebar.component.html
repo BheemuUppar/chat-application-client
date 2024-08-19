@@ -1,7 +1,7 @@
 <header>
     <div class="d-flex justify-content-between align-items-center  py-1">
         <div class="d-flex align-items-center gap-2 px-3">
-            <div class="profile_img online"><img [src]="user.profile_path" appDefaultImage alt=""></div>
+            <div class="profile_img online"><img [src]="user?.profile_path" appDefaultImage alt=""></div>
             <h3 class="m-0 fs-5 fw-bold ">{{user.name}}</h3>
             <!-- <small>{{user.email}}</small> -->
         </div>
