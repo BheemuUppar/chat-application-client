@@ -20,6 +20,10 @@ export class ConverstaionComponent implements AfterViewInit, OnInit {
       this.userService.currenChat$.subscribe((user:any)=>{
         this.currentChat = user;
         
+      });
+      this.socketService.on('sent', ()=>{
+        this.message_text = '';
+        alert("message sent")
       })
   }
   ngAfterViewInit(): void {
