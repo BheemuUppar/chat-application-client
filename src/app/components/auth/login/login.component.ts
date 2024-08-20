@@ -6,7 +6,7 @@ import { UserService } from 'src/app/services/user.service';
 import { SocketService } from 'src/app/services/socket.service';
 
 interface User{
-  id:string,
+  user_id:string,
   name:string,
   email:string,
   mobile:string,
@@ -39,7 +39,8 @@ export class LoginComponent {
         alert(res.message);
        
         let decoded : User= jwtDecode(res.token);
-        localStorage.setItem("id", decoded.id)
+        console.log(decoded)
+        localStorage.setItem("id", decoded.user_id)
         // localStorage.setItem("email", decoded.email)
         // localStorage.setItem("name", decoded.name)
         
@@ -56,7 +57,7 @@ export class LoginComponent {
 
   }
   getuserdata(decoded:any){
-    this.userService.getUserData(decoded.id).subscribe((res)=>{
+    this.userService.getUserData(decoded.user_id).subscribe((res)=>{
       let user = this.userService.user;
       if(user.profile_path != null){
         this.router.navigateByUrl('/');

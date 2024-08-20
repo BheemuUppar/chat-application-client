@@ -12,7 +12,7 @@ export class SocketService {
 
   connect(): void {
     this.socket = io('http://localhost:3000', {
-      query: { id: this.userService.user.id ,
+      query: { id: this.userService.user.user_id ,
         email:this.userService.user.email
       },
     }); // Replace with your backend URL

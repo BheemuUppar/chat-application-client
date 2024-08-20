@@ -23,6 +23,7 @@ export class SidebarComponent {
       this.userSevrice.searchUsers(this.searchText).subscribe({
         next: (res: any) => {
           this.users = res.data;
+          console.log(res.data)
         },
         error: (error) => {
           console.log(error);
@@ -36,9 +37,10 @@ export class SidebarComponent {
   startChat(user: any) {
     console.log(user)
     this.myChatUsers.unshift(user)
-    this.currentChat = user;
     this.searchText = '';
     this.users = undefined;
+    this.currentChat = user;
+    this.userSevrice.currentChat.next(this.currentChat)
     
   }
 }

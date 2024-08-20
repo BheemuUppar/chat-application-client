@@ -1,12 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   constructor(private http: HttpClient) {}
+
+  currentChat: BehaviorSubject<any> = new BehaviorSubject(undefined);
+  currenChat$ = this.currentChat.asObservable();
 
   saveProfilePic(id: string | null, file: File) {
     let url = 'http://localhost:3000/users/upload/profile';
@@ -44,9 +47,9 @@ export class UserService {
     let url = 'http://localhost:3000/users/search?search=' + query;
     return this.http.get(url).pipe(
       map((res: any) => {
-        let myId = this.user.id;
-       res.data =  res.data.filter((obj: any) => {
-          return obj.id != myId;
+        let myId = this.user.user_id;
+        res.data = res.data.filter((obj: any) => {
+          return obj.user_id != myId;
         });
 
         return res;

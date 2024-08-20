@@ -1,11 +1,11 @@
-<div class="bg-transparent d-flex flex-column h-100">
+<div class="bg-transparent d-flex flex-column h-100" *ngIf="currentChat" >
     <nav class="d-flex p-4">
         <div class="userInfo d-flex gap-3 align-items-center">
             <div class="profile_img online">
                 <img src="" appDefaultImage alt="">
             </div>
             <div>
-                <h5 class="mb-0" style="color: #FFFFFF;">Bheema</h5>
+                <h5 class="mb-0" style="color: #FFFFFF;">{{currentChat.name}}</h5>
                 <small style="color: #717174;">Active Now</small>
             </div>
 
@@ -20,7 +20,7 @@
         <div class="sentMessage ">
             <div class="content px-3 py-2">
                 <div class="meta-data d-flex justify-content-between ">
-                    <small>Bheema</small>
+                    <small>{{user.name}}</small>
                     <small>11:14 pm</small>
                 </div>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta neque nemo cupiditate quos eum repellendus veritatis mollitia praesentium sint magni?</p>
@@ -37,7 +37,7 @@
             </div>
             <div class="content px-3 py-2">
                 <div class="meta-data d-flex justify-content-between ">
-                    <small>Bheema</small>
+                    <small>{{currentChat.name}}</small>
                     <small>11:14 pm</small>
                 </div>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta neque nemo cupiditate quos eum repellendus veritatis mollitia praesentium sint magni?</p>
@@ -46,66 +46,7 @@
             
         </div>
         <!-- message end -->
-        <!-- sent message -->
-        <div class="sentMessage ">
-            <div class="content px-3 py-2">
-                <div class="meta-data d-flex justify-content-between ">
-                    <small>Bheema</small>
-                    <small>11:14 pm</small>
-                </div>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta neque nemo cupiditate quos eum repellendus veritatis mollitia praesentium sint magni?</p>
-               
-            </div>
-            <div class="profile_img online" style="margin-top: auto;" >
-                <img src="" appDefaultImage alt="">
-            </div>
-            <!-- <div>yfasfsydfy</div> -->
-        </div>
-        <div class="receiveMessage ">
-            <div class="profile_img online" style="margin-top: auto;" >
-                <img src="" appDefaultImage alt="">
-            </div>
-            <div class="content px-3 py-2">
-                <div class="meta-data d-flex justify-content-between ">
-                    <small>Bheema</small>
-                    <small>11:14 pm</small>
-                </div>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta neque nemo cupiditate quos eum repellendus veritatis mollitia praesentium sint magni?</p>
-               
-            </div>
-            
-        </div>
-        <!-- message end -->
-        <!-- sent message -->
-        <div class="sentMessage ">
-            <div class="content px-3 py-2">
-                <div class="meta-data d-flex justify-content-between ">
-                    <small>Bheema</small>
-                    <small>11:14 pm</small>
-                </div>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta neque nemo cupiditate quos eum repellendus veritatis mollitia praesentium sint magni?</p>
-               
-            </div>
-            <div class="profile_img online" style="margin-top: auto;" >
-                <img src="" appDefaultImage alt="">
-            </div>
-            <!-- <div>yfasfsydfy</div> -->
-        </div>
-        <div class="receiveMessage ">
-            <div class="profile_img online" style="margin-top: auto;" >
-                <img src="" appDefaultImage alt="">
-            </div>
-            <div class="content px-3 py-2">
-                <div class="meta-data d-flex justify-content-between ">
-                    <small>Bheema</small>
-                    <small>11:14 pm</small>
-                </div>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta neque nemo cupiditate quos eum repellendus veritatis mollitia praesentium sint magni?</p>
-               
-            </div>
-            
-        </div>
-        <!-- message end -->
+      
     </div>
     <div class="inputs">
         <div class="input-container d-flex align-items-center gap-4">
