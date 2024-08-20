@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { SocketService } from 'src/app/services/socket.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -9,7 +10,8 @@ import { UserService } from 'src/app/services/user.service';
 export class ConverstaionComponent implements AfterViewInit, OnInit {
   currentChat: any;
   user:any
-  constructor(private userService:UserService){
+  message_text = ''
+  constructor(private userService:UserService, private socketService:SocketService){
 
   }
 
@@ -25,6 +27,16 @@ export class ConverstaionComponent implements AfterViewInit, OnInit {
     if(div){
       div.scrollTo(0, div.scrollHeight)
     }
+  }
+
+  sendMessage(){
+    let payload  = {
+      sender_id:this.user.user_id,
+      receiver_id:this.currentChat.user_id,
+      message_text : this.message_text
+    }
+    this.socketService.emit('sendMessage', payload)
+    console.log(payload)
   }
 
 }

@@ -50,8 +50,8 @@
     </div>
     <div class="inputs">
         <div class="input-container d-flex align-items-center gap-4">
-            <input type="text" class="p-3 flex-grow-1" placeholder="Type a message">
-            <button type="button" class="send-btn">
+            <input type="text" class="p-3 flex-grow-1" placeholder="Type a message" name="message_text" [(ngModel)]="message_text" > 
+            <button type="button" class="send-btn" (click)="sendMessage()" >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                     viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                     <path
