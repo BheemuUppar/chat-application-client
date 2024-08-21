@@ -51,23 +51,23 @@
 
 <div class="chat_list_wrapper pe-2">
     <ul class="list-unstyled chat_list" *ngIf="myChatUsers.length>0">
-        <li class="chat_contact  px-3" *ngFor="let user of myChatUsers" >
+        <li class="chat_contact  px-3" *ngFor="let user of myChatUsers" (click)="setCurrentChat(user)" >
             <div class="d-flex align-items-center">
                 <div class="profile_img offline">
                     <img [src]="user.profile_path" appDefaultImage alt="">
                 </div>
                 <div class="name ms-3">
-                    <h6 class=" m-0 ">{{user.name}}</h6>
+                    <h6 class=" m-0 ">{{user.contact_name}}</h6>
                     <!-- <div class="typing">
                         <span></span>
                         <span></span>
                         <span></span>
                     </div> -->
-                    <small class="last_msg">Good Night</small>
+                    <small class="last_msg">{{user.last_message  }}</small>
 
                 </div>
                 <div class="status flex-grow-1">
-                    <small>Tue</small>
+                    <small>{{formatDate(user.last_message_time)}}</small>
                 </div>
             </div>
         </li>

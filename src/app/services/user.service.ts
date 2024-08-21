@@ -56,4 +56,14 @@ export class UserService {
       })
     );
   }
+
+  getAllInbox(){
+  let id = this.user.user_id;
+  let url = 'http://localhost:3000/users/getAllChats/'+id
+  return this.http.get(url)
+  }
+  getAllMessages(inbox_id:number){
+  let url = 'http://localhost:3000/users/getAllMessage/'+inbox_id
+  return this.http.get(url)
+  }
 }

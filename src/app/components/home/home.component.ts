@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit{
       console.log('online users ', data)
     })
   }
+  
   logout() {
     localStorage.clear();
     this.socketService.disconnect()

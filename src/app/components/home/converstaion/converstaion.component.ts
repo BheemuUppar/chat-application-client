@@ -11,6 +11,7 @@ export class ConverstaionComponent implements AfterViewInit, OnInit {
   currentChat: any;
   user:any
   message_text = ''
+  messages: any = [];
   constructor(private userService:UserService, private socketService:SocketService){
 
   }
@@ -19,6 +20,7 @@ export class ConverstaionComponent implements AfterViewInit, OnInit {
     this.user = this.userService.user
       this.userService.currenChat$.subscribe((user:any)=>{
         this.currentChat = user;
+        this.getMessages()
         
       });
       this.socketService.on('sent', ()=>{
@@ -31,6 +33,12 @@ export class ConverstaionComponent implements AfterViewInit, OnInit {
     if(div){
       div.scrollTo(0, div.scrollHeight)
     }
+  }
+
+  getMessages(){
+    this.userService.getAllMessages(this.currentChat.inbox_id).subscribe((res:any)=>{
+      this.messages = res
+    })
   }
 
   sendMessage(){
