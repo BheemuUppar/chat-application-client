@@ -36,15 +36,20 @@ export class ConverstaionComponent implements AfterViewInit, OnInit {
   }
 
   getMessages(){
-    this.userService.getAllMessages(this.currentChat.inbox_id).subscribe((res:any)=>{
-      this.messages = res
+    this.userService.getAllMessages(this.currentChat.inbox_id).subscribe({
+      next:(res:any)=>{
+        this.messages = res
+      },
+      error:()=>{
+        this.messages = []
+      }
     })
   }
 
   sendMessage(){
     let payload  = {
       sender_id:this.user.user_id,
-      receiver_id:this.currentChat.user_id,
+      receiver_id:this.currentChat.contact_id,
       message_text : this.message_text
     }
     this.socketService.emit('sendMessage', payload)

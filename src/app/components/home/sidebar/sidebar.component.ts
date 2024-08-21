@@ -48,6 +48,9 @@ export class SidebarComponent {
   }
 
   formatDate(dateString: any) {
+    if(dateString == null){
+      return ''
+    }
     const inputDate = new Date(dateString);
     const today = new Date();
 
