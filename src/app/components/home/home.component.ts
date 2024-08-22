@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { SocketService } from 'src/app/services/socket.service';
 import { UserService } from 'src/app/services/user.service';
@@ -26,12 +26,19 @@ export class HomeComponent implements OnInit{
     });
     
   }
+  incomingMessage:any 
   ngOnInit(): void {
     this.socketService.connect()
 
     this.socketService.on('onlineusers', (data)=>{
       console.log('online users ', data)
     })
+    this.socketService.on('messageReceviced', (messages) => {
+      console.log('Message received event triggered');
+     this.incomingMessage = messages;
+      alert('message got');
+    });
+    
   }
   
   logout() {
