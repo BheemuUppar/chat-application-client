@@ -44,6 +44,7 @@
                 <h6 class=" m-0 ">{{user.contact_name}}</h6>
                 <small>{{user.email}}</small>
             </div>
+            
         </li>
         <li *ngIf="users?.length === 0">No users found with {{searchText}}</li>
     </ul>
@@ -68,6 +69,7 @@
                 </div>
                 <div class="status flex-grow-1">
                     <small>{{formatDate(user.last_message_time)}}</small>
+                    <small style="background-color: green;" *ngIf="user.unread_count != 0">{{user.unread_count}}</small>
                 </div>
             </div>
         </li>

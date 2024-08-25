@@ -1,4 +1,10 @@
-import { Component } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -6,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnChanges {
   user: any;
   searchText!: string;
   users: any;
@@ -14,9 +20,18 @@ export class SidebarComponent {
   myChatUsers: any[] = [];
   currentChat: any;
   inbox: any[] = [];
+  @Input() onMessageReceive:any
 
   constructor(private userSevrice: UserService) {
     this.user = this.userSevrice.user;
+    this.getInbox()
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.getInbox()
+  }
+
+  getInbox(){
     this.userSevrice.getAllInbox().subscribe((res: any) => {
       this.myChatUsers = res;
     });
@@ -38,6 +53,7 @@ export class SidebarComponent {
       this.users = undefined;
     }
   }
+
   startChat(user: any) {
     console.log(user);
     this.myChatUsers.unshift(user);
@@ -48,8 +64,8 @@ export class SidebarComponent {
   }
 
   formatDate(dateString: any) {
-    if(dateString == null){
-      return ''
+    if (dateString == null) {
+      return '';
     }
     const inputDate = new Date(dateString);
     const today = new Date();
@@ -92,8 +108,8 @@ export class SidebarComponent {
     }
   }
 
-  setCurrentChat(user:any) {
-    this.currentChat = user
+  setCurrentChat(user: any) {
+    this.currentChat = user;
     this.userSevrice.currentChat.next(this.currentChat);
   }
 }

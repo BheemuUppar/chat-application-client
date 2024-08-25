@@ -35,6 +35,7 @@ export class ConverstaionComponent
     this.userService.currenChat$.subscribe((user: any) => {
       this.currentChat = user;
       this.getMessages();
+      
     });
 
     // Listening for 'sent' event (for sender confirmation)
@@ -52,7 +53,12 @@ export class ConverstaionComponent
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.scrollToBottom();
+    this.userService.currenChat$.subscribe((user: any) => {
+      this.currentChat = user;
+      this.getMessages();
+      this.scrollToBottom();
+      
+    });
   }
 
   scrollToBottom() {
@@ -82,11 +88,13 @@ export class ConverstaionComponent
   getMessages() {
     if(this.currentChat){
       this.userService.getAllMessages(this.currentChat.inbox_id).subscribe({
-        next: (res: any) => {
-          this.messages = res;
+        next:  async (res: any) => {
+          this.messages = await  res;
           this.scrollToBottom();
+          this.readMessage();
         },
-        error: () => {
+        error: (err) => {
+          console.log(err)
           this.messages = [];
         },
       });
@@ -101,5 +109,10 @@ export class ConverstaionComponent
     };
     this.socketService.emit('sendMessage', payload);
     console.log(payload);
+  }
+
+  readMessage(){
+    // sender id != my id
+    this.socketService.emit('read', ({user_id:this.userService.user.user_id, inbox_id:this.currentChat.inbox_id}))
   }
 }

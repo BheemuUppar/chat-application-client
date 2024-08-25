@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit{
     
   }
   incomingMessage:any 
+
   ngOnInit(): void {
     this.socketService.connect()
 
@@ -36,8 +37,12 @@ export class HomeComponent implements OnInit{
     this.socketService.on('messageReceviced', (messages) => {
       console.log('Message received event triggered');
      this.incomingMessage = messages;
-      alert('message got');
     });
+
+    this.socketService.on('onMsgRead', (data)=>{
+      this.incomingMessage = data;
+      console.log('message read sent')
+    })
     
   }
   
