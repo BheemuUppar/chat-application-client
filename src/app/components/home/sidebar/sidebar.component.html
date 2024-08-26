@@ -68,7 +68,7 @@
 
                 </div>
                 <div class="status flex-grow-1">
-                    <small>{{formatDate(user.last_message_time)}}</small>
+                    <small>{{dateService.formatDate(user.last_message_time)}}</small>
                     <small style="background-color: green;" *ngIf="user.unread_count != 0">{{user.unread_count}}</small>
                 </div>
             </div>

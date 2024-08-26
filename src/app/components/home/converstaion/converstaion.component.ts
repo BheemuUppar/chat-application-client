@@ -7,6 +7,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
+import { DateService } from 'src/app/services/date.service';
 import { SocketService } from 'src/app/services/socket.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -24,7 +25,8 @@ export class ConverstaionComponent
   @Input() messages: any = [];
   constructor(
     private userService: UserService,
-    private socketService: SocketService
+    private socketService: SocketService,
+    public dateService:DateService
   ) {}
   ngAfterContentInit(): void {
     this.scrollToBottom();
@@ -43,6 +45,7 @@ export class ConverstaionComponent
       this.message_text = '';
       console.log('Message sent event received');
       this.messages = data;
+      console.log('data ', data)
       this.scrollToBottom();
     });
 
@@ -54,9 +57,11 @@ export class ConverstaionComponent
 
   ngOnChanges(changes: SimpleChanges): void {
     this.userService.currenChat$.subscribe((user: any) => {
-      this.currentChat = user;
-      this.getMessages();
-      this.scrollToBottom();
+      if(this.currentChat.contact_id == user.contact_id){
+        this.currentChat = user;
+        this.getMessages();
+        this.scrollToBottom();
+      }
       
     });
   }

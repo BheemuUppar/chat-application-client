@@ -23,7 +23,7 @@
                  <div class="content px-3 py-2">
                      <div class="meta-data d-flex justify-content-between ">
                          <small>{{user.name}}</small>
-                         <small>11:14 pm</small>
+                         <small>{{dateService.formatDate(msg.sent_at)}}</small>
                      </div>
                      <p>{{msg.message_text}}</p>
                     
@@ -40,7 +40,7 @@
                  <div class="content px-3 py-2">
                      <div class="meta-data d-flex justify-content-between ">
                          <small>{{currentChat.contact_name}}</small>
-                         <small>11:14 pm</small>
+                         <small>{{dateService.formatDate(msg.sent_at)}}</small>
                      </div>
                      <p>{{msg.message_text}}</p>
                     

@@ -13,6 +13,7 @@ import { EditProfilePicComponent } from './components/edit-profile-pic/edit-prof
 import { DefaultImageDirective } from './directives/default-image.directive';
 import { SidebarComponent } from './components/home/sidebar/sidebar.component';
 import { ConverstaionComponent } from './components/home/converstaion/converstaion.component';
+import { DateService } from './services/date.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +33,7 @@ import { ConverstaionComponent } from './components/home/converstaion/converstai
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [DateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
