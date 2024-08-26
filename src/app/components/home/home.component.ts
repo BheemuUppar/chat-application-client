@@ -34,16 +34,15 @@ export class HomeComponent implements OnInit{
     this.socketService.on('onlineusers', (data)=>{
       console.log('online users ', data)
     })
-    this.socketService.on('messageReceviced', (messages) => {
-      console.log('Message received event triggered');
-     this.incomingMessage = messages;
-    });
+   
 
     this.socketService.on('onMsgRead', (data)=>{
       this.incomingMessage = data;
       console.log('incoming message...', data)
       console.log('message read sent')
     })
+
+   
     
   }
   

@@ -3,9 +3,11 @@ import {
   Component,
   Input,
   OnChanges,
+  OnInit,
   SimpleChanges,
 } from '@angular/core';
 import { DateService } from 'src/app/services/date.service';
+import { SocketService } from 'src/app/services/socket.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -13,7 +15,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
 })
-export class SidebarComponent implements OnChanges {
+export class SidebarComponent implements OnChanges, OnInit {
   user: any;
   searchText!: string;
   users: any;
@@ -23,13 +25,29 @@ export class SidebarComponent implements OnChanges {
   inbox: any[] = [];
   @Input() onMessageReceive:any
 
-  constructor(private userSevrice: UserService, public dateService:DateService) {
+  constructor(private userSevrice: UserService,
+     public dateService:DateService,
+    private socketService:SocketService) {
     this.user = this.userSevrice.user;
     this.getInbox()
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnInit(): void {
+    this.socketService.on('sent', (data) => {
+      this.getInbox()
+    });
+    this.socketService.on('onMsgRead', (data)=>{
+      this.getInbox()
+    });
+    this.socketService.on('messageReceviced', (messages) => {
+      console.log('Message received event triggered');
+    //  this.incomingMessage = messages;
     this.getInbox()
+    });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // this.getInbox()
   }
 
   getInbox(){
