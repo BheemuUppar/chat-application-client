@@ -25,7 +25,7 @@ export class SidebarComponent implements OnChanges, OnInit {
   inbox: any[] = [];
   @Input() onMessageReceive:any
 
-  constructor(private userSevrice: UserService,
+  constructor(public userSevrice: UserService,
      public dateService:DateService,
     private socketService:SocketService) {
     this.user = this.userSevrice.user;
@@ -53,6 +53,8 @@ export class SidebarComponent implements OnChanges, OnInit {
   getInbox(){
     this.userSevrice.getAllInbox().subscribe((res: any) => {
       this.myChatUsers = res;
+      console.log(this.myChatUsers)
+      console.log(this.user)
     });
   }
 

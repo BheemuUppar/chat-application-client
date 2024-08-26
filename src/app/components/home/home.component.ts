@@ -15,7 +15,8 @@ interface User{
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit{
-  currentUser :User | undefined
+  currentUser :User | undefined;
+ 
   constructor(private router: Router, 
     private userService: UserService, 
   private socketService:SocketService
@@ -33,6 +34,7 @@ export class HomeComponent implements OnInit{
 
     this.socketService.on('onlineusers', (data)=>{
       console.log('online users ', data)
+      this.userService.onlineUsers = data
     })
    
 

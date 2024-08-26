@@ -24,7 +24,7 @@ export class ConverstaionComponent
   message_text = '';
   @Input() messages: any = [];
   constructor(
-    private userService: UserService,
+    public userService: UserService,
     private socketService: SocketService,
     public dateService:DateService
   ) {}
@@ -57,7 +57,7 @@ export class ConverstaionComponent
 
   ngOnChanges(changes: SimpleChanges): void {
     this.userService.currenChat$.subscribe((user: any) => {
-      if(this.currentChat.contact_id == user.contact_id){
+      if(this.currentChat && this.currentChat.contact_id == user.contact_id){
         this.currentChat = user;
         this.getMessages();
         this.scrollToBottom();

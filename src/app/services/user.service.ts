@@ -6,6 +6,7 @@ import { BehaviorSubject, map } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
+  onlineUsers:string[] = []
   constructor(private http: HttpClient) {}
 
   currentChat: BehaviorSubject<any> = new BehaviorSubject(undefined);
@@ -41,6 +42,10 @@ export class UserService {
         return res;
       })
     );
+  }
+
+  isOnline(id:any){
+    return this.onlineUsers.includes(id+'')
   }
 
   searchUsers(query: string | number) {
