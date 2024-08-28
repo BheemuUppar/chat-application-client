@@ -7,7 +7,7 @@
             <div>
                 <h5 class="mb-0" style="color: #FFFFFF;">{{currentChat.contact_name
                 }}</h5>
-                <small style="color: #717174;">{{userService.isOnline(user.user_id)  ? 'Active Now' : 'Last Seen '}}</small>
+                <small style="color: #717174;">{{userService.isOnline(currentChat.contact_id) == true  ? 'Active Now' : 'Last Seen '+dateService.formatDate(currentChat.contact_last_seen)}}  </small>
             </div>
 
 

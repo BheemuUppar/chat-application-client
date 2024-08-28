@@ -44,6 +44,11 @@ export class SidebarComponent implements OnChanges, OnInit {
     //  this.incomingMessage = messages;
     this.getInbox()
     });
+
+    this.socketService.on('onlineusers', (data)=>{
+      console.log('online users ', data)
+      this.getInbox()
+    })
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -76,7 +81,6 @@ export class SidebarComponent implements OnChanges, OnInit {
   }
 
   startChat(user: any) {
-    console.log(user);
     this.myChatUsers.unshift(user);
     this.searchText = '';
     this.users = undefined;
