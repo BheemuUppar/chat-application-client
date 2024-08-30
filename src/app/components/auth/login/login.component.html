@@ -9,7 +9,7 @@
 
         <div class="input-container d-flex flex-column">
             <label for="password">Password</label>
-            <input type="password" name="password" [(ngModel)]="password" id="password" class="" placeholder="Password" />
+            <input type="password" name="password" (keypress)="onEnterPress($event)" [(ngModel)]="password" id="password" class="" placeholder="Password" />
         </div>
 
         <button type="button" (click)="login()" class="btn btn-primary mt-3">Login</button>

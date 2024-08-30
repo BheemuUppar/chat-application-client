@@ -66,6 +66,12 @@ export class ConverstaionComponent
     });
   }
 
+  onEnterPress(event: KeyboardEvent) {
+    if (event.code == 'Enter') {
+     this.sendMessage()
+    }
+  }
+
   scrollToBottom() {
    setTimeout(()=>{
     let div = document.getElementById('messages');
