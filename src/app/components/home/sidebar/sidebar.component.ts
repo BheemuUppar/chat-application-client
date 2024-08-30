@@ -81,7 +81,23 @@ export class SidebarComponent implements OnChanges, OnInit {
   }
 
   startChat(user: any) {
+    
+
+    let  isExist  = -1;
+    for(let i = 0 ; i < this.myChatUsers.length; i++){
+      if(this.myChatUsers[i].contact_id == user.contact_id){
+        isExist = i;
+        break;
+      }
+    }
+    if(isExist >= 0){
+      let temp = this.myChatUsers[isExist]
+    this.myChatUsers.splice(isExist , 1);
     this.myChatUsers.unshift(user);
+    }else{
+      this.myChatUsers.unshift(user);
+    }
+
     this.searchText = '';
     this.users = undefined;
     this.currentChat = user;

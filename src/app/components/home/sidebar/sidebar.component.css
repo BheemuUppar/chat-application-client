@@ -80,8 +80,24 @@ background-color: #2a2a2d;
     width: 300px;
     left: 29px;
     z-index: 99;
-    top: 130px;
+    top: 173px;
     max-height: 300px;
     overflow: auto;
     color: #000;
+}
+
+.chat_contact.active{
+  background-color: #2a2a2d;
+}
+
+.unread_count{
+  width: 20px;
+  height: 20px;
+  /* text-align: center; */
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
 }

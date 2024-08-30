@@ -39,7 +39,7 @@
     <ul *ngIf="users" class="search_suggestions list-unstyled px-0">
         <li *ngFor="let user of users" class=" d-flex" (click)="startChat(user)" style="cursor: pointer;">
             <div class="profile_img">
-                <img src="" appDefaultImage alt="">
+                <img [src]="user.profile_path" appDefaultImage alt="">
             </div>
             <div class=" ms-3 bg-transparent">
                 <h6 class=" m-0 ">{{user.contact_name}}</h6>
@@ -53,7 +53,7 @@
 
 <div class="chat_list_wrapper pe-2">
     <ul class="list-unstyled chat_list" *ngIf="myChatUsers.length>0">
-        <li class="chat_contact  px-3" *ngFor="let user of myChatUsers" (click)="setCurrentChat(user)" >
+        <li class="chat_contact  px-3" [ngClass]="{'active':currentChat &&   ( user.contact_id == currentChat.contact_id)}" *ngFor="let user of myChatUsers" (click)="setCurrentChat(user)" >
             <div class="d-flex align-items-center">
                 <div class="profile_img " [ngClass]="userSevrice.isOnline(user.contact_id)  ? 'online' : 'offline'">
                     <img [src]="user.profile_path" appDefaultImage alt="">
@@ -71,7 +71,7 @@
                 </div>
                 <div class="status flex-grow-1">
                     <small>{{dateService.formatDate(user.last_message_time)}}</small>
-                    <small style="background-color: green;" *ngIf="user.unread_count != 0">{{user.unread_count}}</small>
+                    <small class="unread_count" style="background-color: green;" *ngIf="user.unread_count != 0">{{user.unread_count}}</small>
                 </div>
             </div>
         </li>
