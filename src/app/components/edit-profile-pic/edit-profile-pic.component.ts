@@ -14,7 +14,7 @@ export class EditProfilePicComponent {
   url: string | ArrayBuffer | null | undefined;
   file: any;
 
-  constructor(private userService: UserService, private router:Router) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   onClickUpload() {
     let input = document.getElementById('input_file');
@@ -39,23 +39,28 @@ export class EditProfilePicComponent {
       };
     });
   }
- fromserver :any
+  fromserver: any;
   save() {
     let id = localStorage.getItem('id');
     let email = localStorage.getItem('email');
-    console.log(this.file);
 
-    this.userService.saveProfilePic(id, this.file).subscribe({
-      next: (res: any) => {
-        localStorage.setItem('user', res.data);
-        this.fromserver = res.data.profile_path;
-        this.router.navigateByUrl('/')
-      },
-      error: (err) => {},
-    });
+    if (this.file != undefined) {
+      this.userService.saveProfilePic(id, this.file).subscribe({
+        next: (res: any) => {
+          localStorage.setItem('user', res.data);
+          this.fromserver = res.data.profile_path;
+          this.router.navigateByUrl('/');
+        },
+        error: (err) => {
+          alert(err.message)
+        },
+      });
+    }else{
+      alert("Please Select image to proceed")
+    }
   }
 
-  skip(){
-    this.router.navigateByUrl('/')
+  skip() {
+    this.router.navigateByUrl('/');
   }
 }

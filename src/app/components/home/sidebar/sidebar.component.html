@@ -65,7 +65,8 @@
                         <span></span>
                         <span></span>
                     </div> -->
-                    <small class="last_msg">{{user.last_message  }}</small>
+                    <small class="last_msg" *ngIf="user.last_message">{{user.sender_id == userSevrice.user.user_id ? 'You : '+ user.last_message :user.last_message  }}</small>
+                    <small class="last_msg" *ngIf="!user.last_message"><b style="font-style: italic;">Draft</b></small>
 
                 </div>
                 <div class="status flex-grow-1">
