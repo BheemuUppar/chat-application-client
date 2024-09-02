@@ -1,101 +1,248 @@
-<header>
-    <div class="d-flex justify-content-between align-items-center  py-1">
-        <div class="d-flex align-items-center gap-2 px-3">
+<div *ngIf="currentPage == undefined">
+    <header>
+        <div class="d-flex justify-content-between align-items-center  py-1">
+            <div class="d-flex align-items-center gap-2 px-3">
 
-            <div class="profile_img "  [ngClass]="userSevrice.isOnline(user.user_id)  ? 'online' : 'offline'"><img [src]="user?.profile_path" appDefaultImage alt=""></div>
-            <h3 class="m-0 fs-5 fw-bold ">{{user.name}}</h3>
-            <!-- <small>{{user.email}}</small> -->
+                <div class="profile_img " [ngClass]="userSevrice.isOnline(user.user_id)  ? 'online' : 'offline'"><img
+                        [src]="user?.profile_path" appDefaultImage alt=""></div>
+                <h3 class="m-0 fs-5 fw-bold ">{{user.name}}</h3>
+                <!-- <small>{{user.email}}</small> -->
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <div class="new_chat " matTooltip="New chat" (click)="goTo('newChat')">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        viewBox="0 0 576 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                        <path
+                            d="M284 224.8a34.1 34.1 0 1 0 34.3 34.1A34.2 34.2 0 0 0 284 224.8zm-110.5 0a34.1 34.1 0 1 0 34.3 34.1A34.2 34.2 0 0 0 173.6 224.8zm220.9 0a34.1 34.1 0 1 0 34.3 34.1A34.2 34.2 0 0 0 394.5 224.8zm153.8-55.3c-15.5-24.2-37.3-45.6-64.7-63.6-52.9-34.8-122.4-54-195.7-54a406 406 0 0 0 -72 6.4 238.5 238.5 0 0 0 -49.5-36.6C99.7-11.7 40.9 .7 11.1 11.4A14.3 14.3 0 0 0 5.6 34.8C26.5 56.5 61.2 99.3 52.7 138.3c-33.1 33.9-51.1 74.8-51.1 117.3 0 43.4 18 84.2 51.1 118.1 8.5 39-26.2 81.8-47.1 103.5a14.3 14.3 0 0 0 5.6 23.3c29.7 10.7 88.5 23.1 155.3-10.2a238.7 238.7 0 0 0 49.5-36.6A406 406 0 0 0 288 460.1c73.3 0 142.8-19.2 195.7-54 27.4-18 49.1-39.4 64.7-63.6 17.3-26.9 26.1-55.9 26.1-86.1C574.4 225.4 565.6 196.4 548.3 169.5zM285 409.9a345.7 345.7 0 0 1 -89.4-11.5l-20.1 19.4a184.4 184.4 0 0 1 -37.1 27.6 145.8 145.8 0 0 1 -52.5 14.9c1-1.8 1.9-3.6 2.8-5.4q30.3-55.7 16.3-100.1c-33-26-52.8-59.2-52.8-95.4 0-83.1 104.3-150.5 232.8-150.5s232.9 67.4 232.9 150.5C517.9 342.5 413.6 409.9 285 409.9z" />
+                    </svg>
+                </div>
+                <!-- <div class="menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        viewBox="0 0 128 512">
+                        <path
+                            d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z" />
+                    </svg>
+                </div> -->
+                <div style="position: relative;">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+
+
+                        <button mat-menu-item (click)="goTo('newGroup')">
+                            <!-- <mat-icon>Group</mat-icon> -->
+                            <span>New group</span>
+                        </button>
+                        <button mat-menu-item (click)="setSelectionMode()">
+                            <!-- <mat-icon>Logout</mat-icon> -->
+                            <span>Logout</span>
+                        </button>
+
+                    </mat-menu>
+                </div>
+
+            </div>
         </div>
-        <div class="d-flex align-items-center gap-3">
-            <div class="bell">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                    viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                    <path
-                        d="M224 0c-17.7 0-32 14.3-32 32l0 19.2C119 66 64 130.6 64 208l0 25.4c0 45.4-15.5 89.5-43.8 124.9L5.3 377c-5.8 7.2-6.9 17.1-2.9 25.4S14.8 416 24 416l400 0c9.2 0 17.6-5.3 21.6-13.6s2.9-18.2-2.9-25.4l-14.9-18.6C399.5 322.9 384 278.8 384 233.4l0-25.4c0-77.4-55-142-128-156.8L256 32c0-17.7-14.3-32-32-32zm0 96c61.9 0 112 50.1 112 112l0 25.4c0 47.9 13.9 94.6 39.7 134.6L72.3 368C98.1 328 112 281.3 112 233.4l0-25.4c0-61.9 50.1-112 112-112zm64 352l-64 0-64 0c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7s18.7-28.3 18.7-45.3z" />
-                </svg>
-            </div>
-            <div class="menu">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                    viewBox="0 0 128 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                    <path
-                        d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z" />
-                </svg>
-            </div>
+
+    </header>
+
+    <div class="search-wrapper">
+        <button>
+            <svg xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path
+                    d="M72 88a56 56 0 1 1 112 0A56 56 0 1 1 72 88zM64 245.7C54 256.9 48 271.8 48 288s6 31.1 16 42.3l0-84.7zm144.4-49.3C178.7 222.7 160 261.2 160 304c0 34.3 12 65.8 32 90.5l0 21.5c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32-14.3-32-32l0-26.8C26.2 371.2 0 332.7 0 288c0-61.9 50.1-112 112-112l32 0c24 0 46.2 7.5 64.4 20.3zM448 416l0-21.5c20-24.7 32-56.2 32-90.5c0-42.8-18.7-81.3-48.4-107.7C449.8 183.5 472 176 496 176l32 0c61.9 0 112 50.1 112 112c0 44.7-26.2 83.2-64 101.2l0 26.8c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32-14.3-32-32zm8-328a56 56 0 1 1 112 0A56 56 0 1 1 456 88zM576 245.7l0 84.7c10-11.3 16-26.1 16-42.3s-6-31.1-16-42.3zM320 32a64 64 0 1 1 0 128 64 64 0 1 1 0-128zM240 304c0 16.2 6 31 16 42.3l0-84.7c-10 11.3-16 26.1-16 42.3zm144-42.3l0 84.7c10-11.3 16-26.1 16-42.3s-6-31.1-16-42.3zM448 304c0 44.7-26.2 83.2-64 101.2l0 42.8c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32-14.3-32-32l0-42.8c-37.8-18-64-56.5-64-101.2c0-61.9 50.1-112 112-112l32 0c61.9 0 112 50.1 112 112z" />
+            </svg>
+        </button>
+        <div class="d-flex px-3 py-1 align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path
+                    d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+            </svg>
+            <input type="text" name="search" class="search_input w-100"  id="search"
+                placeholder="Search" >
+
         </div>
+       
     </div>
-</header>
 
-<div class="search-wrapper">
-    <div class="d-flex px-3 py-1 align-items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-            viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-            <path
-                d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
-        </svg>
-        <input type="text" name="search" class="search_input w-100" [(ngModel)]="searchText" id="search"
-            placeholder="Search" (input)="fetchUsers()">
+    <div class="chat_list_wrapper pe-2">
+        <ul class="list-unstyled chat_list" *ngIf="myChatUsers.length>0">
+            <li class="chat_contact  px-3 d-flex"
+                [ngClass]="{'active':currentChat &&   ( user.contact_id == currentChat.contact_id)}"
+                *ngFor="let user of myChatUsers" (click)="setCurrentChat(user)">
+                <mat-checkbox *ngIf="isSelectionMode" class="example-margin"
+                    (change)="onSelection($event, user.contact_id)"
+                    [checked]="selectedUsers.includes(user.contact_id)"></mat-checkbox>
+                <div class="d-flex align-items-center">
+                    <div class="profile_img " [ngClass]="userSevrice.isOnline(user.contact_id)  ? 'online' : 'offline'">
+                        <img [src]="user.profile_path" appDefaultImage alt="">
+                    </div>
+                    <div class="name ms-3">
+                        <h6 class=" m-0 ">{{user.contact_name}}</h6>
+                        <!-- <div class="typing">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div> -->
+                        <small class="last_msg" *ngIf="user.last_message">{{user.sender_id == userSevrice.user.user_id ?
+                            'You : '+ user.last_message :user.last_message }}</small>
+                        <small class="last_msg" *ngIf="!user.last_message"><b
+                                style="font-style: italic;">Draft</b></small>
+
+                    </div>
+                    <div class="status flex-grow-1">
+                        <small>{{dateService.formatDate(user.last_message_time)}}</small>
+                        <small class="unread_count" style="background-color: green;"
+                            *ngIf="user.unread_count != 0">{{user.unread_count}}</small>
+                    </div>
+                </div>
+            </li>
+            <!--  -->
+            <!-- <li class="chat_contact  px-3">
+                <div class="d-flex align-items-center">
+                    <div class="profile_img offline">
+                        <img src="" appDefaultImage alt="">
+                    </div>
+                    <div class="name ms-3">
+                        <h6 class=" m-0 ">Md yusuf</h6>
+                        
+                        <small class="last_msg">Good Night</small>
+                    </div>
+                    <div class="status flex-grow-1">
+                        <small>Now</small>
+    
+                    </div>
+                </div>
+            </li> -->
+
+            <!--  -->
+
+        </ul>
+
+        <p *ngIf="myChatUsers.length == 0">No chats</p>
 
     </div>
-    <ul *ngIf="users" class="search_suggestions list-unstyled px-0">
-        <li *ngFor="let user of users" class=" d-flex" (click)="startChat(user)" style="cursor: pointer;">
-            <div class="profile_img">
-                <img [src]="user.profile_path" appDefaultImage alt="">
-            </div>
-            <div class=" ms-3 bg-transparent">
-                <h6 class=" m-0 ">{{user.contact_name}}</h6>
-                <small>{{user.email}}</small>
-            </div>
-            
-        </li>
-        <li *ngIf="users?.length === 0">No users found with {{searchText}}</li>
-    </ul>
 </div>
 
-<div class="chat_list_wrapper pe-2">
-    <ul class="list-unstyled chat_list" *ngIf="myChatUsers.length>0">
-        <li class="chat_contact  px-3" [ngClass]="{'active':currentChat &&   ( user.contact_id == currentChat.contact_id)}" *ngFor="let user of myChatUsers" (click)="setCurrentChat(user)" >
-            <div class="d-flex align-items-center">
-                <div class="profile_img " [ngClass]="userSevrice.isOnline(user.contact_id)  ? 'online' : 'offline'">
+<div id="newChat" *ngIf="currentPage == 'newChat'">
+    <nav>
+        <div class="d-flex">
+            <button (click)="goTo(undefined)">go back</button>
+            <h5>New chat</h5>
+        </div>
+        <div class="search_users">
+            <input type="text" [(ngModel)]="searchText" (input)="fetchUsers()" name="newUserSearch" placeholder="Search name or email">
+        </div>
+        <ul *ngIf="users" class=" list-unstyled px-0 mt-4">
+            <li *ngFor="let user of users" class=" d-flex chat_contact" (click)="startChat(user)" style="cursor: pointer;">
+                <div class="profile_img">
                     <img [src]="user.profile_path" appDefaultImage alt="">
                 </div>
-                <div class="name ms-3">
+                <div class=" ms-3 bg-transparent">
                     <h6 class=" m-0 ">{{user.contact_name}}</h6>
-                    <!-- <div class="typing">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div> -->
-                    <small class="last_msg" *ngIf="user.last_message">{{user.sender_id == userSevrice.user.user_id ? 'You : '+ user.last_message :user.last_message  }}</small>
-                    <small class="last_msg" *ngIf="!user.last_message"><b style="font-style: italic;">Draft</b></small>
-
+                    <small>{{user.email}}</small>
                 </div>
-                <div class="status flex-grow-1">
-                    <small>{{dateService.formatDate(user.last_message_time)}}</small>
-                    <small class="unread_count" style="background-color: green;" *ngIf="user.unread_count != 0">{{user.unread_count}}</small>
-                </div>
-            </div>
-        </li>
-        <!--  -->
-        <!-- <li class="chat_contact  px-3">
-            <div class="d-flex align-items-center">
-                <div class="profile_img offline">
-                    <img src="" appDefaultImage alt="">
-                </div>
-                <div class="name ms-3">
-                    <h6 class=" m-0 ">Md yusuf</h6>
-                    
-                    <small class="last_msg">Good Night</small>
-                </div>
-                <div class="status flex-grow-1">
-                    <small>Now</small>
 
+            </li>
+            <li *ngIf="users?.length === 0">No users found with {{searchText}}</li>
+        </ul>
+    </nav>
+</div>
+<div id="newGroup" *ngIf="currentPage == 'newGroup'">
+    <nav>
+        <div class="d-flex">
+            <button (click)="goTo(undefined)">go back</button>
+            <h5>Create Group</h5>
+
+        </div>
+    </nav>
+    <div class="search_users">
+        <input type="text" [(ngModel)]="searchTextForGroup"  name="newUserSearch" placeholder="Search name or email">
+    </div>
+    <div class="chat_list_wrapper pe-2 mt-4">
+        <ul class="list-unstyled chat_list" *ngIf="myChatUsers.length>0">
+            <li class="chat_contact  px-3 d-flex"
+                *ngFor="let user of myChatUsers ">
+                <mat-checkbox class="example-margin"
+                    (change)="onSelection($event, user.contact_id)"
+                    [checked]="selectedUsers.includes(user.contact_id)"></mat-checkbox>
+                <div class="d-flex align-items-center">
+                    <div class="profile_img " [ngClass]="userSevrice.isOnline(user.contact_id)  ? 'online' : 'offline'">
+                        <img [src]="user.profile_path" appDefaultImage alt="">
+                    </div>
+                    <div class="name ms-3">
+                        <h6 class=" m-0 ">{{user.contact_name}}</h6>
+                        <!-- <div class="typing">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div> -->
+                        <small class="last_msg" *ngIf="user.last_message">{{user.sender_id == userSevrice.user.user_id ?
+                            'You : '+ user.last_message :user.last_message }}</small>
+                        <small class="last_msg" *ngIf="!user.last_message"><b
+                                style="font-style: italic;">Draft</b></small>
+
+                    </div>
+                    <div class="status flex-grow-1">
+                        <small>{{dateService.formatDate(user.last_message_time)}}</small>
+                        <small class="unread_count" style="background-color: green;"
+                            *ngIf="user.unread_count != 0">{{user.unread_count}}</small>
+                    </div>
                 </div>
-            </div>
-        </li> -->
+            </li>
+            <!--  -->
+            <!-- <li class="chat_contact  px-3">
+                <div class="d-flex align-items-center">
+                    <div class="profile_img offline">
+                        <img src="" appDefaultImage alt="">
+                    </div>
+                    <div class="name ms-3">
+                        <h6 class=" m-0 ">Md yusuf</h6>
+                        
+                        <small class="last_msg">Good Night</small>
+                    </div>
+                    <div class="status flex-grow-1">
+                        <small>Now</small>
+    
+                    </div>
+                </div>
+            </li> -->
 
-        <!--  -->
+            <!--  -->
 
-    </ul>
+        </ul>
 
-    <p *ngIf="myChatUsers.length == 0">No chats</p>
+        <p *ngIf="myChatUsers.length == 0">No chats</p>
+
+    </div>
+
+    <div style="position: fixed;bottom: 30;">
+        <button mat-button color="primary" class="float-end" (click)="next()">Next</button>
+    </div>
+    
+</div>
+<div id="saveGroupInfo" class="p-4" *ngIf="currentPage == 'saveGroupInfo'">
+    <nav>
+        <div class="d-flex">
+            <button (click)="goTo('newGroup')">go back</button>
+            <h5>Create Group</h5>
+
+        </div>
+    </nav>
+<div>
+    <div class="groupProfile">
+        <img [src]="this.groupImage" appDefaultImage alt="Group profile" height="70" width="70">
+        <input type="file" name="group_profile" accept="image/png" id="group_profile" (input)="onGroupProfileUpload($event)">
+      <div class="search_users">
+        <input type="text" placeholder="Group Name" [(ngModel)]="groupName" >
+      </div>
+    </div>
+</div>
+    <div style="position: fixed;bottom: 30;">
+        <button mat-button color="primary" class="float-end" (click)="createGroup()">Create</button>
+    </div>
+    
 </div>

@@ -101,3 +101,24 @@ background-color: #2a2a2d;
   align-items: center;
   font-size: 12px;
 }
+
+.new_chat{
+cursor: pointer;
+}
+
+#newChat, #newGroup{
+  padding: 10px;
+}
+
+/* new chat page */
+
+.search_users input{
+  background-color: #2a2a2d;
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  height: 48px;
+  padding-left: 17px;
+  margin-top: 3%;
+}

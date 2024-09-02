@@ -26,6 +26,11 @@ export class UserService {
     return this.http.post(url, formData);
   }
 
+
+  createGroup(params:FormData){
+    return this.http.post('http://localhost:3000/users/creategroup', params)
+  }
+
   get user() {
     let data = localStorage.getItem('user');
     if (data) {

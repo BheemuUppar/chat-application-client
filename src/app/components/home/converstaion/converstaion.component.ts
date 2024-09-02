@@ -26,7 +26,7 @@ export class ConverstaionComponent
   constructor(
     public userService: UserService,
     private socketService: SocketService,
-    public dateService:DateService
+    public dateService: DateService
   ) {}
   ngAfterContentInit(): void {
     this.scrollToBottom();
@@ -37,7 +37,6 @@ export class ConverstaionComponent
     this.userService.currenChat$.subscribe((user: any) => {
       this.currentChat = user;
       this.getMessages();
-      
     });
 
     // Listening for 'sent' event (for sender confirmation)
@@ -45,7 +44,7 @@ export class ConverstaionComponent
       this.message_text = '';
       console.log('Message sent event received');
       this.messages = data;
-      console.log('data ', data)
+      console.log('data ', data);
       this.scrollToBottom();
     });
 
@@ -57,29 +56,28 @@ export class ConverstaionComponent
 
   ngOnChanges(changes: SimpleChanges): void {
     this.userService.currenChat$.subscribe((user: any) => {
-      if(this.currentChat && this.currentChat.contact_id == user.contact_id){
+      if (this.currentChat && this.currentChat.contact_id == user.contact_id) {
         this.currentChat = user;
         this.getMessages();
         this.scrollToBottom();
       }
-      
     });
   }
 
   onEnterPress(event: KeyboardEvent) {
     if (event.code == 'Enter') {
-     this.sendMessage()
+      this.sendMessage();
     }
   }
 
   scrollToBottom() {
-   setTimeout(()=>{
-    let div = document.getElementById('messages');
-    if (div) {
-      console.log('div height ', div.scrollHeight)
-      div.scrollTo(0, div.scrollHeight);
-    }
-   }, 0)
+    setTimeout(() => {
+      let div = document.getElementById('messages');
+      if (div) {
+        console.log('div height ', div.scrollHeight);
+        div.scrollTo(0, div.scrollHeight);
+      }
+    }, 0);
   }
 
   // updateMessage(messages:any){
@@ -97,15 +95,15 @@ export class ConverstaionComponent
   }
 
   getMessages() {
-    if(this.currentChat){
+    if (this.currentChat) {
       this.userService.getAllMessages(this.currentChat.inbox_id).subscribe({
-        next:  async (res: any) => {
-          this.messages = await  res;
+        next: async (res: any) => {
+          this.messages = await res;
           this.scrollToBottom();
           this.readMessage();
         },
         error: (err) => {
-          console.log(err)
+          console.log(err);
           this.messages = [];
         },
       });
@@ -113,17 +111,30 @@ export class ConverstaionComponent
   }
 
   sendMessage() {
-    let payload = {
-      sender_id: this.user.user_id,
-      receiver_id: this.currentChat.contact_id,
-      message_text: this.message_text,
-    };
-    this.socketService.emit('sendMessage', payload);
-    console.log(payload);
+    if (!this.currentChat.isgroup) {
+      let payload = {
+        sender_id: this.user.user_id,
+        receiver_id: this.currentChat.contact_id,
+        message_text: this.message_text,
+      };
+      this.socketService.emit('sendMessage', payload);
+      return;
+    }
+    if (this.currentChat.isgroup == true) {
+      let payload = {
+        inbox_id: this.currentChat.inbox_id,
+        sender_id: this.user.user_id,
+        message_text: this.message_text,
+      };
+      this.socketService.emit('sendToGroup', payload);
+    }
   }
 
-  readMessage(){
+  readMessage() {
     // sender id != my id
-    this.socketService.emit('read', ({user_id:this.userService.user.user_id, inbox_id:this.currentChat.inbox_id}))
+    this.socketService.emit('read', {
+      user_id: this.userService.user.user_id,
+      inbox_id: this.currentChat.inbox_id,
+    });
   }
 }

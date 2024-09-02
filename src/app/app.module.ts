@@ -14,6 +14,13 @@ import { DefaultImageDirective } from './directives/default-image.directive';
 import { SidebarComponent } from './components/home/sidebar/sidebar.component';
 import { ConverstaionComponent } from './components/home/converstaion/converstaion.component';
 import { DateService } from './services/date.service';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatIconModule} from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatButtonModule} from '@angular/material/button';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { FilteruserPipe } from './pipes/filteruser.pipe'
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,14 +31,18 @@ import { DateService } from './services/date.service';
     EditProfilePicComponent,
     DefaultImageDirective,
     SidebarComponent,
-    ConverstaionComponent
+    ConverstaionComponent,
+    FilteruserPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatCheckboxModule,
+    BrowserAnimationsModule, 
+    MatButtonModule, MatMenuModule, MatIconModule,MatTooltipModule
   ],
   providers: [DateService],
   bootstrap: [AppComponent]

@@ -43,14 +43,9 @@ export class HomeComponent implements OnInit{
       console.log('incoming message...', data)
       console.log('message read sent')
     })
-
    
-    
+
   }
   
-  logout() {
-    localStorage.clear();
-    this.socketService.disconnect()
-    this.router.navigateByUrl('/auth/login');
-  }
+  
 }
