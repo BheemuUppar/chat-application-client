@@ -1,9 +1,11 @@
 import {
   AfterViewInit,
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
@@ -47,7 +49,7 @@ export class SidebarComponent implements OnChanges, OnInit {
       this.getInbox();
     });
     this.socketService.on('messageReceviced', (messages) => {
-      console.log('Message received event triggered');
+      console.log('Message received event triggered', messages);
       //  this.incomingMessage = messages;
       this.getInbox();
     });
@@ -69,9 +71,19 @@ export class SidebarComponent implements OnChanges, OnInit {
   getInbox() {
     this.userSevrice.getAllInbox().subscribe((res: any) => {
       this.myChatUsers = res;
-      console.log(this.myChatUsers);
-      console.log(this.user);
+      this.readCurrentChatMessage()
+      
     });
+  }
+
+  
+  readCurrentChatMessage(){
+    for(let user of this.myChatUsers){
+      if(user.contact_id == this.currentChat.contact_id && user.unread_count > 0){
+        this.userSevrice.currentChat.next(this.currentChat);
+        break
+      }
+    }
   }
 
   fetchUsers() {
