@@ -23,8 +23,8 @@ export class SidebarComponent implements OnChanges, OnInit {
   searchText!: string;
   searchTextForGroup!: string;
   groupName!: string;
-  groupImage :any;
-  groupImageFile:any
+  groupImage: any;
+  groupImageFile: any;
   users: any;
   currentPage: string | undefined = undefined;
   myChatUsers: any[] = [];
@@ -58,10 +58,10 @@ export class SidebarComponent implements OnChanges, OnInit {
       console.log('online users ', data);
       this.getInbox();
     });
-    this.socketService.on('groupAdded', (data)=>{
-      console.log('group added', data)
-      this.getInbox()
-    })
+    this.socketService.on('groupAdded', (data) => {
+      console.log('group added', data);
+      this.getInbox();
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -71,27 +71,27 @@ export class SidebarComponent implements OnChanges, OnInit {
   getInbox() {
     this.userSevrice.getAllInbox().subscribe((res: any) => {
       this.myChatUsers = res;
-      this.readCurrentChatMessage()
-      
+      this.readCurrentChatMessage();
     });
   }
 
-  
-  readCurrentChatMessage(){
-    for(let user of this.myChatUsers){
-      if(user.contact_id == this.currentChat.contact_id && user.unread_count > 0){
-        this.userSevrice.currentChat.next(this.currentChat);
-        break
-      }
-    }
+  readCurrentChatMessage() {
+    // for (let user of this.myChatUsers) {
+    //   if ( user.contact_id == this.currentChat.contact_id && user.unread_count > 0 ) {
+    //     console.log('setting .. on read')
+    //     this.userSevrice.currentChat.next(this.currentChat);
+    //     break;
+    //   }
+    // }
   }
 
   fetchUsers() {
     if (this.searchText != '' || this.searchText) {
       this.userSevrice.searchUsers(this.searchText).subscribe({
         next: (res: any) => {
-          this.users = res.data;
-          console.log(res.data);
+          this.users = res.data.filter((user: any) => {
+            return user.contact_id != this.userSevrice.user.user_id;
+          });
         },
         error: (error) => {
           console.log(error);
@@ -122,8 +122,9 @@ export class SidebarComponent implements OnChanges, OnInit {
     this.searchText = '';
     this.users = undefined;
     this.currentChat = user;
+    console.log('setting..')
     this.userSevrice.currentChat.next(this.currentChat);
-    this.currentPage = undefined
+    this.currentPage = undefined;
   }
 
   selectedUsers: number[] = [];
@@ -138,10 +139,8 @@ export class SidebarComponent implements OnChanges, OnInit {
 
   isSelectionMode: boolean = false;
   setCurrentChat(user: any) {
-    if (this.isSelectionMode == false) {
       this.currentChat = user;
       this.userSevrice.currentChat.next(this.currentChat);
-    }
   }
 
   createGroup() {
@@ -154,11 +153,11 @@ export class SidebarComponent implements OnChanges, OnInit {
     formData.append('groupProfileImage', this.groupImageFile);
     // this.socketService.emit('createGroup', data);
     this.userSevrice.createGroup(formData).subscribe({
-      next:(res)=>{
-          this.socketService.emit('groupCreated', this.selectedUsers)
-          console.log("after group create")
-      }
-    })
+      next: (res) => {
+        this.socketService.emit('groupCreated', this.selectedUsers);
+        console.log('after group create');
+      },
+    });
   }
 
   setSelectionMode() {
@@ -167,35 +166,34 @@ export class SidebarComponent implements OnChanges, OnInit {
       this.selectedUsers = [];
     }
   }
-  goTo(value:string|undefined){
+  goTo(value: string | undefined) {
     this.currentPage = value;
-
   }
 
-  next(){
-    if(this.selectedUsers.length == 0){
-      alert("Select users to proceed")
-      return 
-    };
-    this.goTo('saveGroupInfo')
+  next() {
+    if (this.selectedUsers.length == 0) {
+      alert('Select users to proceed');
+      return;
+    }
+    this.goTo('saveGroupInfo');
   }
 
-  onGroupProfileUpload(event:any){
-    let files = event.target.files
+  onGroupProfileUpload(event: any) {
+    let files = event.target.files;
     if (files.length === 0) return;
-      this.groupImageFile = files[0];
-      const mimeType = files[0].type;
-      if (mimeType.match(/image\/*/) == null) {
-        // this.message = 'Only images are supported.';
-        return;
-      }
+    this.groupImageFile = files[0];
+    const mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      // this.message = 'Only images are supported.';
+      return;
+    }
 
-      const reader = new FileReader();
-      // this.imagePath = files;
+    const reader = new FileReader();
+    // this.imagePath = files;
 
-      reader.readAsDataURL(files[0]);
-      reader.onload = (_event) => {
-        this.groupImage = reader.result;
-      };
+    reader.readAsDataURL(files[0]);
+    reader.onload = (_event) => {
+      this.groupImage = reader.result;
+    };
   }
 }

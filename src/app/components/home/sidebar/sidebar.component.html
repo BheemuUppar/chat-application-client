@@ -123,7 +123,13 @@
 <div id="newChat" *ngIf="currentPage == 'newChat'">
     <nav>
         <div class="d-flex">
-            <button (click)="goTo(undefined)">go back</button>
+            <button (click)="goTo(undefined)" class="btn-transparent">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 448 512">
+                    <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                    <path
+                        d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+                </svg>
+            </button>
             <h5>New chat</h5>
         </div>
         <div class="search_users">
@@ -131,17 +137,19 @@
                 placeholder="Search name or email">
         </div>
         <ul *ngIf="users" class=" list-unstyled px-0 mt-4">
-            <li *ngFor="let user of users" class=" d-flex chat_contact" (click)="startChat(user)"
-                style="cursor: pointer;">
-                <div class="profile_img">
-                    <img [src]="user.profile_path" appDefaultImage alt="">
-                </div>
-                <div class=" ms-3 bg-transparent">
-                    <h6 class=" m-0 ">{{user.contact_name}}</h6>
-                    <small>{{user.email}}</small>
-                </div>
+            <ng-container *ngFor="let user of users">
+                <li  class=" d-flex chat_contact" (click)="startChat(user)" style="cursor: pointer;">
+                    <div class="profile_img">
+                        <img [src]="user.profile_path" appDefaultImage alt="">
+                    </div>
+                    <div class=" ms-3 bg-transparent">
+                        <h6 class=" m-0 ">{{user.contact_name}}</h6>
+                        <small>{{user.email}}</small>
+                    </div>
 
-            </li>
+                </li>
+            </ng-container>
+
             <li *ngIf="users?.length === 0">No users found with {{searchText}}</li>
         </ul>
     </nav>
@@ -149,7 +157,14 @@
 <div id="newGroup" *ngIf="currentPage == 'newGroup'">
     <nav>
         <div class="d-flex">
-            <button (click)="goTo(undefined)">go back</button>
+            <button (click)="goTo(undefined)" class="btn-transparent">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 448 512">
+                    <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                    <path
+                        d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+                </svg>
+
+            </button>
             <h5>Create Group</h5>
 
         </div>
@@ -225,7 +240,13 @@
 <div id="saveGroupInfo" class="p-4" *ngIf="currentPage == 'saveGroupInfo'">
     <nav>
         <div class="d-flex">
-            <button (click)="goTo('newGroup')">go back</button>
+            <button (click)="goTo('newGroup')" class="btn-transparent">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 448 512">
+                    <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                    <path
+                        d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+                </svg>
+            </button>
             <h5>Create Group</h5>
 
         </div>

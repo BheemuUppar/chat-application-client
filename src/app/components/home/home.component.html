@@ -6,7 +6,7 @@
 
 <div class="main  d-flex" >
     <div class="sidebar">
-        <app-sidebar (updateRead)="messageReceived()" [onMessageReceive]="incomingMessage"></app-sidebar>
+        <app-sidebar (updateRead)="messageReceived()"></app-sidebar>
     </div>
     <div class="conversation flex-grow-1">
         <app-converstaion [messages]="incomingMessage"></app-converstaion>

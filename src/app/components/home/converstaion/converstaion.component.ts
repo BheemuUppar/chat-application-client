@@ -36,7 +36,9 @@ export class ConverstaionComponent
     this.user = this.userService.user;
     this.userService.currenChat$.subscribe((user: any) => {
       this.currentChat = user;
+      console.log('multiple')
       this.getMessages();
+      this.scrollToBottom();
     });
 
     // Listening for 'sent' event (for sender confirmation)
@@ -55,13 +57,14 @@ export class ConverstaionComponent
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.userService.currenChat$.subscribe((user: any) => {
-      if (this.currentChat && this.currentChat.contact_id == user.contact_id) {
-        this.currentChat = user;
-        this.getMessages();
-        this.scrollToBottom();
-      }
-    });
+    // console.log(changes)
+    // this.userService.currenChat$.subscribe((user: any) => {
+    //   if (this.currentChat && this.currentChat.contact_id == user.contact_id) {
+    //     this.currentChat = user;
+    //     this.getMessages();
+       
+    //   }
+    // });
   }
 
   onEnterPress(event: KeyboardEvent) {
@@ -74,7 +77,6 @@ export class ConverstaionComponent
     setTimeout(() => {
       let div = document.getElementById('messages');
       if (div) {
-        console.log('div height ', div.scrollHeight);
         div.scrollTo(0, div.scrollHeight);
       }
     }, 0);
@@ -111,6 +113,11 @@ export class ConverstaionComponent
   }
 
   sendMessage() {
+    if(this.message_text.trim() == ''){
+       alert('Nothing to send');
+       this.message_text = '';
+       return 
+    }
     if (!this.currentChat.isgroup) {
       let payload = {
         sender_id: this.user.user_id,

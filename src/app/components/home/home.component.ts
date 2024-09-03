@@ -40,8 +40,7 @@ export class HomeComponent implements OnInit{
 
     this.socketService.on('onMsgRead', (data)=>{
       this.incomingMessage = data;
-      console.log('incoming message...', data)
-      console.log('message read sent')
+     
     })
    
 
