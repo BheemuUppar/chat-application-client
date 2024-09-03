@@ -47,7 +47,7 @@ export class EditProfilePicComponent {
     if (this.file != undefined) {
       this.userService.saveProfilePic(id, this.file).subscribe({
         next: (res: any) => {
-          localStorage.setItem('user', res.data);
+          localStorage.setItem('user', JSON.stringify(res.data));
           this.fromserver = res.data.profile_path;
           this.router.navigateByUrl('/');
         },

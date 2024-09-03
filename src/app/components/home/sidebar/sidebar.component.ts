@@ -9,6 +9,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { Router } from '@angular/router';
 import { DateService } from 'src/app/services/date.service';
 import { SocketService } from 'src/app/services/socket.service';
 import { UserService } from 'src/app/services/user.service';
@@ -35,7 +36,8 @@ export class SidebarComponent implements OnChanges, OnInit {
   constructor(
     public userSevrice: UserService,
     public dateService: DateService,
-    private socketService: SocketService
+    private socketService: SocketService,
+    private router:Router
   ) {
     this.user = this.userSevrice.user;
     this.getInbox();
@@ -158,6 +160,8 @@ export class SidebarComponent implements OnChanges, OnInit {
     this.userSevrice.createGroup(formData).subscribe({
       next: (res) => {
         this.socketService.emit('groupCreated', this.selectedUsers);
+        alert("Group Created")
+        this.goTo(undefined)
         console.log('after group create');
       },
     });
@@ -198,5 +202,11 @@ export class SidebarComponent implements OnChanges, OnInit {
     reader.onload = (_event) => {
       this.groupImage = reader.result;
     };
+  }
+  logout(){
+    localStorage.clear();
+    sessionStorage.clear();
+    this.router.navigateByUrl('/auth/login')
+
   }
 }
