@@ -36,7 +36,11 @@ export class ConverstaionComponent
     this.user = this.userService.user;
     this.userService.currenChat$.subscribe((user: any) => {
       this.currentChat = user;
-      console.log('multiple')
+      this.getMessages();
+      this.scrollToBottom();
+    });
+    this.userService.readNewMessage$.subscribe(() => {
+      console.log('mesage subscribe..')
       this.getMessages();
       this.scrollToBottom();
     });
@@ -55,13 +59,14 @@ export class ConverstaionComponent
     // Scroll to the bottom of the messages div
     this.scrollToBottom();
   }
-
+@Input() msgUpdate :any
   ngOnChanges(changes: SimpleChanges): void {
+    console.log('changed.. ', changes)
     // console.log(changes)
     // this.userService.currenChat$.subscribe((user: any) => {
     //   if (this.currentChat && this.currentChat.contact_id == user.contact_id) {
     //     this.currentChat = user;
-    //     this.getMessages();
+        this.getMessages();
        
     //   }
     // });

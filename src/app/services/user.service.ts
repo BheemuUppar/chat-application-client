@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, map, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +11,8 @@ export class UserService {
 
   currentChat: BehaviorSubject<any> = new BehaviorSubject(undefined);
   currenChat$ = this.currentChat.asObservable();
+  readNewMessage: Subject<any> = new Subject();
+  readNewMessage$ = this.currentChat.asObservable();
 
   saveProfilePic(id: string | null, file: File) {
     let url = 'http://localhost:3000/users/upload/profile';

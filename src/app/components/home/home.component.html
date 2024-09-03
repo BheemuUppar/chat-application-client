@@ -6,10 +6,10 @@
 
 <div class="main  d-flex" >
     <div class="sidebar">
-        <app-sidebar (updateRead)="messageReceived()"></app-sidebar>
+        <app-sidebar (markAsRead)="messageReceived()"></app-sidebar>
     </div>
     <div class="conversation flex-grow-1">
-        <app-converstaion [messages]="incomingMessage"></app-converstaion>
+        <app-converstaion [msgUpdate]="currentChatMessage"></app-converstaion>
     </div>
 
 </div>
