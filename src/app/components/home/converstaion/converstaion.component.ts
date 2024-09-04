@@ -149,4 +149,22 @@ export class ConverstaionComponent
       inbox_id: this.currentChat.inbox_id,
     });
   }
+
+  getChatProfile(id:number){
+    if(id == this.user.user_id){
+        return this.user.profile_path
+    }
+    if(this.currentChat.isgroup == false){
+      return this.currentChat.profile_path
+    }
+    let profile = '';
+    for(let member of this.currentChat.group_members){
+      if(member.id == id){
+        profile = member.profile_path
+        break
+      }
+    }
+    return profile;
+
+  }
 }

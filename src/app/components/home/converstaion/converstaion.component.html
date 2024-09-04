@@ -27,13 +27,13 @@
                     
                  </div>
                  <div class="profile_img " [ngClass]="userService.isOnline(msg.sender_id)  ? 'online' : 'offline'" style="margin-top: auto;" >
-                     <img [src]="currentChat.profile_path" appDefaultImage alt="">
+                     <img [src]="getChatProfile(msg.sender_id)" appDefaultImage alt="">
                  </div>
                  <!-- <div>yfasfsydfy</div> -->
              </div>
              <div class="receiveMessage " *ngIf="msg.sender_id != user.user_id">
                  <div class="profile_img " [ngClass]="userService.isOnline(msg.sender_id)  ? 'online' : 'offline'" style="margin-top: auto;" >
-                     <img [src]="currentChat.profile_path" appDefaultImage alt="">
+                     <img [src]="getChatProfile(msg.sender_id)" appDefaultImage alt="">
                  </div>
                  <div class="content px-3 py-2">
                      <div class="meta-data d-flex justify-content-between ">
