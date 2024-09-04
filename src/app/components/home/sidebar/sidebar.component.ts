@@ -209,4 +209,10 @@ export class SidebarComponent implements OnChanges, OnInit {
     this.router.navigateByUrl('/auth/login')
 
   }
+  getOnlineStatusClass(contact:any){
+    if(contact.isgroup ){
+      return ''
+    }
+    return this.userSevrice.isOnline(contact.contact_id) ? 'online':'offline'
+  }
 }

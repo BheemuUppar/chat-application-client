@@ -1,13 +1,14 @@
-<div class="bg-transparent d-flex flex-column h-100" *ngIf="currentChat" >
+<div class="bg-transparent d-flex flex-column h-100" *ngIf="currentChat">
     <nav class="d-flex p-4">
         <div class="userInfo d-flex gap-3 align-items-center">
-            <div class="profile_img " [ngClass]="userService.isOnline(currentChat.contact_id) && user.isgroup == true  ? 'online' : user.isgroup == false ?  'offline' : ''">
+            <div class="profile_img " [ngClass]="getOnlineStatusClass(currentChat.contact_id)">
                 <img [src]="currentChat.profile_path" appDefaultImage alt="">
             </div>
             <div>
                 <h5 class="mb-0" style="color: #FFFFFF;">{{currentChat.contact_name
-                }}</h5>
-                <small style="color: #717174;">{{userService.isOnline(currentChat.contact_id) == true  ? 'Active Now' : 'Last Seen '+dateService.formatDate(currentChat.contact_last_seen)}}  </small>
+                    }}</h5>
+                <small style="color: #717174;">{{userService.isOnline(currentChat.contact_id) == true ? 'Active Now' :
+                    'Last Seen '+dateService.formatDate(currentChat.contact_last_seen)}} </small>
             </div>
         </div>
         <div class="options">
@@ -16,43 +17,46 @@
     </nav>
     <div id="messages" class="messages flex-grow-1">
         <!-- sent message -->
-         <div *ngFor="let msg of messages">
-             <div class="sentMessage " *ngIf="msg.sender_id == user.user_id">
-                 <div class="content px-3 py-2">
-                     <div class="meta-data d-flex justify-content-between ">
-                         <small>{{user.name}}</small>
-                         <small>{{dateService.formatDate(msg.sent_at)}}</small>
-                     </div>
-                     <p>{{msg.message_text}}</p>
-                    
-                 </div>
-                 <div class="profile_img " [ngClass]="userService.isOnline(msg.sender_id)  ? 'online' : 'offline'" style="margin-top: auto;" >
-                     <img [src]="getChatProfile(msg.sender_id)" appDefaultImage alt="">
-                 </div>
-                 <!-- <div>yfasfsydfy</div> -->
-             </div>
-             <div class="receiveMessage " *ngIf="msg.sender_id != user.user_id">
-                 <div class="profile_img " [ngClass]="userService.isOnline(msg.sender_id)  ? 'online' : 'offline'" style="margin-top: auto;" >
-                     <img [src]="getChatProfile(msg.sender_id)" appDefaultImage alt="">
-                 </div>
-                 <div class="content px-3 py-2">
-                     <div class="meta-data d-flex justify-content-between ">
-                         <small>{{msg.sender_name}}</small>
-                         <small>{{dateService.formatDate(msg.sent_at)}}</small>
-                     </div>
-                     <p>{{msg.message_text}}</p>
-                    
-                 </div>
-                 
-             </div>
-         </div>
+        <div *ngFor="let msg of messages">
+            <div class="sentMessage " *ngIf="msg.sender_id == user.user_id">
+                <div class="content px-3 py-2">
+                    <div class="meta-data d-flex justify-content-between ">
+                        <small>{{user.name}}</small>
+                        <small>{{dateService.formatDate(msg.sent_at)}}</small>
+                    </div>
+                    <p>{{msg.message_text}}</p>
+
+                </div>
+                <div class="profile_img " [ngClass]="getOnlineStatusClass(msg.sender_id)"
+                    style="margin-top: auto;">
+                    <img [src]="getChatProfile(msg.sender_id)" appDefaultImage alt="">
+                </div>
+                <!-- <div>yfasfsydfy</div> -->
+            </div>
+            <div class="receiveMessage " *ngIf="msg.sender_id != user.user_id">
+                <div class="profile_img " [ngClass]="getOnlineStatusClass(msg.sender_id)"
+                    style="margin-top: auto;">
+                    <img [src]="getChatProfile(msg.sender_id)" appDefaultImage alt="">
+                </div>
+                <div class="content px-3 py-2">
+                    <div class="meta-data d-flex justify-content-between ">
+                        <small>{{msg.sender_name}}</small>
+                        <small>{{dateService.formatDate(msg.sent_at)}}</small>
+                    </div>
+                    <p>{{msg.message_text}}</p>
+
+                </div>
+
+            </div>
+        </div>
         <!-- message end -->
-      
+
     </div>
     <div class="inputs">
         <div class="input-container d-flex align-items-center gap-4">
-            <input type="text" class="p-3 flex-grow-1" placeholder="Type a message" name="message_text" (keypress)="onEnterPress($event)" [(ngModel)]="message_text" > 
-            <button type="button" class="send-btn" (click)="sendMessage()" >
+            <input type="text" class="p-3 flex-grow-1" placeholder="Type a message" name="message_text"
+                (keypress)="onEnterPress($event)" [(ngModel)]="message_text">
+            <button type="button" class="send-btn" (click)="sendMessage()">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                     viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                     <path

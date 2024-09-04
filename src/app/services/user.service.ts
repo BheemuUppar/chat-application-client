@@ -74,8 +74,10 @@ export class UserService {
   let url = 'http://localhost:3000/users/getAllChats/'+id
   return this.http.get(url)
   }
+
   getAllMessages(inbox_id:number){
   let url = 'http://localhost:3000/users/getAllMessage/'+inbox_id
   return this.http.get(url)
   }
+  
 }

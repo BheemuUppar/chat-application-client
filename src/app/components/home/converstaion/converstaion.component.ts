@@ -87,16 +87,7 @@ export class ConverstaionComponent
     }, 0);
   }
 
-  // updateMessage(messages:any){
-  //     if(messages.length != 0){
-  //       if(messages[0].sender_id == this.currentChat.user_id){
-  //         this.messages = messages
-  //       }
-  //     }
-  //     else{
-  //       this.messages = []
-  //     }
-  // }
+  
   ngAfterViewInit(): void {
     this.scrollToBottom();
   }
@@ -166,5 +157,12 @@ export class ConverstaionComponent
     }
     return profile;
 
+  }
+
+  getOnlineStatusClass(id:number){
+    if(id == this.currentChat.contact_id && this.currentChat.isgroup ){
+      return ''
+    }
+    return this.userService.isOnline(id) ? 'online':'offline'
   }
 }
