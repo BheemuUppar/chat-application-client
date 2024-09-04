@@ -1,7 +1,7 @@
 <div class="bg-transparent d-flex flex-column h-100" *ngIf="currentChat" >
     <nav class="d-flex p-4">
         <div class="userInfo d-flex gap-3 align-items-center">
-            <div class="profile_img " [ngClass]="userService.isOnline(currentChat.contact_id)  ? 'online' : 'offline'">
+            <div class="profile_img " [ngClass]="userService.isOnline(currentChat.contact_id) && user.isgroup == true  ? 'online' : user.isgroup == false ?  'offline' : ''">
                 <img [src]="currentChat.profile_path" appDefaultImage alt="">
             </div>
             <div>
@@ -9,8 +9,6 @@
                 }}</h5>
                 <small style="color: #717174;">{{userService.isOnline(currentChat.contact_id) == true  ? 'Active Now' : 'Last Seen '+dateService.formatDate(currentChat.contact_last_seen)}}  </small>
             </div>
-
-
         </div>
         <div class="options">
 

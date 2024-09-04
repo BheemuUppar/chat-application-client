@@ -3,7 +3,7 @@
         <div class="d-flex justify-content-between align-items-center  py-1">
             <div class="d-flex align-items-center gap-2 px-3">
 
-                <div class="profile_img " [ngClass]="userSevrice.isOnline(user.user_id)  ? 'online' : 'offline'"><img
+                <div class="profile_img " [ngClass]="userSevrice.isOnline(user.user_id) && user.isgroup == true  ? 'online' : user.isgroup == false ?  'offline' : ''"><img
                         [src]="user?.profile_path" appDefaultImage alt=""></div>
                 <h3 class="m-0 fs-5 fw-bold ">{{user.name}}</h3>
                 <!-- <small>{{user.email}}</small> -->
@@ -69,8 +69,8 @@
                 <mat-checkbox *ngIf="isSelectionMode" class="example-margin"
                     (change)="onSelection($event, user.contact_id)"
                     [checked]="selectedUsers.includes(user.contact_id)"></mat-checkbox>
-                <div class="d-flex align-items-center">
-                    <div class="profile_img " [ngClass]="userSevrice.isOnline(user.contact_id)  ? 'online' : 'offline'">
+                <div class="d-flex align-items-center w-100">
+                    <div class="profile_img " [ngClass]="userSevrice.isOnline(user.contact_id) && user.isgroup == true  ? 'online' : user.isgroup == false ?  'offline' : ''">
                         <img [src]="user.profile_path" appDefaultImage alt="">
                     </div>
                     <div class="name ms-3">
@@ -180,7 +180,7 @@
                         [checked]="selectedUsers.includes(user.contact_id)"></mat-checkbox>
                     <div class="d-flex align-items-center">
                         <div class="profile_img "
-                            [ngClass]="userSevrice.isOnline(user.contact_id)  ? 'online' : 'offline'">
+                        [ngClass]="userSevrice.isOnline(user.contact_id) && user.isgroup == true  ? 'online' : user.isgroup == false ?  'offline' : ''">
                             <img [src]="user.profile_path" appDefaultImage alt="">
                         </div>
                         <div class="name ms-3">
