@@ -70,3 +70,18 @@ nav {
 .sentMessage small{
     color: #717174;
 }
+
+/* .selectedFiles{
+    background-color: red;
+    position: absolute;
+    top: -48px;
+    right: 0;
+    left: 0;
+    margin: auto 10px;
+    background: black;
+    opacity: 0.5;
+    color: white;
+    padding: 10px;
+    height: 15vh;
+    border-radius: 6px;
+} */
