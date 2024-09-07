@@ -18,7 +18,7 @@
     <div id="messages" class="messages flex-grow-1" *ngIf="messageFiles.length == 0">
         <!-- sent message -->
         <div *ngFor="let msg of messages">
-            <div class="sentMessage " *ngIf="msg.sender_id == user.user_id">
+            <div [ngClass]="msg.sender_id == user.user_id ? 'sentMessage':'receiveMessage flex-row-reverse'">
                 <div class="content px-3 py-2">
                     <div class="meta-data d-flex justify-content-between ">
                         <small>{{user.name}}</small>
@@ -52,20 +52,7 @@
                 </div>
                 <!-- <div>yfasfsydfy</div> -->
             </div>
-            <div class="receiveMessage " *ngIf="msg.sender_id != user.user_id">
-                <div class="profile_img " [ngClass]="getOnlineStatusClass(msg.sender_id)" style="margin-top: auto;">
-                    <img [src]="getChatProfile(msg.sender_id)" appDefaultImage alt="">
-                </div>
-                <div class="content px-3 py-2">
-                    <div class="meta-data d-flex justify-content-between ">
-                        <small>{{msg.sender_name}}</small>
-                        <small>{{dateService.formatDate(msg.sent_at)}}</small>
-                    </div>
-                    <p>{{msg.message_text}}</p>
-
-                </div>
-
-            </div>
+           
         </div>
         <!-- message end -->
 
