@@ -13,6 +13,7 @@ export class UserService {
   currenChat$ = this.currentChat.asObservable();
   readNewMessage: Subject<any> = new Subject();
   readNewMessage$ = this.currentChat.asObservable();
+  contactInfoVisible:boolean = false;
 
   saveProfilePic(id: string | null, file: File) {
     let url = 'http://localhost:3000/users/upload/profile';
@@ -78,6 +79,10 @@ export class UserService {
   getAllMessages(inbox_id:number){
   let url = 'http://localhost:3000/users/getAllMessage/'+inbox_id
   return this.http.get(url)
+  }
+
+  getChatInfo(inbox_id:number){
+    return this.http.get('http://localhost:3000/users/chat/info/'+inbox_id)
   }
   
 }

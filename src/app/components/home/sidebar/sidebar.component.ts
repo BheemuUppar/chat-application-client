@@ -54,14 +54,13 @@ export class SidebarComponent implements OnChanges, OnInit {
       console.log('Message received event triggered', messages);
       //  this.incomingMessage = messages;
       this.getInbox();
+      
     });
 
     this.socketService.on('onlineusers', (data) => {
-      console.log('online users ', data);
       this.getInbox();
     });
     this.socketService.on('groupAdded', (data) => {
-      console.log('group added', data);
       this.getInbox();
     });
   }
@@ -83,8 +82,6 @@ export class SidebarComponent implements OnChanges, OnInit {
     for (let user of this.myChatUsers) {
       if ( user.contact_id == this.currentChat.contact_id && user.unread_count > 0 ) {
         this.markAsRead.emit()
-        console.log('receive update...')
-        
         break;
       }
     }

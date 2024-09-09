@@ -11,5 +11,8 @@
     <div class="conversation flex-grow-1">
         <app-converstaion [msgUpdate]="currentChatMessage"></app-converstaion>
     </div>
+    <div class="info" *ngIf="userService.contactInfoVisible ">
+        <app-contact-info></app-contact-info>
+    </div>
 
 </div>

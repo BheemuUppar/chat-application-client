@@ -20,7 +20,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import { FilteruserPipe } from './pipes/filteruser.pipe'
+import { FilteruserPipe } from './pipes/filteruser.pipe';
+import { ContactInfoComponent } from './components/home/contact-info/contact-info.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +33,8 @@ import { FilteruserPipe } from './pipes/filteruser.pipe'
     DefaultImageDirective,
     SidebarComponent,
     ConverstaionComponent,
-    FilteruserPipe
+    FilteruserPipe,
+    ContactInfoComponent
   ],
   imports: [
     BrowserModule,

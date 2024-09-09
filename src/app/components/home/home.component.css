@@ -14,3 +14,9 @@
   background-color: #1A1A1E;
 }
 
+.info{
+  min-width: 383px;
+    width: 30%;
+    max-height: 100vh;
+    overflow: auto;
+}

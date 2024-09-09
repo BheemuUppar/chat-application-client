@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private userService: UserService,
+    public userService: UserService,
     private socketService: SocketService
   ) {
     let id = localStorage.getItem('id');

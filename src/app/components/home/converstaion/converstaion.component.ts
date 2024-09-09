@@ -24,7 +24,7 @@ export class ConverstaionComponent
   user: any;
   message_text = '';
   @Input() messages: any = [];
-  imageLink:string = ''
+  imageLink: string = '';
   constructor(
     public userService: UserService,
     private socketService: SocketService,
@@ -38,7 +38,7 @@ export class ConverstaionComponent
     this.user = this.userService.user;
     this.userService.currenChat$.subscribe((user: any) => {
       this.currentChat = user;
-      this.resetSelectedFiles()
+      this.resetSelectedFiles();
       this.getMessages();
       this.scrollToBottom();
     });
@@ -51,9 +51,7 @@ export class ConverstaionComponent
     // Listening for 'sent' event (for sender confirmation)
     this.socketService.on('sent', (data) => {
       this.message_text = '';
-      console.log('Message sent event received');
-      this.messages = data;
-      console.log('data ', data);
+      this.messages = this.getMessages();
       this.scrollToBottom();
     });
 
@@ -185,8 +183,8 @@ export class ConverstaionComponent
         let buffer = await this.getArrayBufferFromFile(files[i]);
         this.convertedFiles.push(buffer);
       }
-      if(this.messageFiles[0].type == 'image/png'){
-        await this.getImageLink(this.messageFiles[0])
+      if (this.messageFiles[0].type == 'image/png') {
+        await this.getImageLink(this.messageFiles[0]);
       }
       // files.forEach(async (file:File)=>{
 
@@ -203,20 +201,19 @@ export class ConverstaionComponent
   }
 
   sendMedia() {
-    let payload:any = {
+    let payload: any = {
       files_data: this.convertedFiles,
       message_text: this.message_text,
       sender_id: this.user.user_id,
-      
     };
-if(this.currentChat.isgroup == true){
-  payload['inbox_id'] =  this.currentChat.inbox_id,
-  this.socketService.emit('sendToGroup', payload);
-}else{
-  payload['receiver_id']  =  this.currentChat.contact_id,
-  this.socketService.emit('sendMessage', payload);
-}
-    this.resetSelectedFiles()
+    if (this.currentChat.isgroup == true) {
+      (payload['inbox_id'] = this.currentChat.inbox_id),
+        this.socketService.emit('sendToGroup', payload);
+    } else {
+      (payload['receiver_id'] = this.currentChat.contact_id),
+        this.socketService.emit('sendMessage', payload);
+    }
+    this.resetSelectedFiles();
   }
 
   getInputFiles(): Promise<File[]> {
@@ -230,7 +227,7 @@ if(this.currentChat.isgroup == true){
         const files = event.target.files;
 
         if (files && files.length > 0) {
-          this.convertedFiles = []
+          this.convertedFiles = [];
           resolve(files); // Resolving with the selected files
         } else {
           reject('No files selected'); // Handling the case when no files are selected
@@ -282,36 +279,35 @@ if(this.currentChat.isgroup == true){
     return '';
   }
 
-  resetSelectedFiles(){
-    this.messageFiles = []
-    this.message_text = '',
-    this.convertedFiles = [];
-    this.imageLink = ''
+  resetSelectedFiles() {
+    this.messageFiles = [];
+    (this.message_text = ''), (this.convertedFiles = []);
+    this.imageLink = '';
   }
 
-  getImageLink(file:File){
+  getImageLink(file: File) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
-  
+
       // Define what happens when the file is loaded
-      reader.onload =  (e:any)=> {
+      reader.onload = (e: any) => {
         // Resolve the promise with the data URL of the loaded image
-        this.imageLink =  e.target.result
-        
+        this.imageLink = e.target.result;
+
         resolve(e.target.result);
-         };
-  
+      };
+
       // Handle file reading errors
       reader.onerror = function () {
         reject('Error reading file');
       };
-  
+
       // Read the file as a data URL (base64 encoded)
       reader.readAsDataURL(file);
     });
   }
 
-  readBuffer(arrayBuffer:ArrayBuffer){
+  readBuffer(arrayBuffer: ArrayBuffer) {
     // const blob = new Blob([arrayBuffer], { type: file.type });
     // const url = URL.createObjectURL(blob);
   }
@@ -319,80 +315,94 @@ if(this.currentChat.isgroup == true){
   downloadFile(base64String: string, fileName: string, fileType: string) {
     // Remove any headers, if present (e.g., "data:application/pdf;base64,")
     const cleanedBase64 = base64String.split(',')[1] || base64String;
-  
+
     try {
       // Decode the base64 string to binary data
       const byteCharacters = atob(cleanedBase64);
       const byteNumbers = new Array(byteCharacters.length);
-  
+
       for (let i = 0; i < byteCharacters.length; i++) {
         byteNumbers[i] = byteCharacters.charCodeAt(i);
       }
-  
+
       const byteArray = new Uint8Array(byteNumbers);
       const blob = new Blob([byteArray], { type: fileType });
-  
+
       // Create a link element and set the href to the blob URL
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
       link.download = fileName;
-  
+
       // Append the link to the body, trigger the click, and remove the link
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-  
+
       // Revoke the object URL to free up memory
       URL.revokeObjectURL(link.href);
     } catch (error) {
       console.error('Error decoding base64 string:', error);
-      alert('Failed to decode the base64 string. Please ensure the format is correct.');
+      alert(
+        'Failed to decode the base64 string. Please ensure the format is correct.'
+      );
     }
   }
 
+  // getFileMetadata(
+  //   base64String: string,
+  //   fileName: string
+  // ): { name: string; type: string; size: string } | null {
+  //   try {
+  //     // Extracting the content type and base64 data part from the string
+  //     const matches = base64String.match(/^data:(.*?);base64,(.*)$/);
+  //     if (!matches || matches.length !== 3) {
+  //       console.error('Invalid base64 string format');
+  //       return null;
+  //     }
 
-  getFileMetadata(
-    base64String: string,
-    fileName: string
-  ): { name: string; type: string; size: string } | null {
-    try {
-      // Extracting the content type and base64 data part from the string
-      const matches = base64String.match(/^data:(.*?);base64,(.*)$/);
-      if (!matches || matches.length !== 3) {
-        console.error('Invalid base64 string format');
-        return null;
-      }
+  //     const mimeType = matches[1]; // Get the MIME type
+  //     const base64Data = matches[2]; // Get the base64 content
 
-      const mimeType = matches[1]; // Get the MIME type
-      const base64Data = matches[2]; // Get the base64 content
+  //     // Decoding the base64 string to get the file size in bytes
+  //     const decodedData = atob(base64Data);
+  //     const sizeInBytes = decodedData.length;
 
-      // Decoding the base64 string to get the file size in bytes
-      const decodedData = atob(base64Data);
-      const sizeInBytes = decodedData.length;
+  //     // Convert size to KB or MB
+  //     const formattedSize = this.formatSize(sizeInBytes);
 
-      // Convert size to KB or MB
-      const formattedSize = this.formatSize(sizeInBytes);
+  //     // Return file metadata
+  //     return {
+  //       name: fileName,
+  //       type: mimeType,
+  //       size: formattedSize, // Formatted size in KB or MB
+  //     };
+  //   } catch (error) {
+  //     console.error('Error getting file metadata:', error);
+  //     return null;
+  //   }
+  // }
 
-      // Return file metadata
-      return {
-        name: fileName,
-        type: mimeType,
-        size: formattedSize, // Formatted size in KB or MB
-      };
-    } catch (error) {
-      console.error('Error getting file metadata:', error);
-      return null;
-    }
+  // private formatSize(sizeInBytes: number): string {
+  //   const sizeInKB = sizeInBytes / 1024;
+  //   if (sizeInKB >= 1024) {
+  //     const sizeInMB = sizeInKB / 1024;
+  //     return `${sizeInMB.toFixed(2)} MB`; // Display in MB with 2 decimal places
+  //   }
+  //   return `${sizeInKB.toFixed(2)} KB`; // Display in KB with 2 decimal places
+  // }
+
+  showContactInfo() {
+    this.userService.contactInfoVisible = true;
   }
-
-
-  private formatSize(sizeInBytes: number): string {
-    const sizeInKB = sizeInBytes / 1024;
-    if (sizeInKB >= 1024) {
-      const sizeInMB = sizeInKB / 1024;
-      return `${sizeInMB.toFixed(2)} MB`; // Display in MB with 2 decimal places
-    }
-    return `${sizeInKB.toFixed(2)} KB`; // Display in KB with 2 decimal places
+  // utility.ts or any utility file
+formatBytes(bytes: number): string {
+  if (bytes < 1024) {
+    return `${bytes} B`;
+  } else if (bytes < 1024 * 1024) {
+    return `${(bytes / 1024).toFixed(2)} KB`;
+  } else {
+    return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
   }
-  
+}
+
 }

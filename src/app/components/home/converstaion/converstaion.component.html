@@ -1,6 +1,6 @@
 <div class="bg-transparent d-flex flex-column h-100" *ngIf="currentChat">
     <nav class="d-flex p-4">
-        <div class="userInfo d-flex gap-3 align-items-center">
+        <div class="userInfo d-flex gap-3 align-items-center" (click)="showContactInfo()">
             <div class="profile_img " [ngClass]="getOnlineStatusClass(currentChat.contact_id)">
                 <img [src]="currentChat.profile_path" appDefaultImage alt="">
             </div>
@@ -87,7 +87,7 @@
       
                         <ul class="list-inline small mb-0">
                           <li class="list-inline-item">
-                            <span class="text-muted">{{getFileMetadata(msg.message_file, msg.file_name)?.size}}</span>
+                            <span class="text-muted">{{formatBytes(msg.file_size)}}</span>
                           </li>
                           <li class="list-inline-item">
                             <span class="text-muted text-uppercase">{{msg.file_type}}</span>
