@@ -1,73 +1,78 @@
 /* You can add global styles to this file, and also import other style files */
 /* width */
 ::-webkit-scrollbar {
-    width: 7px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #676060;
-    border-radius: 10px;
-    
-  }
-  
-  /* Handle on hover */
-  /* ::-webkit-scrollbar-thumb:hover {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #676060;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+/* ::-webkit-scrollbar-thumb:hover {
     background: #555;
   } */
 
-
-.profile_img ,.profile_img img {
+.profile_img,
+.profile_img img {
   height: 45px;
   width: 45px;
   border-radius: 50%;
 }
 
-.profile_img.online, .profile_img.offline {
-    position: relative; /* The parent element for the absolute positioning */
+.profile_img.online,
+.profile_img.offline {
+  position: relative; /* The parent element for the absolute positioning */
 }
 
 .profile_img.online::after {
-    content: '';
-    position: absolute;
-    height: 12px;
-    width: 12px;
-    background-color: #40F251;
-    top: -4px;
-    right: -5px;
-    border-radius: 50%;
-    z-index: 10;
+  content: "";
+  position: absolute;
+  height: 12px;
+  width: 12px;
+  background-color: #40f251;
+  top: -4px;
+  right: -5px;
+  border-radius: 50%;
+  z-index: 10;
 }
 .profile_img.offline::after {
-    content: '';
-    position: absolute;
-    height: 12px;
-    width: 12px;
-    background-color: #FFD939;
-    top: -4px;
-    right: -5px;
-    border-radius: 50%;
-    z-index: 10;
+  content: "";
+  position: absolute;
+  height: 12px;
+  width: 12px;
+  background-color: #ffd939;
+  top: -4px;
+  right: -5px;
+  border-radius: 50%;
+  z-index: 10;
 }
-
 
 svg {
   height: 20px;
 }
 
-
-*{
+* {
   transition: all 0.5s;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: system-ui;
+  scroll-behavior: smooth;
+}
 
-.btn-transparent{
+.btn-transparent {
   background: transparent;
   border: none;
   color: white;

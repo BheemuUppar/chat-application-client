@@ -84,7 +84,7 @@ export class ConverstaionComponent
 
   scrollToBottom() {
     setTimeout(() => {
-      let div = document.getElementById('messages');
+      let div = document.getElementById('messageBody');
       if (div) {
         div.scrollTo(0, div.scrollHeight);
       }
@@ -315,4 +315,84 @@ if(this.currentChat.isgroup == true){
     // const blob = new Blob([arrayBuffer], { type: file.type });
     // const url = URL.createObjectURL(blob);
   }
+
+  downloadFile(base64String: string, fileName: string, fileType: string) {
+    // Remove any headers, if present (e.g., "data:application/pdf;base64,")
+    const cleanedBase64 = base64String.split(',')[1] || base64String;
+  
+    try {
+      // Decode the base64 string to binary data
+      const byteCharacters = atob(cleanedBase64);
+      const byteNumbers = new Array(byteCharacters.length);
+  
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+  
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: fileType });
+  
+      // Create a link element and set the href to the blob URL
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = fileName;
+  
+      // Append the link to the body, trigger the click, and remove the link
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+  
+      // Revoke the object URL to free up memory
+      URL.revokeObjectURL(link.href);
+    } catch (error) {
+      console.error('Error decoding base64 string:', error);
+      alert('Failed to decode the base64 string. Please ensure the format is correct.');
+    }
+  }
+
+
+  getFileMetadata(
+    base64String: string,
+    fileName: string
+  ): { name: string; type: string; size: string } | null {
+    try {
+      // Extracting the content type and base64 data part from the string
+      const matches = base64String.match(/^data:(.*?);base64,(.*)$/);
+      if (!matches || matches.length !== 3) {
+        console.error('Invalid base64 string format');
+        return null;
+      }
+
+      const mimeType = matches[1]; // Get the MIME type
+      const base64Data = matches[2]; // Get the base64 content
+
+      // Decoding the base64 string to get the file size in bytes
+      const decodedData = atob(base64Data);
+      const sizeInBytes = decodedData.length;
+
+      // Convert size to KB or MB
+      const formattedSize = this.formatSize(sizeInBytes);
+
+      // Return file metadata
+      return {
+        name: fileName,
+        type: mimeType,
+        size: formattedSize, // Formatted size in KB or MB
+      };
+    } catch (error) {
+      console.error('Error getting file metadata:', error);
+      return null;
+    }
+  }
+
+
+  private formatSize(sizeInBytes: number): string {
+    const sizeInKB = sizeInBytes / 1024;
+    if (sizeInKB >= 1024) {
+      const sizeInMB = sizeInKB / 1024;
+      return `${sizeInMB.toFixed(2)} MB`; // Display in MB with 2 decimal places
+    }
+    return `${sizeInKB.toFixed(2)} KB`; // Display in KB with 2 decimal places
+  }
+  
 }
