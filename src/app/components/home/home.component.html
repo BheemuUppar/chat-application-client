@@ -1,18 +1,13 @@
-<!-- <div class="d-flex flex-column justify-content-center align-items-center" style="min-height: 100vh;">
-    <p>{{currentUser?.name}}</p>
-    <img [src]="currentUser?.profile_path" height="100" appDefaultImage width="100" alt="">
-    <button type="button" (click)="logout()">Logout</button>
-</div> -->
+
 
 <div class="main  d-flex" >
-    <div class="sidebar">
-        <app-sidebar (markAsRead)="messageReceived()"></app-sidebar>
+    <div class="sidebar" #sidebar>
+        <app-sidebar (viewChange)="switchView($event)" (markAsRead)="messageReceived()"></app-sidebar>
     </div>
-    <div class="conversation flex-grow-1">
-        <app-converstaion [msgUpdate]="currentChatMessage"></app-converstaion>
+    <div class="conversation flex-grow-1" #conversation>
+        <app-converstaion (viewChange)="switchView($event)" [isSmallScreen]="isSmallScreen" [msgUpdate]="currentChatMessage"></app-converstaion>
     </div>
-    <div class="info" *ngIf="userService.contactInfoVisible ">
-        <app-contact-info></app-contact-info>
+    <div class="info" #info *ngIf="userService.contactInfoVisible ">
+        <app-contact-info (viewChange)="switchView($event)"></app-contact-info>
     </div>
-
 </div>

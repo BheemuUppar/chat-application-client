@@ -2,15 +2,18 @@ import {
   AfterContentInit,
   AfterViewInit,
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 import { DateService } from 'src/app/services/date.service';
 import { SocketService } from 'src/app/services/socket.service';
 import { UserService } from 'src/app/services/user.service';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-converstaion',
@@ -25,11 +28,17 @@ export class ConverstaionComponent
   message_text = '';
   @Input() messages: any = [];
   imageLink: string = '';
+  messageFiles: File[] = [];
+  convertedFiles: any = [];
+  @Input() isSmallScreen :boolean = false
+
   constructor(
     public userService: UserService,
     private socketService: SocketService,
-    public dateService: DateService
+    public dateService: DateService,
+    public utilService:UtilService
   ) {}
+
   ngAfterContentInit(): void {
     this.scrollToBottom();
   }
@@ -55,23 +64,13 @@ export class ConverstaionComponent
       this.scrollToBottom();
     });
 
-    // Listening for 'messageReceviced' event (for receiver notification)
 
     // Scroll to the bottom of the messages div
     this.scrollToBottom();
   }
   @Input() msgUpdate: any;
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('changed.. ', changes);
-
-    // console.log(changes)
-    // this.userService.currenChat$.subscribe((user: any) => {
-    //   if (this.currentChat && this.currentChat.contact_id == user.contact_id) {
-    //     this.currentChat = user;
     this.getMessages();
-
-    //   }
-    // });
   }
 
   onEnterPress(event: KeyboardEvent) {
@@ -172,8 +171,7 @@ export class ConverstaionComponent
     return this.userService.isOnline(id) ? 'online' : 'offline';
   }
 
-  messageFiles: File[] = [];
-  convertedFiles: any = [];
+
   async fileUpload() {
     try {
       let files: any[] = await this.getInputFiles();
@@ -186,13 +184,6 @@ export class ConverstaionComponent
       if (this.messageFiles[0].type == 'image/png') {
         await this.getImageLink(this.messageFiles[0]);
       }
-      // files.forEach(async (file:File)=>{
-
-      //   let buffer =await  this.getArrayBufferFromFile(files[0]);
-      //   this.convertedFiles.push(buffer)
-      // })
-
-      console.log(this.convertedFiles);
       if (files.length == 0) {
       }
     } catch (error) {
@@ -264,20 +255,6 @@ export class ConverstaionComponent
 
   ngOnDestroy(): void {}
 
-  getFileType(msg: any) {
-    if (!msg.message_file) {
-      return '';
-    }
-    let path: string = msg.message_file;
-    if (path.endsWith('.pdf')) {
-      return 'pdf';
-    }
-    if (path.endsWith('.jpg') || path.endsWith('png')) {
-      return 'image';
-    }
-
-    return '';
-  }
 
   resetSelectedFiles() {
     this.messageFiles = [];
@@ -307,102 +284,14 @@ export class ConverstaionComponent
     });
   }
 
-  readBuffer(arrayBuffer: ArrayBuffer) {
-    // const blob = new Blob([arrayBuffer], { type: file.type });
-    // const url = URL.createObjectURL(blob);
-  }
-
-  downloadFile(base64String: string, fileName: string, fileType: string) {
-    // Remove any headers, if present (e.g., "data:application/pdf;base64,")
-    const cleanedBase64 = base64String.split(',')[1] || base64String;
-
-    try {
-      // Decode the base64 string to binary data
-      const byteCharacters = atob(cleanedBase64);
-      const byteNumbers = new Array(byteCharacters.length);
-
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
-
-      const byteArray = new Uint8Array(byteNumbers);
-      const blob = new Blob([byteArray], { type: fileType });
-
-      // Create a link element and set the href to the blob URL
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = fileName;
-
-      // Append the link to the body, trigger the click, and remove the link
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      // Revoke the object URL to free up memory
-      URL.revokeObjectURL(link.href);
-    } catch (error) {
-      console.error('Error decoding base64 string:', error);
-      alert(
-        'Failed to decode the base64 string. Please ensure the format is correct.'
-      );
-    }
-  }
-
-  // getFileMetadata(
-  //   base64String: string,
-  //   fileName: string
-  // ): { name: string; type: string; size: string } | null {
-  //   try {
-  //     // Extracting the content type and base64 data part from the string
-  //     const matches = base64String.match(/^data:(.*?);base64,(.*)$/);
-  //     if (!matches || matches.length !== 3) {
-  //       console.error('Invalid base64 string format');
-  //       return null;
-  //     }
-
-  //     const mimeType = matches[1]; // Get the MIME type
-  //     const base64Data = matches[2]; // Get the base64 content
-
-  //     // Decoding the base64 string to get the file size in bytes
-  //     const decodedData = atob(base64Data);
-  //     const sizeInBytes = decodedData.length;
-
-  //     // Convert size to KB or MB
-  //     const formattedSize = this.formatSize(sizeInBytes);
-
-  //     // Return file metadata
-  //     return {
-  //       name: fileName,
-  //       type: mimeType,
-  //       size: formattedSize, // Formatted size in KB or MB
-  //     };
-  //   } catch (error) {
-  //     console.error('Error getting file metadata:', error);
-  //     return null;
-  //   }
-  // }
-
-  // private formatSize(sizeInBytes: number): string {
-  //   const sizeInKB = sizeInBytes / 1024;
-  //   if (sizeInKB >= 1024) {
-  //     const sizeInMB = sizeInKB / 1024;
-  //     return `${sizeInMB.toFixed(2)} MB`; // Display in MB with 2 decimal places
-  //   }
-  //   return `${sizeInKB.toFixed(2)} KB`; // Display in KB with 2 decimal places
-  // }
-
-  showContactInfo() {
+ showContactInfo() {
     this.userService.contactInfoVisible = true;
+    this.changeView('info')
   }
-  // utility.ts or any utility file
-formatBytes(bytes: number): string {
-  if (bytes < 1024) {
-    return `${bytes} B`;
-  } else if (bytes < 1024 * 1024) {
-    return `${(bytes / 1024).toFixed(2)} KB`;
-  } else {
-    return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+ @Output() viewChange  = new EventEmitter<'sidebar' | 'conversation' | 'info'>()
+  changeView(view: 'sidebar' | 'conversation' | 'info' ){
+    this.viewChange.emit(view)
   }
-}
+
 
 }

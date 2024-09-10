@@ -140,9 +140,12 @@ export class SidebarComponent implements OnChanges, OnInit {
   }
 
   isSelectionMode: boolean = false;
+ @Output() viewChange  = new EventEmitter<'sidebar' | 'conversation' | 'info'>()
   setCurrentChat(user: any) {
       this.currentChat = user;
       this.userSevrice.currentChat.next(this.currentChat);
+      this.viewChange.emit('conversation')
+
   }
 
   createGroup() {

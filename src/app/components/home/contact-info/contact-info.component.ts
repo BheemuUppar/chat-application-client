@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -11,6 +11,8 @@ export class ContactInfoComponent implements OnInit {
   data: any;
   participants !:number
   currentChat: any;
+  @Output() viewChange  = new EventEmitter<'sidebar' | 'conversation' | 'info'>()
+
   constructor(private userService: UserService) {}
   ngOnInit(): void {
     this.userService.currenChat$.subscribe((chat: any) => {
@@ -38,5 +40,10 @@ export class ContactInfoComponent implements OnInit {
 
   closeInfoPage() {
     this.userService.contactInfoVisible = false;
+    this.changeView('info')
+  }
+
+  changeView(view: 'sidebar' | 'conversation' | 'info' ){
+    this.viewChange.emit(view)
   }
 }
