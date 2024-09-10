@@ -30,13 +30,13 @@ export class ConverstaionComponent
   imageLink: string = '';
   messageFiles: File[] = [];
   convertedFiles: any = [];
-  @Input() isSmallScreen :boolean = false
+  @Input() isSmallScreen: boolean = false;
 
   constructor(
     public userService: UserService,
     private socketService: SocketService,
     public dateService: DateService,
-    public utilService:UtilService
+    public utilService: UtilService
   ) {}
 
   ngAfterContentInit(): void {
@@ -63,7 +63,6 @@ export class ConverstaionComponent
       this.messages = this.getMessages();
       this.scrollToBottom();
     });
-
 
     // Scroll to the bottom of the messages div
     this.scrollToBottom();
@@ -171,7 +170,6 @@ export class ConverstaionComponent
     return this.userService.isOnline(id) ? 'online' : 'offline';
   }
 
-
   async fileUpload() {
     try {
       let files: any[] = await this.getInputFiles();
@@ -255,7 +253,6 @@ export class ConverstaionComponent
 
   ngOnDestroy(): void {}
 
-
   resetSelectedFiles() {
     this.messageFiles = [];
     (this.message_text = ''), (this.convertedFiles = []);
@@ -284,14 +281,17 @@ export class ConverstaionComponent
     });
   }
 
- showContactInfo() {
+  showContactInfo() {
     this.userService.contactInfoVisible = true;
-    this.changeView('info')
+    this.changeView('info');
   }
- @Output() viewChange  = new EventEmitter<'sidebar' | 'conversation' | 'info'>()
-  changeView(view: 'sidebar' | 'conversation' | 'info' ){
-    this.viewChange.emit(view)
+  @Output() viewChange = new EventEmitter<
+    'sidebar' | 'conversation' | 'info'
+  >();
+  changeView(view: 'sidebar' | 'conversation' | 'info') {
+    this.viewChange.emit(view);
+    if (view == 'sidebar') {
+      this.userService.currentChat.next(undefined);
+    }
   }
-
-
 }
