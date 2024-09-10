@@ -82,7 +82,10 @@ export class UserService {
   }
 
   getChatInfo(inbox_id:number){
-    return this.http.get('http://localhost:3000/users/chat/info/'+inbox_id)
+    return this.http.get('http://localhost:3000/users/group/info/'+inbox_id)
+  }
+  getChatInfoChat(user_id:number,inbox_id:number){
+    return this.http.get('http://localhost:3000/users/chat/info/'+user_id + '/' + inbox_id)
   }
   
 }
