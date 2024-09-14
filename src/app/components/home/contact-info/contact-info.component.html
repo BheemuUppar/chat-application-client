@@ -63,10 +63,10 @@
             </div>
             <!-- User Profile End -->
 
-            <div class="chat-info-group" *ngIf="!data.isgroup">
+            <div class="chat-info-group" >
                 <a class="chat-info-group-header" data-bs-toggle="collapse" data-bs-target="#profile-info" href="#profile-info" role="button"
                     aria-expanded="true" aria-controls="profile-info">
-                    <h6 class="mb-0">User Information</h6>
+                    <h6 class="mb-0">{{ !data.isgroup ? 'User Information' : 'Created By'}}</h6>
 
                     <!-- Default :: Inline SVG -->
                     <svg class="hw-20 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -84,16 +84,20 @@
                         <ul class="list-group list-group-flush ">
 
                             <!-- List Group Item Start -->
+                            <li class="list-group-item border-0" *ngIf="data.isgroup">
+                                <p class="small text-muted mb-0">Name</p>
+                                <p class="mb-0">{{data.created_by[0].name}}</p>
+                            </li>
                             <li class="list-group-item border-0">
                                 <p class="small text-muted mb-0">Phone</p>
-                                <p class="mb-0">{{data.mobile}}</p>
+                                <p class="mb-0">{{!data.isgroup ? data.mobile : data.created_by[0].mobile}}</p>
                             </li>
                             <!-- List Group Item End -->
 
                             <!-- List Group Item Start -->
                             <li class="list-group-item border-0">
                                 <p class="small text-muted mb-0">Email</p>
-                                <p class="mb-0">{{data.email}}</p>
+                                <p class="mb-0">{{!data.isgroup ? data.email : data.created_by[0].email}}</p>
                             </li>
                             <!-- List Group Item End -->
                             <!-- List Group Item End -->
@@ -185,7 +189,7 @@
                 <div class="chat-info-group-body collapse " id="shared-media">
                     <div class="chat-info-group-content">
                         <!-- Shared Media -->
-                        <div class="form-row">
+                        <div class="form-row" *ngIf="count.image > 0">
                             <ng-container *ngFor="let msg of data.messages">
                                 <div class="col-4 col-md-2 col-xl-4"
                                     *ngIf="msg.file_type == 'jpg' || msg.file_type == 'jpeg' || msg.file_type == 'png' ">
@@ -194,7 +198,9 @@
                                     </a>
                                 </div>
                             </ng-container>
-
+                        </div>
+                        <div  *ngIf="count.image ==  0">
+                            No Media
                         </div>
                     </div>
                 </div>
@@ -220,7 +226,7 @@
                 <div class="chat-info-group-body collapse" id="shared-files">
                     <div class="chat-info-group-content list-item-has-padding">
                         <!-- List Group Start -->
-                        <ul class="list-group list-group-flush">
+                        <ul class="list-group list-group-flush" *ngIf="count.document > 0">
 
                             <!-- List Group Item Start -->
                             <ng-container *ngFor="let msg of data.messages">
@@ -286,6 +292,9 @@
 
 
                         </ul>
+                        <div  *ngIf="count.document ==  0">
+                            No Documents
+                        </div>
                         <!-- List Group End -->
                     </div>
                 </div>

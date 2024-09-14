@@ -83,7 +83,7 @@
                         <small class="last_msg" *ngIf="user.last_message">{{user.sender_id == userSevrice.user.user_id ?
                             'You : '+ user.last_message : user.last_message }}</small>
                         <small class="last_msg" *ngIf="!user.last_message && user.message_file == null"><b
-                                style="font-style: italic;">Draft</b></small>
+                                style="font-style: italic;">No Messages</b></small>
                         <small class="last_msg" *ngIf="user.message_file ">
                             {{user.sender_id == userSevrice.user.user_id ?
                             'You : '+ 'Sent a file' : ' Received a file' }}
@@ -181,7 +181,7 @@
                                 userSevrice.user.user_id ?
                                 'You : '+ user.last_message :user.last_message }}</small>
                             <small class="last_msg" *ngIf="!user.last_message"><b
-                                    style="font-style: italic;">Draft</b></small>
+                                    style="font-style: italic;">No Messages</b></small>
 
                         </div>
                         <div class="status flex-grow-1">
