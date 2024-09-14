@@ -81,9 +81,17 @@ export class HomeComponent implements OnInit, AfterViewInit{
 
   private applyResponsiveStyles() {
     // Example to hide all initially; make current view visible using z-index
-    this.sidebar.nativeElement.style.zIndex = this.currentView === 'sidebar' ? '3' : '1';
-    this.conversation.nativeElement.style.zIndex = this.currentView === 'conversation' ? '3' : '1';
-    this.info.nativeElement.style.zIndex = this.currentView === 'info' ? '3' : '1';
+    if(this.sidebar ){
+      this.sidebar.nativeElement.style.zIndex = this.currentView === 'sidebar' ? '3' : '1';
+    }
+    if( this.conversation){
+
+      this.conversation.nativeElement.style.zIndex = this.currentView === 'conversation' ? '3' : '1';
+    }
+    if( this.info){
+
+      this.info.nativeElement.style.zIndex = this.currentView === 'info' ? '3' : '1';
+    }
   }
 
   private resetStyles() {

@@ -59,9 +59,9 @@ svg {
   height: 20px;
 }
 
-* {
+/* * {
   transition: all 0.5s;
-}
+} */
 html,
 body {
   height: 100%;

@@ -63,6 +63,12 @@ export class ConverstaionComponent
       this.messages = this.getMessages();
       this.scrollToBottom();
     });
+    this.socketService.on('msgDeleted', (data) => {
+     this.getMessages()
+    });
+    this.socketService.on('failedToDeleteMessage', (data) => {
+     console.log('failed to delete message ')
+    });
 
     // Scroll to the bottom of the messages div
     this.scrollToBottom();
@@ -77,6 +83,8 @@ export class ConverstaionComponent
       this.sendMessage();
     }
   }
+
+
 
   scrollToBottom() {
     setTimeout(() => {
@@ -293,5 +301,9 @@ export class ConverstaionComponent
     if (view == 'sidebar') {
       this.userService.currentChat.next(undefined);
     }
+  }
+
+  deleteMessage(msg:any){
+    this.socketService.emit('deleteMessage', {message_id:msg.message_id, inbox_id:msg.inbox_id})
   }
 }

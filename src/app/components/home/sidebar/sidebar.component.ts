@@ -37,7 +37,7 @@ export class SidebarComponent implements OnChanges, OnInit {
     public userSevrice: UserService,
     public dateService: DateService,
     private socketService: SocketService,
-    private router:Router
+    private router: Router
   ) {
     this.user = this.userSevrice.user;
     this.getInbox();
@@ -54,7 +54,6 @@ export class SidebarComponent implements OnChanges, OnInit {
       console.log('Message received event triggered', messages);
       //  this.incomingMessage = messages;
       this.getInbox();
-      
     });
 
     this.socketService.on('onlineusers', (data) => {
@@ -76,12 +75,14 @@ export class SidebarComponent implements OnChanges, OnInit {
     });
   }
 
-
-  @Output() markAsRead = new EventEmitter()
+  @Output() markAsRead = new EventEmitter();
   readCurrentChatMessage() {
     for (let user of this.myChatUsers) {
-      if ( user.contact_id == this.currentChat.contact_id && user.unread_count > 0 ) {
-        this.markAsRead.emit()
+      if (
+        user.contact_id == this.currentChat.contact_id &&
+        user.unread_count > 0
+      ) {
+        this.markAsRead.emit();
         break;
       }
     }
@@ -107,24 +108,26 @@ export class SidebarComponent implements OnChanges, OnInit {
 
   startChat(user: any) {
     let isExist = -1;
+    // check if user exist in inbox already
     for (let i = 0; i < this.myChatUsers.length; i++) {
       if (this.myChatUsers[i].contact_id == user.contact_id) {
         isExist = i;
-        break;
+        break; // break if you found in inbox 
       }
     }
     if (isExist >= 0) {
       let temp = this.myChatUsers[isExist];
       this.myChatUsers.splice(isExist, 1);
-      this.myChatUsers.unshift(user);
+      this.myChatUsers.unshift(temp);
+      this.currentChat = this.myChatUsers[0];
+      this.searchText = '';
+      this.users = undefined;
     } else {
       this.myChatUsers.unshift(user);
+      this.currentChat = user;
     }
-
-    this.searchText = '';
-    this.users = undefined;
-    this.currentChat = user;
-    console.log('setting..')
+    console.log(this.myChatUsers)
+   
     this.userSevrice.currentChat.next(this.currentChat);
     this.currentPage = undefined;
   }
@@ -140,12 +143,13 @@ export class SidebarComponent implements OnChanges, OnInit {
   }
 
   isSelectionMode: boolean = false;
- @Output() viewChange  = new EventEmitter<'sidebar' | 'conversation' | 'info'>()
+  @Output() viewChange = new EventEmitter<
+    'sidebar' | 'conversation' | 'info'
+  >();
   setCurrentChat(user: any) {
-      this.currentChat = user;
-      this.userSevrice.currentChat.next(this.currentChat);
-      this.viewChange.emit('conversation')
-
+    this.currentChat = user;
+    this.userSevrice.currentChat.next(this.currentChat);
+    this.viewChange.emit('conversation');
   }
 
   createGroup() {
@@ -160,8 +164,8 @@ export class SidebarComponent implements OnChanges, OnInit {
     this.userSevrice.createGroup(formData).subscribe({
       next: (res) => {
         this.socketService.emit('groupCreated', this.selectedUsers);
-        alert("Group Created")
-        this.goTo(undefined)
+        alert('Group Created');
+        this.goTo(undefined);
         console.log('after group create');
       },
     });
@@ -203,16 +207,15 @@ export class SidebarComponent implements OnChanges, OnInit {
       this.groupImage = reader.result;
     };
   }
-  logout(){
+  logout() {
     localStorage.clear();
     sessionStorage.clear();
-    this.router.navigateByUrl('/auth/login')
-
+    this.router.navigateByUrl('/auth/login');
   }
-  getOnlineStatusClass(contact:any){
-    if(contact.isgroup ){
-      return ''
+  getOnlineStatusClass(contact: any) {
+    if (contact.isgroup) {
+      return '';
     }
-    return this.userSevrice.isOnline(contact.contact_id) ? 'online':'offline'
+    return this.userSevrice.isOnline(contact.contact_id) ? 'online' : 'offline';
   }
 }
