@@ -1,0 +1,22 @@
+::ng-deep .cdk-global-overlay-wrapper {
+  align-items: center;
+}
+::ng-deep .mat-mdc-dialog-surface {
+  /* background: transparent !important; */
+  background: rgb(34, 37, 34, 0.5) !important;
+  color: white;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.modal-body {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
+.modal-body .image, .modal-body .video{
+    cursor: pointer;
+}

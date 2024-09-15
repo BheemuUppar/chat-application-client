@@ -21,7 +21,9 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { FilteruserPipe } from './pipes/filteruser.pipe';
-import { ContactInfoComponent } from './components/home/contact-info/contact-info.component'
+import { ContactInfoComponent } from './components/home/contact-info/contact-info.component';
+import { FilePreviewComponent } from './components/shared/file-preview/file-preview.component';
+import { MatDialogModule} from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +36,8 @@ import { ContactInfoComponent } from './components/home/contact-info/contact-inf
     SidebarComponent,
     ConverstaionComponent,
     FilteruserPipe,
-    ContactInfoComponent
+    ContactInfoComponent,
+    FilePreviewComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,7 @@ import { ContactInfoComponent } from './components/home/contact-info/contact-inf
     FormsModule,
     MatCheckboxModule,
     BrowserAnimationsModule, 
-    MatButtonModule, MatMenuModule, MatIconModule,MatTooltipModule
+    MatButtonModule, MatMenuModule, MatIconModule,MatTooltipModule,  MatDialogModule,
   ],
   providers: [DateService],
   bootstrap: [AppComponent]

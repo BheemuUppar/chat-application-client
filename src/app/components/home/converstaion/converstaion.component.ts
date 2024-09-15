@@ -47,15 +47,21 @@ export class ConverstaionComponent
   ngOnInit(): void {
     this.user = this.userService.user;
     this.userService.currenChat$.subscribe((user: any) => {
-      this.currentChat = user;
-      this.resetSelectedFiles();
-      this.getMessages();
-      this.scrollToBottom();
+      if( this.currentChat == undefined ||  this.currentChat.contact_id != user.contact_id || this.currentChat.unread_count > 0){
+        console.log('contact updated')
+        this.currentChat = user;
+        this.resetSelectedFiles();
+        this.getMessages();
+        this.scrollToBottom();
+      }
     });
     this.userService.readNewMessage$.subscribe(() => {
       console.log('mesage subscribe..');
-      this.getMessages();
-      this.scrollToBottom();
+      if(this.currentChat.unread_count > 0){
+
+        this.getMessages();
+        this.scrollToBottom();
+      }
     });
 
     // Listening for 'sent' event (for sender confirmation)
@@ -74,9 +80,12 @@ export class ConverstaionComponent
     // Scroll to the bottom of the messages div
     this.scrollToBottom();
   }
+
   @Input() msgUpdate: any;
   ngOnChanges(changes: SimpleChanges): void {
-    this.getMessages();
+    if(this.currentChat.unread_count > 0){
+      this.getMessages();
+    }
   }
 
   onEnterPress(event: KeyboardEvent) {
@@ -99,7 +108,7 @@ export class ConverstaionComponent
   }
 
   getMessages() {
-    if (this.currentChat) {
+    if (this.currentChat ) {
       this.userService.getAllMessages(this.currentChat.inbox_id).subscribe({
         next: async (res: any) => {
           this.messages = await res;
@@ -316,4 +325,6 @@ export class ConverstaionComponent
       inbox_id: msg.inbox_id,
     });
   }
+
+  
 }

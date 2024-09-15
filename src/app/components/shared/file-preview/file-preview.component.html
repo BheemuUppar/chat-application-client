@@ -1,0 +1,19 @@
+<div class="header d-flex justify-content-between align-items-center">
+    <h6 class="text-center">{{data.fileName}}</h6>
+    <div>
+        <button class="btn btn-sm text-light " (click)="closeDialog()">
+            <svg class="hw-22" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="image bg-black" *ngIf="utilService.getFileType(data.fileType) == 'image'">
+        <img [src]="data.file" height="500" width="600" alt="">
+    </div>
+    <div class="video bg-black" *ngIf="utilService.getFileType(data.fileType) == 'video'">
+        <video [src]="data.file" height="500" controls width="600" autoplay></video>
+    </div>
+</div>

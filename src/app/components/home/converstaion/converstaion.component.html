@@ -76,7 +76,7 @@
             <div class="message-content msg_image"
               *ngIf="msg.message_file && utilService.getFileType(msg.file_type) == 'image' ">
               <div class="document">
-                <div class="document-body">
+                <div class="document-body" (click)="utilService.openPreview(msg.message_file, msg.file_name, msg.file_type )">
                   <img [src]="msg.message_file" alt="">
                 </div>
               </div>
@@ -85,11 +85,11 @@
             <div class="message-content msg_image"
               *ngIf="msg.message_file && utilService.getFileType(msg.file_type) === 'video'">
               <div class="document">
-                <div class="document-body">
+                <div class="document-body" >
                   <!-- Video element -->
                   <video [src]="msg.message_file" height="240" width="240" ></video>
                   <!-- Play button SVG -->
-                  <div class="play-button">
+                  <div class="play-button" (click)="utilService.openPreview(msg.message_file, msg.file_name, msg.file_type )">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="play-icon">
                       <path d="M8 5v14l11-7z" />
                     </svg>

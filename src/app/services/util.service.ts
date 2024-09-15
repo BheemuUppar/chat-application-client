@@ -1,57 +1,11 @@
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { FilePreviewComponent } from '../components/shared/file-preview/file-preview.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UtilService {
-  constructor() {}
-
-  downloadFile(base64String: string, fileName: string, fileType: string) {
-    // Remove any headers, if present (e.g., "data:application/pdf;base64,")
-    const cleanedBase64 = base64String.split(',')[1] || base64String;
-
-    try {
-      // Decode the base64 string to binary data
-      const byteCharacters = atob(cleanedBase64);
-      const byteNumbers = new Array(byteCharacters.length);
-
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
-
-      const byteArray = new Uint8Array(byteNumbers);
-      const blob = new Blob([byteArray], { type: fileType });
-
-      // Create a link element and set the href to the blob URL
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = fileName;
-
-      // Append the link to the body, trigger the click, and remove the link
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      // Revoke the object URL to free up memory
-      URL.revokeObjectURL(link.href);
-    } catch (error) {
-      console.error('Error decoding base64 string:', error);
-      alert(
-        'Failed to decode the base64 string. Please ensure the format is correct.'
-      );
-    }
-  }
-
-  formatBytes(bytes: number): string {
-    if (bytes < 1024) {
-      return `${bytes} B`;
-    } else if (bytes < 1024 * 1024) {
-      return `${(bytes / 1024).toFixed(2)} KB`;
-    } else {
-      return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
-    }
-  }
-
   fileTypeMap: any = {
     // Video files
     mp4: 'video',
@@ -139,7 +93,69 @@ export class UtilService {
     sh: 'code',
   };
 
+  constructor(private dialog : MatDialog) {}
+
+  downloadFile(base64String: string, fileName: string, fileType: string) {
+    // Remove any headers, if present (e.g., "data:application/pdf;base64,")
+    const cleanedBase64 = base64String.split(',')[1] || base64String;
+
+    try {
+      // Decode the base64 string to binary data
+      const byteCharacters = atob(cleanedBase64);
+      const byteNumbers = new Array(byteCharacters.length);
+
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: fileType });
+
+      // Create a link element and set the href to the blob URL
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = fileName;
+
+      // Append the link to the body, trigger the click, and remove the link
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Revoke the object URL to free up memory
+      URL.revokeObjectURL(link.href);
+    } catch (error) {
+      console.error('Error decoding base64 string:', error);
+      alert(
+        'Failed to decode the base64 string. Please ensure the format is correct.'
+      );
+    }
+  }
+
+  formatBytes(bytes: number): string {
+    if (bytes < 1024) {
+      return `${bytes} B`;
+    } else if (bytes < 1024 * 1024) {
+      return `${(bytes / 1024).toFixed(2)} KB`;
+    } else {
+      return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+    }
+  }
+
+  
+
   getFileType(file_type: string) {
     return this.fileTypeMap[file_type] ? this.fileTypeMap[file_type] : '';
+  }
+
+  openPreview(file:string, fileName:string, fileType:string){
+    let dialogRef = this.dialog.open(FilePreviewComponent , {
+      disableClose:true,
+      hasBackdrop:true,
+      height:'97vh',
+      width:'98vw',
+      maxWidth:'98vw',
+      data:{file:file, fileName:fileName , fileType :fileType},
+      
+    })
   }
 }
