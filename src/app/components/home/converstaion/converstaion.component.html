@@ -1,8 +1,9 @@
 <div class="bg-transparent d-flex flex-column h-100" *ngIf="currentChat">
   <nav class="d-flex p-4">
     <button *ngIf="isSmallScreen == true" class="btn-transparent" (click)="changeView('sidebar')">
-       <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 448 512">
-        <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 448 512">
+        <path
+          d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
       </svg>
     </button>
     <div class="userInfo d-flex gap-3 align-items-center" (click)="showContactInfo()">
@@ -22,7 +23,7 @@
   </nav>
 
 
-  <div class="chat-content p-2 messages flex-grow-1" id="messageBody">
+  <div class="chat-content p-2 messages flex-grow-1" id="messageBody" *ngIf="messageFiles.length == 0">
     <div class="container">
 
       <!-- Message Day Start -->
@@ -34,7 +35,7 @@
               <span>{{msg.message_text}}</span>
             </div>
             <div class="message-content"
-              *ngIf="msg.message_file && msg.file_type != 'png' && msg.file_type !='jpg'  && msg.file_type !='jpeg' ">
+              *ngIf="msg.message_file &&  utilService.getFileType(msg.file_type) == 'document' ">
               <div class="document">
                 <div class="btn btn-primary btn-icon rounded-circle text-light mr-2"
                   (click)="utilService.downloadFile(msg.message_file, msg.file_name, msg.mime_type )">
@@ -71,15 +72,32 @@
                 </div>
               </div>
             </div>
-
+            <!-- for image -->
             <div class="message-content msg_image"
-              *ngIf="msg.message_file && msg.file_type == 'png' || msg.file_type =='jpg'  || msg.file_type =='jpeg' ">
+              *ngIf="msg.message_file && utilService.getFileType(msg.file_type) == 'image' ">
               <div class="document">
                 <div class="document-body">
                   <img [src]="msg.message_file" alt="">
                 </div>
               </div>
             </div>
+            <!-- for video -->
+            <div class="message-content msg_image"
+              *ngIf="msg.message_file && utilService.getFileType(msg.file_type) === 'video'">
+              <div class="document">
+                <div class="document-body">
+                  <!-- Video element -->
+                  <video [src]="msg.message_file" height="240" width="240" ></video>
+                  <!-- Play button SVG -->
+                  <div class="play-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="play-icon">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
           <div class="message-options">
             <div class="avatar avatar-sm">
@@ -87,7 +105,7 @@
             </div>
             <span class="message-date">{{dateService.formatDate(msg.sent_at)}}</span>
             <div class="dropdown" *ngIf="msg.sender_id == user.user_id">
-              <a class="toggler" href="#" data-bs-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
+              <a class="toggler" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <svg class="hw-18" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z">
@@ -96,9 +114,10 @@
 
               </a>
 
-              <div class="dropdown-menu" >
-               
-                <a class="dropdown-item d-flex align-items-center text-danger gap-2" href="#" (click)="deleteMessage(msg)">
+              <div class="dropdown-menu">
+
+                <a class="dropdown-item d-flex align-items-center text-danger gap-2" href="#"
+                  (click)="deleteMessage(msg)">
                   <!-- Default :: Inline SVG -->
                   <svg class="hw-18 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -115,13 +134,6 @@
           </div>
         </div>
         <!-- Received Message End -->
-
-
-
-
-
-
-
 
       </div>
     </div>
@@ -141,7 +153,10 @@
           <img [src]="imageLink" alt="" style="height: 39vh;">
         </div>
       </div>
-      <div *ngIf="messageFiles[0].type != 'image/png'">
+      <div class="text-center" *ngIf="videoLink">
+        <video [src]="videoLink" controls height="290"></video>
+      </div>
+      <div *ngIf="messageFiles[0].type != 'image/png' && !videoLink">
         <span class="d-flex flex-column align-items-center">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" style="height:39vh; width:50vw"
             fill="currentColor">

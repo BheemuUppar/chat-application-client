@@ -31,6 +31,7 @@ export class ConverstaionComponent
   messageFiles: File[] = [];
   convertedFiles: any = [];
   @Input() isSmallScreen: boolean = false;
+  videoLink: unknown;
 
   constructor(
     public userService: UserService,
@@ -64,10 +65,10 @@ export class ConverstaionComponent
       this.scrollToBottom();
     });
     this.socketService.on('msgDeleted', (data) => {
-     this.getMessages()
+      this.getMessages();
     });
     this.socketService.on('failedToDeleteMessage', (data) => {
-     console.log('failed to delete message ')
+      console.log('failed to delete message ');
     });
 
     // Scroll to the bottom of the messages div
@@ -83,8 +84,6 @@ export class ConverstaionComponent
       this.sendMessage();
     }
   }
-
-
 
   scrollToBottom() {
     setTimeout(() => {
@@ -120,6 +119,7 @@ export class ConverstaionComponent
       this.sendMedia();
       return;
     }
+    console.log('after sending media')
     if (this.message_text.trim() == '') {
       alert('Nothing to send');
       this.message_text = '';
@@ -190,7 +190,8 @@ export class ConverstaionComponent
       if (this.messageFiles[0].type == 'image/png') {
         await this.getImageLink(this.messageFiles[0]);
       }
-      if (files.length == 0) {
+      if (this.messageFiles[0].type.startsWith('video/')) {
+        this.videoLink = await this.getImageLink(this.messageFiles[0]);
       }
     } catch (error) {
       console.error('Error fetching files:', error);
@@ -203,12 +204,15 @@ export class ConverstaionComponent
       message_text: this.message_text,
       sender_id: this.user.user_id,
     };
+
+    console.log(JSON.stringify(payload))
+
     if (this.currentChat.isgroup == true) {
-      (payload['inbox_id'] = this.currentChat.inbox_id),
-        this.socketService.emit('sendToGroup', payload);
+      payload['inbox_id'] = this.currentChat.inbox_id;
+      this.socketService.emit('sendToGroup', payload);
     } else {
-      (payload['receiver_id'] = this.currentChat.contact_id),
-        this.socketService.emit('sendMessage', payload);
+      payload['receiver_id'] = this.currentChat.contact_id;
+      this.socketService.emit('sendMessage', payload);
     }
     this.resetSelectedFiles();
   }
@@ -265,6 +269,7 @@ export class ConverstaionComponent
     this.messageFiles = [];
     (this.message_text = ''), (this.convertedFiles = []);
     this.imageLink = '';
+    this.videoLink = undefined;
   }
 
   getImageLink(file: File) {
@@ -274,7 +279,9 @@ export class ConverstaionComponent
       // Define what happens when the file is loaded
       reader.onload = (e: any) => {
         // Resolve the promise with the data URL of the loaded image
-        this.imageLink = e.target.result;
+        if(!file.type.startsWith('video/')){
+          this.imageLink = e.target.result;
+        }
 
         resolve(e.target.result);
       };
@@ -303,7 +310,10 @@ export class ConverstaionComponent
     }
   }
 
-  deleteMessage(msg:any){
-    this.socketService.emit('deleteMessage', {message_id:msg.message_id, inbox_id:msg.inbox_id})
+  deleteMessage(msg: any) {
+    this.socketService.emit('deleteMessage', {
+      message_id: msg.message_id,
+      inbox_id: msg.inbox_id,
+    });
   }
 }

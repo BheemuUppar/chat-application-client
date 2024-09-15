@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UtilService {
-
-  constructor() { }
+  constructor() {}
 
   downloadFile(base64String: string, fileName: string, fileType: string) {
     // Remove any headers, if present (e.g., "data:application/pdf;base64,")
@@ -51,5 +50,96 @@ export class UtilService {
     } else {
       return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
     }
+  }
+
+  fileTypeMap: any = {
+    // Video files
+    mp4: 'video',
+    avi: 'video',
+    mov: 'video',
+    mkv: 'video',
+    flv: 'video',
+    wmv: 'video',
+    webm: 'video',
+    mpg: 'video',
+    mpeg: 'video',
+    '3gp': 'video',
+    rm: 'video',
+    rmvb: 'video',
+    ts: 'video',
+    mts: 'video',
+    m2ts: 'video',
+    ogv: 'video',
+    drc: 'video',
+    xvid: 'video',
+    divx: 'video',
+    vob: 'video',
+    asf: 'video',
+    h264: 'video',
+    h265: 'video',
+    m4v: 'video',
+
+    // Image files
+    jpg: 'image',
+    jpeg: 'image',
+    png: 'image',
+    gif: 'image',
+    bmp: 'image',
+    tiff: 'image',
+    svg: 'image',
+    ico: 'image',
+    webp: 'image',
+
+    // Document files
+    pdf: 'document',
+    doc: 'document',
+    docx: 'document',
+    xls: 'document',
+    xlsx: 'document',
+    ppt: 'document',
+    pptx: 'document',
+    txt: 'document',
+    rtf: 'document',
+    odt: 'document',
+    ods: 'document',
+    odp: 'document',
+
+    // Audio files
+    mp3: 'audio',
+    wav: 'audio',
+    ogg: 'audio',
+    aac: 'audio',
+    flac: 'audio',
+    m4a: 'audio',
+    wma: 'audio',
+    alac: 'audio',
+
+    // Archive files
+    zip: 'archive',
+    rar: 'archive',
+    tar: 'archive',
+    gz: 'archive',
+    '7z': 'archive',
+    bz2: 'archive',
+    iso: 'archive',
+
+    // Code files
+    html: 'code',
+    css: 'code',
+    js: 'code',
+    json: 'code',
+    xml: 'code',
+    java: 'code',
+    py: 'code',
+    c: 'code',
+    cpp: 'code',
+    h: 'code',
+    rb: 'code',
+    php: 'code',
+    sh: 'code',
+  };
+
+  getFileType(file_type: string) {
+    return this.fileTypeMap[file_type] ? this.fileTypeMap[file_type] : '';
   }
 }

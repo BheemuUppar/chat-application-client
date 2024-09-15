@@ -272,3 +272,33 @@ nav {
 .dropdown .toggler{
   color: #adb5bd !important;
 }
+
+.message-content {
+  position: relative;
+}
+
+.document-body {
+  position: relative;
+}
+
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px; /* Size of the play button */
+  height: 50px; /* Size of the play button */
+}
+
+.play-icon {
+  width: 24px; /* Size of the SVG icon */
+  height: 24px; /* Size of the SVG icon */
+}

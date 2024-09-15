@@ -77,6 +77,10 @@
     width: 100%;
     border-radius: 50%;
 }
+.avatar.big{
+    height: 10rem;
+    width: 10rem;
+}
 .injectable{
     border-radius: 50%;
     width: 5rem;
