@@ -238,8 +238,8 @@
 
         </div>
     </nav>
-    <div>
-        <div class="groupProfile">
+    <div class="groupProfile">
+        <div >
             <img [src]="this.groupImage" appDefaultImage alt="Group profile" height="70" width="70">
             <input type="file" name="group_profile" accept="image/png" id="group_profile"
                 (input)="onGroupProfileUpload($event)">
@@ -248,7 +248,7 @@
             </div>
         </div>
     </div>
-    <div style="position: fixed;bottom: 30;">
+    <div >
         <button mat-button color="primary" class="float-end" (click)="createGroup()">Create</button>
     </div>
 

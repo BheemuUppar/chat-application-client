@@ -132,3 +132,19 @@ cursor: pointer;
   width: 143px;
   display: block;
 }
+
+#saveGroupInfo{
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+#saveGroupInfo .groupProfile{
+flex-grow: 1;
+}
+#saveGroupInfo .groupProfile img{
+  height: 240px;
+    width: 240px;
+    border-radius: 50%;
+}
