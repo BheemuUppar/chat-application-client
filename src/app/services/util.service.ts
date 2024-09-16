@@ -147,14 +147,14 @@ export class UtilService {
     return this.fileTypeMap[file_type] ? this.fileTypeMap[file_type] : '';
   }
 
-  openPreview(file:string, fileName:string, fileType:string){
+  openPreview(file:string, fileName:string, fileType:string, mimeType:string){
     let dialogRef = this.dialog.open(FilePreviewComponent , {
       disableClose:true,
       hasBackdrop:true,
       height:'97vh',
       width:'98vw',
       maxWidth:'98vw',
-      data:{file:file, fileName:fileName , fileType :fileType},
+      data:{file:file, fileName:fileName , fileType :fileType, mimeType:mimeType},
       
     })
   }

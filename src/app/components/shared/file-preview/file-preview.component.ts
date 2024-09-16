@@ -12,7 +12,7 @@ export class FilePreviewComponent {
     private dialogRef: MatDialogRef<FilePreviewComponent>,
     public utilService :UtilService,
     @Inject(MAT_DIALOG_DATA)
-    public data: { file: string; fileName: string; fileType: string }
+    public data: { file: string; fileName: string; fileType: string, mimeType:string }
   ) {
     console.log(data);
   }

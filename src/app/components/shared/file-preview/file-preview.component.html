@@ -1,10 +1,17 @@
 <div class="header d-flex justify-content-between align-items-center">
     <h6 class="text-center">{{data.fileName}}</h6>
     <div>
-        <button class="btn btn-sm text-light " (click)="closeDialog()">
+        <button class="btn btn-sm text-light" (click)="utilService.downloadFile(data.file, data.fileName, data.mimeType )">
+            <svg viewBox="0 0 24 24" height="24" width="24" fill="currentColor" preserveAspectRatio="xMidYMid meet" class="" version="1.1"
+                x="0px" y="0px" enable-background="new 0 0 24 24">
+                <title>download</title>
+                <path fill="currentColor" d="M18.9,10.3h-4V4.4H9v5.9H5l6.9,6.9L18.9,10.3z M5.1,19.2v2H19v-2H5.1z">
+                </path>
+            </svg>
+        </button>
+        <button class="btn btn-sm text-light" (click)="closeDialog()">
             <svg class="hw-22" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M6 18L18 6M6 6l12 12"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
         </button>
     </div>
