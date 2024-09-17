@@ -148,3 +148,93 @@ flex-grow: 1;
     width: 240px;
     border-radius: 50%;
 }
+
+
+
+.groupProfile {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.image-wrapper {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  cursor: pointer;
+}
+
+.image-wrapper img {
+  border-radius: 50%;
+}
+
+.hover-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Spacing between the icons */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.image-wrapper:hover .hover-icon {
+  opacity: 1;
+  pointer-events: all;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.search_users {
+  margin-left: 10px;
+  width: 100%;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-wrapper:hover .overlay {
+  opacity: 1;
+}
+
+.btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-sm {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.8); /* White background for better visibility */
+}
+
+
+#newGroup{
+  display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+#newGroup .chat_list_wrapper{
+  flex-grow: 1;
+    overflow-x: hidden;
+    font-size: 12px;
+}

@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { DateService } from 'src/app/services/date.service';
 import { SocketService } from 'src/app/services/socket.service';
 import { UserService } from 'src/app/services/user.service';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -37,7 +38,8 @@ export class SidebarComponent implements OnChanges, OnInit {
     public userSevrice: UserService,
     public dateService: DateService,
     private socketService: SocketService,
-    private router: Router
+    private router: Router,
+    private utilService:UtilService
   ) {
     this.user = this.userSevrice.user;
     this.getInbox();
@@ -166,7 +168,7 @@ export class SidebarComponent implements OnChanges, OnInit {
         this.socketService.emit('groupCreated', this.selectedUsers);
         alert('Group Created');
         this.goTo(undefined);
-        console.log('after group create');
+        this.getInbox()
       },
     });
   }
@@ -218,4 +220,19 @@ export class SidebarComponent implements OnChanges, OnInit {
     }
     return this.userSevrice.isOnline(contact.contact_id) ? 'online' : 'offline';
   }
+
+  changeProfile(){
+    console.log("change profile clicked...")
+  }
+
+  triggerFileInput() {
+    const fileInput = document.getElementById('group_profile') as HTMLInputElement;
+    fileInput.click();
+  }
+
+  // previewFile(){
+    
+  //   console.log('preview clicked', this.groupImage, Date.now() +'', 'image', 'image/jpeg' )
+  //   // this.utilService.openPreview(this.groupImage, Date.now() +'', 'image', 'image/jpeg' )
+  // }
 }
