@@ -25,6 +25,7 @@ import { ContactInfoComponent } from './components/home/contact-info/contact-inf
 import { FilePreviewComponent } from './components/shared/file-preview/file-preview.component';
 import { MatDialogModule} from '@angular/material/dialog';
 import { UserProfileComponent } from './components/home/sidebar/user-profile/user-profile.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,8 +51,9 @@ import { UserProfileComponent } from './components/home/sidebar/user-profile/use
     MatCheckboxModule,
     BrowserAnimationsModule, 
     MatButtonModule, MatMenuModule, MatIconModule,MatTooltipModule,  MatDialogModule,
+    MatSnackBarModule
   ],
-  providers: [DateService],
+  providers: [DateService, MatSnackBar],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

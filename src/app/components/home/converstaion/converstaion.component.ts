@@ -130,7 +130,7 @@ export class ConverstaionComponent
     }
     console.log('after sending media')
     if (this.message_text.trim() == '') {
-      alert('Nothing to send');
+      this.utilService.openSnackBar('Nothing to send')
       this.message_text = '';
       return;
     }

@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { jwtDecode } from 'jwt-decode';
 import { UserService } from 'src/app/services/user.service';
 import { SocketService } from 'src/app/services/socket.service';
+import { UtilService } from 'src/app/services/util.service';
 
 interface User {
   user_id: string;
@@ -25,7 +26,7 @@ export class LoginComponent {
     private authService: AuthService,
     private router: Router,
     private userService: UserService,
-    private socket: SocketService
+    private utilService: UtilService
   ) {
     if (localStorage.getItem('token')) this.router.navigateByUrl('/');
   }
@@ -38,14 +39,14 @@ export class LoginComponent {
 
   login() {
     if (!this.username || !this.password) {
-      alert('Enter credentials to login');
+      this.utilService.openSnackBar('Enter credentials to login');
       return;
     }
     this.authService
       .loginUser({ username: this.username, password: this.password })
       .subscribe({
         next: (res: any) => {
-          alert(res.message);
+          this.utilService.openSnackBar(res.message);
 
           let decoded: User = jwtDecode(res.token);
           console.log(decoded);
@@ -57,7 +58,7 @@ export class LoginComponent {
         },
         error: (error) => {
           console.log(error);
-          alert(error.error.message);
+          this.utilService.openSnackBar(error.error.message);
         },
       });
   }

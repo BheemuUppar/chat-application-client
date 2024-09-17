@@ -166,7 +166,7 @@ export class SidebarComponent implements OnChanges, OnInit {
     this.userSevrice.createGroup(formData).subscribe({
       next: (res) => {
         this.socketService.emit('groupCreated', this.selectedUsers);
-        alert('Group Created');
+        this.utilService.openSnackBar("Group Created");
         this.goTo(undefined);
         this.getInbox()
       },
@@ -185,7 +185,7 @@ export class SidebarComponent implements OnChanges, OnInit {
 
   next() {
     if (this.selectedUsers.length == 0) {
-      alert('Select users to proceed');
+      this.utilService.openSnackBar('Select users to proceed');
       return;
     }
     this.goTo('saveGroupInfo');

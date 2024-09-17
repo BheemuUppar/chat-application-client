@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +22,8 @@ export class RegisterComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private utilService: UtilService
   ) {
     this.registerForm = fb.group({
       name: ['', Validators.required],
@@ -74,11 +76,11 @@ export class RegisterComponent {
 
     this.authService.registerUser(params).subscribe({
       next: (res: any) => {
-        alert(res.message);
+        this.utilService.openSnackBar(res.message);
         this.router.navigateByUrl('/auth/login');
       },
       error: (err) => {
-        alert(err.error.message);
+        this.utilService.openSnackBar(err.error.message);
       },
     });
   }

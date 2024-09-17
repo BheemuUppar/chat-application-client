@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FilePreviewComponent } from '../components/shared/file-preview/file-preview.component';
-
+import {MatSnackBar} from '@angular/material/snack-bar';
 @Injectable({
   providedIn: 'root',
 })
 export class UtilService {
+  private _snackBar = inject(MatSnackBar);
   fileTypeMap: any = {
     // Video files
     mp4: 'video',
@@ -93,7 +94,7 @@ export class UtilService {
     sh: 'code',
   };
 
-  constructor(private dialog : MatDialog) {}
+  constructor(private dialog : MatDialog, ) {}
 
   downloadFile(base64String: string, fileName: string, fileType: string) {
     // Remove any headers, if present (e.g., "data:application/pdf;base64,")
@@ -125,9 +126,9 @@ export class UtilService {
       URL.revokeObjectURL(link.href);
     } catch (error) {
       console.error('Error decoding base64 string:', error);
-      alert(
-        'Failed to decode the base64 string. Please ensure the format is correct.'
-      );
+      
+      this.openSnackBar('failed to download');
+      
     }
   }
 
@@ -140,8 +141,6 @@ export class UtilService {
       return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
     }
   }
-
-  
 
   getFileType(file_type: string) {
     return this.fileTypeMap[file_type] ? this.fileTypeMap[file_type] : '';
@@ -157,5 +156,14 @@ export class UtilService {
       data:{file:file, fileName:fileName , fileType :fileType, mimeType:mimeType},
       
     })
+  }
+
+  
+  openSnackBar(message: string, action: string = 'close') {
+    this._snackBar.open(message, action, {
+    horizontalPosition:'right',
+    verticalPosition:'top',
+    duration:1000
+    });
   }
 }

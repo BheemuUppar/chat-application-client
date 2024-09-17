@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -12,7 +13,7 @@ export class UserProfileComponent {
   profileFile : any;
 
 
-  constructor(private userService:UserService){
+  constructor(private userService:UserService, private utilService:UtilService){
 
   }
 
@@ -53,14 +54,15 @@ export class UserProfileComponent {
       this.userService.saveProfilePic(id, this.profileFile).subscribe({
         next: (res: any) => {
           localStorage.setItem('user', JSON.stringify(res.data));
-          alert('profile updated...')
+          this.utilService.openSnackBar('Profile updated successfully');
+          
         },
         error: (err) => {
-          alert(err.message)
+          this.utilService.openSnackBar(err.message);
         },
       });
     }else{
-      alert("Please Select image to proceed")
+      this.utilService.openSnackBar("Please Select image to proceed");
     }
   }
 }

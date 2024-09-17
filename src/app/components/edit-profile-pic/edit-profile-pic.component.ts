@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-edit-profile-pic',
@@ -14,7 +15,9 @@ export class EditProfilePicComponent {
   url: string | ArrayBuffer | null | undefined;
   file: any;
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router,
+    private utilService:UtilService
+  ) {}
 
   onClickUpload() {
     let input = document.getElementById('input_file');
@@ -52,11 +55,11 @@ export class EditProfilePicComponent {
           this.router.navigateByUrl('/');
         },
         error: (err) => {
-          alert(err.message)
+          this.utilService.openSnackBar(err.message);
         },
       });
     }else{
-      alert("Please Select image to proceed")
+      this.utilService.openSnackBar("Please Select image to proceed");
     }
   }
 
