@@ -28,7 +28,7 @@ export class SidebarComponent implements OnChanges, OnInit {
   groupImage: any;
   groupImageFile: any;
   users: any;
-  currentPage: string | undefined = 'saveGroupInfo';
+  currentPage: string | undefined = undefined;
   myChatUsers: any[] = [];
   currentChat: any;
   inbox: any[] = [];

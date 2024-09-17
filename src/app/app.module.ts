@@ -24,6 +24,7 @@ import { FilteruserPipe } from './pipes/filteruser.pipe';
 import { ContactInfoComponent } from './components/home/contact-info/contact-info.component';
 import { FilePreviewComponent } from './components/shared/file-preview/file-preview.component';
 import { MatDialogModule} from '@angular/material/dialog';
+import { UserProfileComponent } from './components/home/sidebar/user-profile/user-profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +38,8 @@ import { MatDialogModule} from '@angular/material/dialog';
     ConverstaionComponent,
     FilteruserPipe,
     ContactInfoComponent,
-    FilePreviewComponent
+    FilePreviewComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

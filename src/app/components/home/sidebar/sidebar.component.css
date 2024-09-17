@@ -238,3 +238,8 @@ input[type="file"] {
     overflow-x: hidden;
     font-size: 12px;
 }
+
+#myProfile{
+  height: 100vh;
+  overflow: hidden;
+}
