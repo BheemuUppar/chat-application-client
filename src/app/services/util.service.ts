@@ -7,6 +7,10 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class UtilService {
   private _snackBar = inject(MatSnackBar);
+  private msgSentAudio = new Audio('../../assets/media/sentAudio.mp3');
+  private incomingMessageAudio = new Audio('../../assets/media/incoming-msg.mp3');
+  private notifationAudio = new Audio('../../assets/media/notification.mp3');
+
   fileTypeMap: any = {
     // Video files
     mp4: 'video',
@@ -165,5 +169,15 @@ export class UtilService {
     verticalPosition:'top',
     duration:1000
     });
+    this.playNotificationSound()
+  }
+  playMessageSent(){
+    this.msgSentAudio.play()
+  }
+  playIncomingMessage(){
+    this.incomingMessageAudio.play();
+  }
+  playNotificationSound(){
+    this.notifationAudio.play()
   }
 }

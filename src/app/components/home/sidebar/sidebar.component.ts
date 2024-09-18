@@ -51,11 +51,14 @@ export class SidebarComponent implements OnChanges, OnInit {
     });
     this.socketService.on('onMsgRead', (data) => {
       this.getInbox();
+      
     });
     this.socketService.on('messageReceviced', (messages) => {
       console.log('Message received event triggered', messages);
+
       //  this.incomingMessage = messages;
       this.getInbox();
+      this.utilService.playNotificationSound()
     });
 
     this.socketService.on('onlineusers', (data) => {
@@ -85,6 +88,7 @@ export class SidebarComponent implements OnChanges, OnInit {
         user.unread_count > 0
       ) {
         this.markAsRead.emit();
+        this.utilService.playIncomingMessage()
         break;
       }
     }

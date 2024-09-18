@@ -69,6 +69,7 @@ export class ConverstaionComponent
       this.message_text = '';
       this.messages = this.getMessages();
       this.scrollToBottom();
+      this.utilService.playMessageSent()
     });
     this.socketService.on('msgDeleted', (data) => {
       this.getMessages();
