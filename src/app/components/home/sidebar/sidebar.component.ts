@@ -239,10 +239,10 @@ export class SidebarComponent implements OnChanges, OnInit {
     const fileInput = document.getElementById('group_profile') as HTMLInputElement;
     fileInput.click();
   }
-
-  // previewFile(){
-    
-  //   console.log('preview clicked', this.groupImage, Date.now() +'', 'image', 'image/jpeg' )
-  //   // this.utilService.openPreview(this.groupImage, Date.now() +'', 'image', 'image/jpeg' )
-  // }
+  chatSearchText:string = ''
+ getFilteredChats():any[]{
+ return this.myChatUsers.filter((user:any)=>{
+    return user.contact_name.toLowerCase().includes(this.chatSearchText.toLowerCase())
+  })
+ }
 }
