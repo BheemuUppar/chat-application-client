@@ -2,7 +2,7 @@
 
 <div class="main  d-flex" >
     <div class="sidebar" #sidebar>
-        <app-sidebar (viewChange)="switchView($event)" (markAsRead)="messageReceived()"></app-sidebar>
+        <app-sidebar (viewChange)="switchView($event)" (markAsRead)="messageReceived($event)"></app-sidebar>
     </div>
     <div class="conversation flex-grow-1" #conversation>
         <app-converstaion (viewChange)="switchView($event)" [isSmallScreen]="isSmallScreen" [msgUpdate]="currentChatMessage"></app-converstaion>

@@ -64,8 +64,8 @@ export class HomeComponent implements OnInit, AfterViewInit{
   }
 
   currentChatMessage: any;
-  messageReceived() {
-    this.currentChatMessage = JSON.parse(JSON.stringify({}));
+  messageReceived(event:any) {
+    this.currentChatMessage = event;
   }
 
   private adjustStylesForSmallScreens() {

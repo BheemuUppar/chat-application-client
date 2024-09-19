@@ -47,8 +47,16 @@ export class ConverstaionComponent
   ngOnInit(): void {
     this.user = this.userService.user;
     this.userService.currenChat$.subscribe((user: any) => {
-      if( this.currentChat == undefined ||  this.currentChat.contact_id != user.contact_id || this.currentChat.unread_count > 0){
-        console.log('contact updated')
+      if (user == undefined) {
+        this.currentChat = user;
+        return;
+      }
+      if (
+        this.currentChat == undefined ||
+        this.currentChat.contact_id != user.contact_id ||
+        this.currentChat.unread_count > 0
+      ) {
+   
         this.currentChat = user;
         this.resetSelectedFiles();
         this.getMessages();
@@ -57,8 +65,7 @@ export class ConverstaionComponent
     });
     this.userService.readNewMessage$.subscribe(() => {
       console.log('mesage subscribe..');
-      if( this.currentChat  &&  this.currentChat.unread_count > 0){
-
+      if (this.currentChat && this.currentChat.unread_count > 0) {
         this.getMessages();
         this.scrollToBottom();
       }
@@ -69,7 +76,7 @@ export class ConverstaionComponent
       this.message_text = '';
       this.messages = this.getMessages();
       this.scrollToBottom();
-      this.utilService.playMessageSent()
+      this.utilService.playMessageSent();
     });
     this.socketService.on('msgDeleted', (data) => {
       this.getMessages();
@@ -84,9 +91,10 @@ export class ConverstaionComponent
 
   @Input() msgUpdate: any;
   ngOnChanges(changes: SimpleChanges): void {
-    if(this.currentChat  &&  this.currentChat.unread_count > 0){
+   
+    // if (this.currentChat && this.currentChat.unread_count > 0) {
       this.getMessages();
-    }
+    // }
   }
 
   onEnterPress(event: KeyboardEvent) {
@@ -109,7 +117,7 @@ export class ConverstaionComponent
   }
 
   getMessages() {
-    if (this.currentChat ) {
+    if (this.currentChat) {
       this.userService.getAllMessages(this.currentChat.inbox_id).subscribe({
         next: async (res: any) => {
           this.messages = await res;
@@ -129,9 +137,9 @@ export class ConverstaionComponent
       this.sendMedia();
       return;
     }
-    console.log('after sending media')
+    console.log('after sending media');
     if (this.message_text.trim() == '') {
-      this.utilService.openSnackBar('Nothing to send')
+      this.utilService.openSnackBar('Nothing to send');
       this.message_text = '';
       return;
     }
@@ -215,7 +223,7 @@ export class ConverstaionComponent
       sender_id: this.user.user_id,
     };
 
-    console.log(JSON.stringify(payload))
+    console.log(JSON.stringify(payload));
 
     if (this.currentChat.isgroup == true) {
       payload['inbox_id'] = this.currentChat.inbox_id;
@@ -289,7 +297,7 @@ export class ConverstaionComponent
       // Define what happens when the file is loaded
       reader.onload = (e: any) => {
         // Resolve the promise with the data URL of the loaded image
-        if(!file.type.startsWith('video/')){
+        if (!file.type.startsWith('video/')) {
           this.imageLink = e.target.result;
         }
 
@@ -314,10 +322,12 @@ export class ConverstaionComponent
     'sidebar' | 'conversation' | 'info'
   >();
   changeView(view: 'sidebar' | 'conversation' | 'info') {
-    this.viewChange.emit(view);
     if (view == 'sidebar') {
       this.userService.currentChat.next(undefined);
     }
+    setTimeout(() => {
+      this.viewChange.emit(view);
+    }, 100);
   }
 
   deleteMessage(msg: any) {
@@ -326,6 +336,4 @@ export class ConverstaionComponent
       inbox_id: msg.inbox_id,
     });
   }
-
-  
 }

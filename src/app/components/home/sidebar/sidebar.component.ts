@@ -67,6 +67,9 @@ export class SidebarComponent implements OnChanges, OnInit {
     this.socketService.on('groupAdded', (data) => {
       this.getInbox();
     });
+    this.userSevrice.currenChat$.subscribe((user:any)=>{
+      this.currentChat = user
+    })
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -76,6 +79,14 @@ export class SidebarComponent implements OnChanges, OnInit {
   getInbox() {
     this.userSevrice.getAllInbox().subscribe((res: any) => {
       this.myChatUsers = res;
+      for(let user of this.myChatUsers){
+        if( this.currentChat &&  user.contact_id == this.currentChat.contact_id){
+          this.currentChat = user;
+          this.userSevrice.currentChat.next(this.currentChat);
+          break
+        }
+      }
+     
       this.readCurrentChatMessage();
     });
   }
@@ -85,7 +96,7 @@ export class SidebarComponent implements OnChanges, OnInit {
     for (let user of this.myChatUsers) {
       if ( this.currentChat &&  user.contact_id == this.currentChat.contact_id && user.unread_count > 0
       ) {
-        this.markAsRead.emit();
+        this.markAsRead.emit(this.currentChat);
         this.utilService.playIncomingMessage()
         break;
       }
