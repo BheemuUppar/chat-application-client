@@ -106,7 +106,6 @@ export class HomeComponent implements OnInit, AfterViewInit{
 
   // Method to switch views for small screens
   switchView(view: 'sidebar' | 'conversation' | 'info') {
-    console.log("event received..", view)
     this.currentView = view;
     this.applyResponsiveStyles();
   }

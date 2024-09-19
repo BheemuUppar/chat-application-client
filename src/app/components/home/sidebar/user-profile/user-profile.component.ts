@@ -19,7 +19,6 @@ export class UserProfileComponent {
 
   onEditProfile() {
     // Logic to open edit modal or navigate to edit profile page
-    console.log('Edit Profile button clicked');
   }
 
   onGroupProfileUpload(event: any) {

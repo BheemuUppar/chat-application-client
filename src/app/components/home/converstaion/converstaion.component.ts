@@ -64,7 +64,6 @@ export class ConverstaionComponent
       }
     });
     this.userService.readNewMessage$.subscribe(() => {
-      console.log('mesage subscribe..');
       if (this.currentChat && this.currentChat.unread_count > 0) {
         this.getMessages();
         this.scrollToBottom();
@@ -82,7 +81,7 @@ export class ConverstaionComponent
       this.getMessages();
     });
     this.socketService.on('failedToDeleteMessage', (data) => {
-      console.log('failed to delete message ');
+      this.utilService.openSnackBar('failed to delete message', )
     });
 
     // Scroll to the bottom of the messages div
@@ -137,7 +136,6 @@ export class ConverstaionComponent
       this.sendMedia();
       return;
     }
-    console.log('after sending media');
     if (this.message_text.trim() == '') {
       this.utilService.openSnackBar('Nothing to send');
       this.message_text = '';
@@ -199,7 +197,6 @@ export class ConverstaionComponent
   async fileUpload() {
     try {
       let files: any[] = await this.getInputFiles();
-      console.log(files); // This will log the selected files
       this.messageFiles = files;
       for (let i = 0; i < files.length; i++) {
         let buffer = await this.getArrayBufferFromFile(files[i]);
@@ -223,7 +220,6 @@ export class ConverstaionComponent
       sender_id: this.user.user_id,
     };
 
-    console.log(JSON.stringify(payload));
 
     if (this.currentChat.isgroup == true) {
       payload['inbox_id'] = this.currentChat.inbox_id;

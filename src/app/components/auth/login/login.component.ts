@@ -49,10 +49,7 @@ export class LoginComponent {
           this.utilService.openSnackBar(res.message);
 
           let decoded: User = jwtDecode(res.token);
-          console.log(decoded);
           localStorage.setItem('id', decoded.user_id);
-          // localStorage.setItem("email", decoded.email)
-          // localStorage.setItem("name", decoded.name)
 
           this.getuserdata(decoded);
         },

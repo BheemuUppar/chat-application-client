@@ -54,9 +54,7 @@ export class SidebarComponent implements OnChanges, OnInit {
       
     });
     this.socketService.on('messageReceviced', (messages) => {
-      console.log('Message received event triggered', messages);
-
-      //  this.incomingMessage = messages;
+ //  this.incomingMessage = messages;
       this.getInbox();
       this.utilService.playNotificationSound()
     });
@@ -141,7 +139,6 @@ export class SidebarComponent implements OnChanges, OnInit {
       this.myChatUsers.unshift(user);
       this.currentChat = user;
     }
-    console.log(this.myChatUsers)
    
     this.userSevrice.currentChat.next(this.currentChat);
     this.currentPage = undefined;

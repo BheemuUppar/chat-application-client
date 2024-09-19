@@ -14,7 +14,6 @@ export class FilePreviewComponent {
     @Inject(MAT_DIALOG_DATA)
     public data: { file: string; fileName: string; fileType: string, mimeType:string }
   ) {
-    console.log(data);
   }
 
   closeDialog(){

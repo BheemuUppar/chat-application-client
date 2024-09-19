@@ -17,7 +17,6 @@ export class AuthComponent {
         )
       )
       .subscribe((e: RouterEvent) => {
-        console.log(e.url);
 
         if (e.url.includes('auth/register')) {
           this.currentScreen = 'register';

@@ -66,7 +66,6 @@ export class RegisterComponent {
 
   onRegister(event: any) {
     event.preventDefault();
-    console.log(this.registerForm.value);
     let params = {
       name: this.registerForm.value.name,
       mobile: Number(this.registerForm.value.mobile),
