@@ -26,6 +26,7 @@ import { FilePreviewComponent } from './components/shared/file-preview/file-prev
 import { MatDialogModule} from '@angular/material/dialog';
 import { UserProfileComponent } from './components/home/sidebar/user-profile/user-profile.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { ChatListComponent } from './components/home/sidebar/chat-list/chat-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +41,8 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     FilteruserPipe,
     ContactInfoComponent,
     FilePreviewComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    ChatListComponent
   ],
   imports: [
     BrowserModule,

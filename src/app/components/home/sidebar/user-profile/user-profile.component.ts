@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { UtilService } from 'src/app/services/util.service';
 
@@ -63,5 +63,9 @@ export class UserProfileComponent {
     }else{
       this.utilService.openSnackBar("Please Select image to proceed");
     }
+  }
+  @Output() currentPage : EventEmitter<any> = new EventEmitter()
+  goTo(value:any){
+    this.currentPage.emit(value)
   }
 }
