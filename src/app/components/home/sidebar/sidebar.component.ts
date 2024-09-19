@@ -83,9 +83,7 @@ export class SidebarComponent implements OnChanges, OnInit {
   @Output() markAsRead = new EventEmitter();
   readCurrentChatMessage() {
     for (let user of this.myChatUsers) {
-      if (
-        user.contact_id == this.currentChat.contact_id &&
-        user.unread_count > 0
+      if ( this.currentChat &&  user.contact_id == this.currentChat.contact_id && user.unread_count > 0
       ) {
         this.markAsRead.emit();
         this.utilService.playIncomingMessage()

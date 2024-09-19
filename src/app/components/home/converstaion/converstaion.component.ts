@@ -57,7 +57,7 @@ export class ConverstaionComponent
     });
     this.userService.readNewMessage$.subscribe(() => {
       console.log('mesage subscribe..');
-      if(this.currentChat.unread_count > 0){
+      if( this.currentChat  &&  this.currentChat.unread_count > 0){
 
         this.getMessages();
         this.scrollToBottom();
@@ -84,7 +84,7 @@ export class ConverstaionComponent
 
   @Input() msgUpdate: any;
   ngOnChanges(changes: SimpleChanges): void {
-    if(this.currentChat.unread_count > 0){
+    if(this.currentChat  &&  this.currentChat.unread_count > 0){
       this.getMessages();
     }
   }

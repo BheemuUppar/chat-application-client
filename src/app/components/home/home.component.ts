@@ -96,8 +96,11 @@ export class HomeComponent implements OnInit, AfterViewInit{
 
   private resetStyles() {
     // Reset styles for larger screens
+    if(this.sidebar)
     this.sidebar.nativeElement.style.zIndex = '1';
+    if(this.conversation)
     this.conversation.nativeElement.style.zIndex = '1';
+    if(this.info)
     this.info.nativeElement.style.zIndex = '1';
   }
 
