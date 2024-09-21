@@ -78,3 +78,10 @@ body {
   color: white;
   margin: 7px;
 }
+
+.dropdown-menu.show{
+  background: #010101;
+}
+.dropdown-item:hover{
+  background: #101010;
+}

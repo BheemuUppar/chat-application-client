@@ -70,27 +70,27 @@ li.chat_contact {
   padding: 10px;
   cursor: pointer;
 }
-li.chat_contact:hover{
-background-color: #2a2a2d;
-}
-
-.search_suggestions{
-  position: absolute;
-    background: white;
-    width: 300px;
-    left: 29px;
-    z-index: 99;
-    top: 173px;
-    max-height: 300px;
-    overflow: auto;
-    color: #000;
-}
-
-.chat_contact.active{
+li.chat_contact:hover {
   background-color: #2a2a2d;
 }
 
-.unread_count{
+.search_suggestions {
+  position: absolute;
+  background: white;
+  width: 300px;
+  left: 29px;
+  z-index: 99;
+  top: 173px;
+  max-height: 300px;
+  overflow: auto;
+  color: #000;
+}
+
+.chat_contact.active {
+  background-color: #2a2a2d;
+}
+
+.unread_count {
   width: 20px;
   height: 20px;
   /* text-align: center; */
@@ -102,17 +102,18 @@ background-color: #2a2a2d;
   font-size: 12px;
 }
 
-.new_chat{
-cursor: pointer;
+.new_chat {
+  cursor: pointer;
 }
 
-#newChat, #newGroup{
+#newChat,
+#newGroup {
   padding: 10px;
 }
 
 /* new chat page */
 
-.search_users input{
+.search_users input {
   background-color: #2a2a2d;
   width: 100%;
   border: none;
@@ -123,7 +124,7 @@ cursor: pointer;
   margin-top: 3%;
 }
 
-.last_msg{
+.last_msg {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -133,23 +134,21 @@ cursor: pointer;
   display: block;
 }
 
-#saveGroupInfo{
+#saveGroupInfo {
   height: 100vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
-#saveGroupInfo .groupProfile{
-flex-grow: 1;
+#saveGroupInfo .groupProfile {
+  flex-grow: 1;
 }
-#saveGroupInfo .groupProfile img{
+#saveGroupInfo .groupProfile img {
   height: 240px;
-    width: 240px;
-    border-radius: 50%;
+  width: 240px;
+  border-radius: 50%;
 }
-
-
 
 .groupProfile {
   display: flex;
@@ -224,22 +223,43 @@ input[type="file"] {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.8); /* White background for better visibility */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ); /* White background for better visibility */
 }
 
-
-#newGroup{
+#newGroup {
   display: flex;
-    flex-direction: column;
-    height: 100vh;
+  flex-direction: column;
+  height: 100vh;
 }
-#newGroup .chat_list_wrapper{
+#newGroup .chat_list_wrapper {
   flex-grow: 1;
-    overflow-x: hidden;
-    font-size: 12px;
+  overflow-x: hidden;
+  font-size: 12px;
 }
 
-#myProfile{
+#myProfile {
   height: 100vh;
   overflow: hidden;
+}
+
+::ng-deep .mat-elevation-z8 {
+  background: #121212 !important;
+}
+::ng-deep .mat-elevation-z8 button {
+  color: #fff;
+}
+::ng-deep .mat-elevation-z8 button span {
+  font-size: small;
+  font-style: normal;
+}
+::ng-deep .mat-elevation-z8 button span svg{
+  height: 15px !important;
+}
+::ng-deep .mat-elevation-z8 button:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
 }

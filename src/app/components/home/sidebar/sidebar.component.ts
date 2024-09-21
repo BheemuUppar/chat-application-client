@@ -33,6 +33,7 @@ export class SidebarComponent implements OnChanges, OnInit {
   currentChat: any;
   inbox: any[] = [];
   @Input() onMessageReceive: any;
+  isMenuVisible:boolean = false;
 
   constructor(
     public userSevrice: UserService,
