@@ -87,7 +87,7 @@
 
     <div class="search-wrapper">
 
-        <div class="d-flex px-3 py-1 align-items-center">
+        <div class="d-flex px-3 py-1 align-items-center shadow">
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                 viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                 <path
@@ -102,37 +102,35 @@
 
     <div class="chat_list_wrapper pe-2">
         <ul class="list-unstyled chat_list" *ngIf="getFilteredChats().length > 0">
+          
             <li class="chat_contact  px-3 d-flex"
-                [ngClass]="{'active':currentChat &&   ( user.contact_id == currentChat.contact_id)}"
-                *ngFor="let user of getFilteredChats()" (click)="setCurrentChat(user)">
-                <mat-checkbox *ngIf="isSelectionMode" class="example-margin"
+                [ngClass]="{'active': currentChat &&   ( user.inbox_id == currentChat.inbox_id )}"
+                *ngFor="let user of getFilteredChats()" (click)="setCurrentChat(user)"
+                >
+                <!-- <mat-checkbox *ngIf="isSelectionMode" class="example-margin"
                     (change)="onSelection($event, user.contact_id)"
-                    [checked]="selectedUsers.includes(user.contact_id)"></mat-checkbox>
+                    [checked]="selectedUsers.includes(user.contact_id)"></mat-checkbox> -->
                 <div class="d-flex align-items-center w-100">
                     <div class="profile_img " [ngClass]="getOnlineStatusClass(user)">
                         <img [src]="user.profile_path" appDefaultImage alt="">
                     </div>
                     <div class="name ms-3">
                         <h6 class=" m-0 ">{{user.contact_name}}</h6>
-                        <!-- <div class="typing">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div> -->
-                        <small class="last_msg" *ngIf="user.last_message">{{user.sender_id == userSevrice.user.user_id ?
-                            'You : '+ user.last_message : user.last_message }}</small>
-                        <small class="last_msg" *ngIf="!user.last_message && user.message_file == null"><b
+                       
+                        <small class="last_msg" *ngIf="user.last_message" [ngClass]="{'fw-bold text-success' : user.unread_count > 0 }">{{
+                        user.sender_id == userSevrice.user.user_id ?
+                            'You : '+ user.last_message : user.isgroup ? getSenderName(user.group_members, user.sender_id)+' : '  + user.last_message : user.last_message }}</small>
+                        <small class="last_msg" *ngIf="!user.last_message && user.message_file == null" [ngClass]="{'fw-bold text-success' : user.unread_count > 0 }"><b
                                 style="font-style: italic;">No Messages</b></small>
-                        <small class="last_msg" *ngIf="user.message_file ">
+                        <small class="last_msg" *ngIf="user.message_file " [ngClass]="{'fw-bold text-success' : user.unread_count > 0 }">
                             {{user.sender_id == userSevrice.user.user_id ?
                             'You : '+ 'Sent a file' : ' Received a file' }}
                         </small>
 
-
                     </div>
-                    <div class="status flex-grow-1">
+                    <div class="status flex-grow-1 d-flex flex-column align-items-center">
                         <small>{{dateService.formatDate(user.last_message_time)}}</small>
-                        <small class="unread_count" style="background-color: green;"
+                        <small class="unread_count" style="background-color: #198754;"
                             *ngIf="user.unread_count != 0">{{user.unread_count}}</small>
                     </div>
                 </div>
@@ -155,7 +153,7 @@
             </button>
             <h5>New chat</h5>
         </div>
-        <div class="search_users pe-3">
+        <div class="search_users pe-3 shadow">
             <input type="text" [(ngModel)]="searchText" (input)="fetchUsers()" name="newUserSearch"
                 placeholder="Search name or email">
         </div>
@@ -183,7 +181,6 @@
         <div class="d-flex">
             <button (click)="goTo(undefined)" class="btn-transparent">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 448 512">
-                    <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                     <path
                         d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
                 </svg>
@@ -193,15 +190,15 @@
 
         </div>
     </nav>
-    <div class="search_users">
+    <div class="search_users shadow">
         <input type="text" [(ngModel)]="searchTextForGroup" name="newUserSearch" placeholder="Search name or email">
     </div>
     <div class="chat_list_wrapper  mt-4">
         <ul class="list-unstyled chat_list" *ngIf="myChatUsers.length>0">
             <ng-container *ngFor="let user of myChatUsers ">
                 <li class="chat_contact  px-3 d-flex" *ngIf="user.isgroup == false">
-                    <mat-checkbox class="example-margin" (change)="onSelection($event, user.contact_id)"
-                        [checked]="selectedUsers.includes(user.contact_id)"></mat-checkbox>
+                    <!-- <mat-checkbox class="example-margin" (change)="onSelection($event, user.contact_id)"
+                        [checked]="selectedUsers.includes(user.contact_id)"></mat-checkbox> -->
                     <div class="d-flex align-items-center">
                         <div class="profile_img "
                             [ngClass]="userSevrice.isOnline(user.contact_id) && user.isgroup == true  ? 'online' : user.isgroup == false ?  'offline' : ''">
@@ -223,34 +220,13 @@
                         </div>
                         <div class="status flex-grow-1">
                             <small>{{dateService.formatDate(user.last_message_time)}}</small>
-                            <small class="unread_count" style="background-color: green;"
+                            <small class="unread_count" style="background-color: #198754;"
                                 *ngIf="user.unread_count != 0">{{user.unread_count}}</small>
                         </div>
                     </div>
                 </li>
             </ng-container>
-
-            <!--  -->
-            <!-- <li class="chat_contact  px-3">
-                <div class="d-flex align-items-center">
-                    <div class="profile_img offline">
-                        <img src="" appDefaultImage alt="">
-                    </div>
-                    <div class="name ms-3">
-                        <h6 class=" m-0 ">Md yusuf</h6>
-                        
-                        <small class="last_msg">Good Night</small>
-                    </div>
-                    <div class="status flex-grow-1">
-                        <small>Now</small>
-    
-                    </div>
-                </div>
-            </li> -->
-
-            <!--  -->
-
-        </ul>
+   </ul>
 
         <p *ngIf="myChatUsers.length == 0">No chats</p>
 

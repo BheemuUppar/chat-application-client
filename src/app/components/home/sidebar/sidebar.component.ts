@@ -79,9 +79,9 @@ export class SidebarComponent implements OnChanges, OnInit {
     this.userSevrice.getAllInbox().subscribe((res: any) => {
       this.myChatUsers = res;
       for(let user of this.myChatUsers){
-        if( this.currentChat &&  user.contact_id == this.currentChat.contact_id){
-          this.currentChat = user;
-          this.userSevrice.currentChat.next(this.currentChat);
+        if( this.currentChat &&  user.inbox_id == this.currentChat.inbox_id){
+          // this.currentChat = user;
+          this.userSevrice.currentChat.next(user);
           break
         }
       }
@@ -133,15 +133,17 @@ export class SidebarComponent implements OnChanges, OnInit {
       let temp = this.myChatUsers[isExist];
       this.myChatUsers.splice(isExist, 1);
       this.myChatUsers.unshift(temp);
-      this.currentChat = this.myChatUsers[0];
+    
+      this.userSevrice.currentChat.next(this.myChatUsers[0]);
       this.searchText = '';
       this.users = undefined;
     } else {
       this.myChatUsers.unshift(user);
       this.currentChat = user;
+      this.userSevrice.currentChat.next(user);
     }
    
-    this.userSevrice.currentChat.next(this.currentChat);
+   
     this.currentPage = undefined;
   }
 
@@ -159,9 +161,10 @@ export class SidebarComponent implements OnChanges, OnInit {
   @Output() viewChange = new EventEmitter<
     'sidebar' | 'conversation' | 'info'
   >();
+
   setCurrentChat(user: any) {
-    this.currentChat = user;
-    this.userSevrice.currentChat.next(this.currentChat);
+    // this.currentChat = user;
+    this.userSevrice.currentChat.next(user);
     this.viewChange.emit('conversation');
   }
 
@@ -245,5 +248,12 @@ export class SidebarComponent implements OnChanges, OnInit {
  return this.myChatUsers.filter((user:any)=>{
     return user.contact_name.toLowerCase().includes(this.chatSearchText.toLowerCase())
   })
+ }
+
+ getSenderName(members:any[], sender_id:number):string{
+  let user = members.filter((member)=>{
+    return member.id == sender_id
+  });
+  return user[0].name
  }
 }

@@ -47,17 +47,20 @@ export class ConverstaionComponent
   ngOnInit(): void {
     this.user = this.userService.user;
     this.userService.currenChat$.subscribe((user: any) => {
+     
       if (user == undefined) {
         this.currentChat = user;
         return;
       }
       if (
         this.currentChat == undefined ||
-        this.currentChat.contact_id != user.contact_id ||
+        this.currentChat.inbox_id != user.inbox_id ||
         this.currentChat.unread_count > 0
+        
       ) {
    
         this.currentChat = user;
+        console.log(this.currentChat)
         this.resetSelectedFiles();
         this.getMessages();
         this.scrollToBottom();

@@ -69,9 +69,11 @@ li.chat_contact {
   padding-bottom: 6px;
   padding: 10px;
   cursor: pointer;
+  box-shadow: var(--box-shadow) !important;
 }
 li.chat_contact:hover {
   background-color: #2a2a2d;
+  box-shadow: var(--box-shadow) !important;
 }
 
 .search_suggestions {
