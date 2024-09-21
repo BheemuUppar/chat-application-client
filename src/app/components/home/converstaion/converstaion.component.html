@@ -11,9 +11,9 @@
         <img [src]="currentChat.profile_path" appDefaultImage alt="">
       </div>
       <div>
-        <h5 class="mb-0" style="color: #FFFFFF;">{{currentChat.contact_name
+        <h5 class="mb-0" style="color: var(--text-white);">{{currentChat.contact_name
           }}</h5>
-        <small *ngIf="!currentChat.isgroup " style="color: #717174;">{{userService.isOnline(currentChat.contact_id) == true ? 'Active Now' :
+        <small *ngIf="!currentChat.isgroup " style="color: var(--text-gray);">{{userService.isOnline(currentChat.contact_id) == true ? 'Active Now' :
           'Last Seen '+dateService.formatDate(currentChat.contact_last_seen)}} </small>
       </div>
     </div>

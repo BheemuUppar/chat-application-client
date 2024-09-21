@@ -3,8 +3,8 @@
 }
 ::ng-deep .mat-mdc-dialog-surface {
   /* background: transparent !important; */
-  background: rgb(34, 37, 34, 0.5) !important;
-  color: white;
+  background: var(--bg-transparent)!important;
+  color: var(--text-white);
   overflow: hidden;
   padding: 20px;
 }

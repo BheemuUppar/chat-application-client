@@ -6,14 +6,14 @@ nav {
   padding: 20px 34px;
 }
 .input-container input {
-  background-color: #2a2a2d;
+  background-color: var(--bg-input);
   width: 100%;
   border: none;
   border-radius: 6px;
-  color: #fff;
+  color: var(--text-white);
 }
 .input-container svg {
-  color: #fff;
+  color: var(--text-white);
 }
 
 .input-container input:focus-visible {
@@ -23,7 +23,7 @@ nav {
 .send-btn {
   height: 50px;
   width: 53px;
-  background: #fc6a83;
+  background: var(--bg-pink);
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -37,80 +37,6 @@ nav {
   overflow-y: auto;
 }
 
-/* .sentMessage .content {
-  max-width: 50%;
-  color: white;
-  float: right;
-  background-color: rgb(42, 42, 45, 0.4);
-  border-radius: 10px;
-  border-bottom-right-radius: 0px;
-}
-.receiveMessage .content {
-  max-width: 50%;
-  float: right;
-  background-image: linear-gradient(to right, rgb(109, 100, 243, 0.4), rgb(188, 78, 232, 0.4));
-  border-radius: 10px;
-  color: white;
-  border-bottom-left-radius: 0px;
-}
-.receiveMessage,
-.sentMessage {
-  display: flex;
-  column-gap: 10px;
-  margin-top: 10px;
-}
-.receiveMessage {
-  justify-content: start;
-}
-
-.sentMessage {
-  justify-content: end;
-}
-
-.sentMessage small {
-  color: #717174;
-}
-.msgImage {
-  border-radius: 8px;
-  overflow: hidden;
-  margin: 5px 0px;
-  cursor: pointer;
-}
-
-.sm-profile img {
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
-}
-
-.sentMessage ~ .msg_time {
-  text-align: end;
-  color: white;
-  margin-right: 34px;
-  font-size: 10px;
-}
-.receiveMessage ~ .msg_time {
-  text-align: start;
-  color: white;
-  margin-left: 34px;
-  font-size: 10px;
-}
-
-
-.file_msg{
-  display: flex;
-  border: 1px solid gray;
-  border-radius: 10px;
-  padding: 10px;
-  margin-top: 8px;
-  background: gray;
-  opacity: 0.7;
-  gap: 17px;
-  cursor: pointer;
-}
-.file_msg svg{
-  height: 30px;
-} */
 
 .chat-body .chat-content {
   flex: 2;
@@ -129,35 +55,17 @@ nav {
   display: inline-flex;
   align-items: center;
   font-size: .75rem;
-  color: #adb5bd;
+  color: var(--text-muted);
   margin-top: .3125rem;
 }
 
-.message .message-content {
-  padding: 1rem 2.25rem;
-  background-color: #f5f6fa;
-  color: #8094ae;
-  margin-left: 1.25rem;
-  border-radius: 1.25rem;
-  text-align: left;
-  display: inline-block;
-  max-width: 25rem;
-}
+
 
 .message .message-options>* {
   margin-left: .3125rem;
   margin-right: .3125rem;
 }
 
-.avatar {
-  height: 3rem;
-  width: 3rem;
-  min-width: 3rem;
-  display: inline-block;
-  position: relative;
-  border-radius: 50%;
-  box-shadow: 0 0 1px 1px rgba(0, 0, 0, .1);
-}
 
 .message .avatar {
   display: inline-block;
@@ -165,18 +73,7 @@ nav {
   margin-top: -1.25rem;
 }
 
-.avatar.avatar-sm {
-  height: 2.25rem;
-  width: 2.25rem;
-  min-width: 2.25rem;
-}
 
-.message .message-options>:not(.avatar) {
-  height: 1.125rem;
-  line-height: 1.125rem;
-  display: inline-block;
-  vertical-align: middle;
-}
 
 .message .message-options>:not(.avatar) {
   height: 1.125rem;
@@ -188,7 +85,6 @@ nav {
 .document,
 .media {
   display: flex;
-  /* align-items: flex-start; */
   column-gap: 10px;
   flex: 1;
 }
@@ -199,8 +95,8 @@ nav {
 
 .message .message-content {
   padding: 1rem 2.25rem;
-  background-color: #f5f6fa;
-  color: #8094ae;
+  background-color: var(--text-white);
+  color: var(--bg-dark);
   margin-left: 1.25rem;
   border-radius: 1.25rem;
   text-align: left;
@@ -209,14 +105,14 @@ nav {
 }
 
 .message.self .message-content {
-  background-color: #665dfe;
-  color: #fff;
+  background-color: var(--bg-blue);
+  color: var(--text-white);
   margin-right: 1.25rem;
   margin-left: 0;
 }
 
 .message .avatar img {
-  box-shadow: 0 0 0 .5rem #1a1a1e;
+  box-shadow: 0 0 0 .5rem var(--bg-dark);
 }
 .avatar {
   height: 3rem;
@@ -225,7 +121,7 @@ nav {
   display: inline-block;
   position: relative;
   border-radius: 50%;
-  box-shadow: 0 0 1px 1px rgba(0, 0, 0, .1);
+  box-shadow: 0 0 1px 1px #0000001a;
 }
 
 .avatar img, .avatar span {
@@ -239,11 +135,6 @@ nav {
   justify-content: center;
 }
 
-.message .avatar {
-  display: inline-block;
-  vertical-align: bottom;
-  margin-top: -1.25rem;
-}
 .avatar.avatar-sm {
   height: 2.25rem;
   width: 2.25rem;
@@ -270,7 +161,7 @@ nav {
 }
 
 .dropdown .toggler{
-  color: #adb5bd !important;
+  color: var(--text-muted) !important;
 }
 
 .message-content {
@@ -287,7 +178,7 @@ nav {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  background: var(--bg-transparent) ; /* Semi-transparent background */
   border-radius: 50%;
   padding: 10px;
   cursor: pointer;

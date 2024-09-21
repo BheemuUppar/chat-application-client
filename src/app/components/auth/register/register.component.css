@@ -1,7 +1,7 @@
 
 .register-wrapper{
     padding: 18px;
-    background: #1A1A1E;
+    background: var(--bg-dark);
     border-radius: 10px;
     width: 397px;
 }
@@ -16,13 +16,13 @@ form {
   }
 
   input {
-    background-color: #1f1f22;
+    background-color: var(--bg-input);
     outline: none;
     border: 0px;
-    border: 2px solid #2c2a2a;
+    border: 2px solid var(--border);
     border-radius: 6px;
     padding: 3px 6px;
-    color: white;
+    color: var(--text-white);
     height: 40px;
     width: 100%;
   }
@@ -32,7 +32,7 @@ form {
   }
   
   .btn.btn-primary {
-    color: black;
+    color: var(--bg-dark);
     border-radius: 4px;
   }
   
@@ -45,6 +45,6 @@ form {
 }
 
 .error span{
-  color: red;
+  color: var(--bg-danger);
   font-size: 12px;
 }

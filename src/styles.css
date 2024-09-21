@@ -1,5 +1,26 @@
 :root{
   --box-shadow:0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  --bg-dark:#1a1a1e;
+  --bg-dark-gray:#1f1f22;
+  --bg-light-gray : #2a2828;
+  --bg-scroll  : #676060;
+  --bg-online: #40f251;
+  --bg-away : #ffd939;
+  --bg-shadow : #010101;
+  --bg-input : #1f1f22;
+  --bg-danger : #ff0000;
+  --bg-pink : #fc6a83;
+  --bg-blue : #665dfe; 
+  --bg-transparent : rgba(0, 0, 0, 0.5); 
+  --bg-active:#2a2a2d;
+
+  --text-white:#fff;
+  --text-muted : #adb5bd;
+  --text-gray : #21252959;
+   --text-dark : #000
+
+  --border:#2c2a2a;
+  --border-2 :#444343;
 }
 
 /* You can add global styles to this file, and also import other style files */
@@ -15,14 +36,10 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #676060;
+  background: var(--bg-scroll);
   border-radius: 10px;
 }
 
-/* Handle on hover */
-/* ::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  } */
 
 .profile_img,
 .profile_img img {
@@ -41,7 +58,7 @@
   position: absolute;
   height: 12px;
   width: 12px;
-  background-color: #40f251;
+  background-color: var(--bg-online);
   top: -4px;
   right: -5px;
   border-radius: 50%;
@@ -52,7 +69,7 @@
   position: absolute;
   height: 12px;
   width: 12px;
-  background-color: #ffd939;
+  background-color: var(--bg-away);
   top: -4px;
   right: -5px;
   border-radius: 50%;
@@ -84,8 +101,8 @@ body {
 }
 
 .dropdown-menu.show{
-  background: #010101;
+  background: var(--bg-shadow);
 }
 .dropdown-item:hover{
-  background: #101010;
+  background: var(--bg-shadow);
 }

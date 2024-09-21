@@ -1,40 +1,17 @@
 .left
 {
-    background-color: #1A1A1E;
-    color: #fff;
+    background-color: var(--bg-dark);
+    color: var(--text-white);
     max-width: 50%;
 }
 .right
 {
     
-    background-color: #1F1F22;
-    color: #fff;
+    background-color: var(--bg-dark-gray);
+    color: var(--text-white);
     max-width: 50%;
 }
 
-.left-side {
-    width: 50%;
-    background-color: #f0f0f0;
-    padding: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .left-side .content h1 {
-    font-size: 36px;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .left-side .content p {
-    font-size: 18px;
-    color: #666;
-    margin-bottom: 40px;
-  }
-  
   @media screen and (max-width: 768px) {
     .left {
       display: none !important;
