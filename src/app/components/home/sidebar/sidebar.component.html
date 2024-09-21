@@ -128,10 +128,12 @@
                         </small>
 
                     </div>
-                    <div class="status flex-grow-1 d-flex flex-column align-items-center">
-                        <small>{{dateService.formatDate(user.last_message_time)}}</small>
-                        <small class="unread_count" style="background-color: #198754;"
-                            *ngIf="user.unread_count != 0">{{user.unread_count}}</small>
+                    <div class="status flex-grow-1 justify-content-end">
+                        <div class="d-flex flex-column align-items-center">
+                            <small>{{dateService.formatDate(user.last_message_time)}}</small>
+                            <small class="unread_count" style="background-color: #198754;"
+                                *ngIf="user.unread_count != 0">{{user.unread_count}}</small>
+                        </div>
                     </div>
                 </div>
             </li>

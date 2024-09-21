@@ -8,7 +8,7 @@ import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { AuthComponent } from './components/auth/auth.component';
-import {HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { EditProfilePicComponent } from './components/edit-profile-pic/edit-profile-pic.component';
 import { DefaultImageDirective } from './directives/default-image.directive';
 import { SidebarComponent } from './components/home/sidebar/sidebar.component';
@@ -27,6 +27,8 @@ import { MatDialogModule} from '@angular/material/dialog';
 import { UserProfileComponent } from './components/home/sidebar/user-profile/user-profile.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ChatListComponent } from './components/home/sidebar/chat-list/chat-list.component';
+import { LoaderComponent } from './components/shared/file-preview/loader/loader.component';
+import { AppHttpInterceptor } from './interceptor/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +44,8 @@ import { ChatListComponent } from './components/home/sidebar/chat-list/chat-list
     ContactInfoComponent,
     FilePreviewComponent,
     UserProfileComponent,
-    ChatListComponent
+    ChatListComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,9 @@ import { ChatListComponent } from './components/home/sidebar/chat-list/chat-list
     MatButtonModule, MatMenuModule, MatIconModule,MatTooltipModule,  MatDialogModule,
     MatSnackBarModule
   ],
-  providers: [DateService, MatSnackBar],
+  providers: [DateService, MatSnackBar,
+    { provide: HTTP_INTERCEPTORS, useClass: AppHttpInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
