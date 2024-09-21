@@ -40,7 +40,7 @@ export class SidebarComponent implements OnChanges, OnInit {
     public dateService: DateService,
     private socketService: SocketService,
     private router: Router,
-    private utilService:UtilService
+    public utilService:UtilService
   ) {
     this.user = this.userSevrice.user;
     this.getInbox();

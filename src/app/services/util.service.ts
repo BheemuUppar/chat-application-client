@@ -98,7 +98,9 @@ export class UtilService {
     sh: 'code',
   };
 
-  constructor(private dialog : MatDialog, ) {}
+  constructor(private dialog : MatDialog, ) {
+    this.loadTheme()
+  }
 
   downloadFile(base64String: string, fileName: string, fileType: string) {
     // Remove any headers, if present (e.g., "data:application/pdf;base64,")
@@ -179,5 +181,34 @@ export class UtilService {
   }
   playNotificationSound(){
     this.notifationAudio.play()
+  }
+theme = localStorage.getItem('theme') ??  "dark"
+  
+loadTheme (){
+  console.log(this.theme)
+  if(this.theme == 'light-theme'){
+    document.body.classList.add('light-theme')
+    localStorage.setItem('theme', 'light-theme')
+  }
+  else{
+    document.body.classList.remove('light-theme');
+    localStorage.setItem('theme', 'dark')
+
+  }
+
+}
+toggleTheme(){
+    console.log(this.theme)
+    if(this.theme == 'dark'){
+      this.theme = 'light-theme';
+      document.body.classList.add('light-theme')
+      localStorage.setItem('theme', 'light-theme')
+    }
+    else{
+      this.theme = 'dark';
+      document.body.classList.remove('light-theme');
+      localStorage.setItem('theme', 'dark')
+
+    }
   }
 }

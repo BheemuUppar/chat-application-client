@@ -31,9 +31,9 @@
                             <span class="ms-2">Profile</span>
                         </button>
 
-                        <button mat-menu-item (click)="goTo('newGroup')">
+                        <button mat-menu-item (click)="goTo('newGroup')" >
                             <span>
-                                <svg viewBox="0 0 24 24" class="" fill="none">
+                                <svg viewBox="0 0 24 24" class="" fill="currentColor">
 
                                     <path
                                         d="M19.992 17C20.0031 16.2628 20.0099 15.9937 19.9606 15.4041C19.9559 15.347 19.9506 15.2962 19.9447 15.253C19.9007 14.9282 19.8237 14.6238 19.7226 14.3419C19.68 14.2233 19.6332 14.1094 19.5828 13.9999C19.5738 13.9805 19.5647 13.9611 19.5555 13.942C19.4612 13.7454 19.355 13.5636 19.2404 13.3956C19.3264 13.392 19.4137 13.3898 19.5023 13.3892L19.5555 13.389C20.2632 13.389 20.8883 13.4899 21.401 13.6205C21.4627 13.6362 21.5228 13.6523 21.5813 13.6688L21.5915 13.6717L21.6087 13.6766C22.069 13.8088 22.5875 14.0227 23.0245 14.3595C23.4788 14.7097 23.8921 15.2338 23.9736 15.9559C24.0117 16.2932 24 16.0153 23.9908 16.4244C23.9744 17.1535 23.3769 19 22.6608 19H19.6869C19.8643 18.6252 19.9692 17.9298 19.9822 17.4856C19.985 17.3925 19.9887 17.2199 19.992 17Z"
@@ -65,6 +65,28 @@
                                 </svg>
                             </span>
                             <span class="ms-2">New group</span>
+                        </button>
+                        <button mat-menu-item (click)="utilService.toggleTheme()">
+                            <span>
+                                <!-- Sun Icon -->
+                                <svg *ngIf="utilService.theme == 'dark' " xmlns="http://www.w3.org/2000/svg"  fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="5"></circle>
+                                    <path d="M12 1v2"></path>
+                                    <path d="M12 21v2"></path>
+                                    <path d="M4.22 4.22l1.42 1.42"></path>
+                                    <path d="M18.36 18.36l1.42 1.42"></path>
+                                    <path d="M1 12h2"></path>
+                                    <path d="M21 12h2"></path>
+                                    <path d="M4.22 19.78l1.42-1.42"></path>
+                                    <path d="M18.36 5.64l1.42-1.42"></path>
+                                </svg>
+  <!-- Moon Icon -->
+<svg *ngIf="utilService.theme != 'dark' " xmlns="http://www.w3.org/2000/svg"  fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon" viewBox="0 0 24 24">
+    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+  </svg>
+  
+                            </span>
+                            <span class="ms-2">change theme</span>
                         </button>
                         <button mat-menu-item (click)="logout()">
                             <span>
@@ -131,7 +153,7 @@
                     <div class="status flex-grow-1 justify-content-end">
                         <div class="d-flex flex-column align-items-center">
                             <small>{{dateService.formatDate(user.last_message_time)}}</small>
-                            <small class="unread_count" style="background-color: #198754;"
+                            <small class="unread_count" style="background-color: var(--bg-online);"
                                 *ngIf="user.unread_count != 0">{{user.unread_count}}</small>
                         </div>
                     </div>
@@ -147,7 +169,7 @@
 <div id="newChat" *ngIf="currentPage == 'newChat'">
     <nav>
         <div class="d-flex">
-            <button (click)="goTo(undefined)" class="btn-transparent">
+            <button (click)="goTo(undefined)" class="btn-transparent btn-arrow">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 448 512">
                     <path
                         d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
@@ -181,7 +203,7 @@
 <div id="newGroup" *ngIf="currentPage == 'newGroup'">
     <nav>
         <div class="d-flex">
-            <button (click)="goTo(undefined)" class="btn-transparent">
+            <button (click)="goTo(undefined)" class="btn-transparent btn-arrow">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 448 512">
                     <path
                         d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
@@ -199,8 +221,8 @@
         <ul class="list-unstyled chat_list" *ngIf="myChatUsers.length>0">
             <ng-container *ngFor="let user of myChatUsers ">
                 <li class="chat_contact  px-3 d-flex" *ngIf="user.isgroup == false">
-                    <!-- <mat-checkbox class="example-margin" (change)="onSelection($event, user.contact_id)"
-                        [checked]="selectedUsers.includes(user.contact_id)"></mat-checkbox> -->
+                    <mat-checkbox class="example-margin" (change)="onSelection($event, user.contact_id)"
+                        [checked]="selectedUsers.includes(user.contact_id)"></mat-checkbox>
                     <div class="d-flex align-items-center">
                         <div class="profile_img "
                             [ngClass]="userSevrice.isOnline(user.contact_id) && user.isgroup == true  ? 'online' : user.isgroup == false ?  'offline' : ''">
@@ -208,11 +230,6 @@
                         </div>
                         <div class="name ms-3">
                             <h6 class=" m-0 ">{{user.contact_name}}</h6>
-                            <!-- <div class="typing">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div> -->
                             <small class="last_msg" *ngIf="user.last_message">{{user.sender_id ==
                                 userSevrice.user.user_id ?
                                 'You : '+ user.last_message :user.last_message }}</small>
@@ -236,7 +253,7 @@
 
     <div>
         <!-- <button mat-button color="primary" class="float-end" (click)="next()">Next</button> -->
-        <button class="float-end btn-transparent" matTooltip="Next" (click)="next()">
+        <button class="float-end btn-transparent btn-arrow" matTooltip="Next" (click)="next()">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
                 <path
                     d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l370.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z" />
@@ -249,7 +266,7 @@
 <div id="saveGroupInfo" class="p-4" *ngIf="currentPage == 'saveGroupInfo'">
     <nav>
         <div class="d-flex">
-            <button (click)="goTo('newGroup')" class="btn-transparent">
+            <button (click)="goTo('newGroup')" class="btn-transparent btn-arrow">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 448 512">
                     <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                     <path
@@ -283,11 +300,12 @@
 
 
     <div>
-        <button class="float-end btn-transparent" matTooltip="Create group" (click)="createGroup()">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
+        <button class="float-end btn-transparent btn-arrow" mat-button color="primary" matTooltip="Create group" (click)="createGroup()">
+            <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
                 <path
                     d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l370.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z" />
-            </svg>
+            </svg> -->
+            Create
         </button>
 
 

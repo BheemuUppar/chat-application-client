@@ -256,6 +256,7 @@ input[type="file"] {
 }
 ::ng-deep .mat-elevation-z8 button span svg{
   height: 15px !important;
+  width: 15px !important;
 }
 ::ng-deep .mat-elevation-z8 button:hover {
   background: var(--bg-active) !important;

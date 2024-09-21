@@ -13,7 +13,7 @@
       <div>
         <h5 class="mb-0" style="color: var(--text-white);">{{currentChat.contact_name
           }}</h5>
-        <small *ngIf="!currentChat.isgroup " style="color: var(--text-gray);">{{userService.isOnline(currentChat.contact_id) == true ? 'Active Now' :
+        <small *ngIf="!currentChat.isgroup " style="color: var(--text-muted);">{{userService.isOnline(currentChat.contact_id) == true ? 'Active Now' :
           'Last Seen '+dateService.formatDate(currentChat.contact_last_seen)}} </small>
       </div>
     </div>

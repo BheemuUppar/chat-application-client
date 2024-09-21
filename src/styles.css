@@ -23,6 +23,32 @@
   --border-2 :#444343;
 }
 
+.light-theme{
+  --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+  
+  --bg-dark: #f8f9fa; 
+  --bg-dark-gray: #e9ecef; 
+  --bg-light-gray : #f1f3f5;
+  --bg-scroll  : #ced4da; 
+  --bg-online: #28a745;
+  --bg-away : #ffc107; 
+  --bg-shadow : #e0e0e0; 
+  --bg-input : #e2e2e2; 
+  --bg-danger : #dc3545; 
+  --bg-pink : #ff85a2; 
+  --bg-blue : #4d7cff; 
+  --bg-transparent : rgba(255, 255, 255, 0.5); 
+  --bg-active: #e2e6ea; 
+
+  --text-white: #000; 
+  --text-muted : #6c757d; 
+  --text-gray : #adb5bd; 
+  --text-dark : #212529; 
+
+  --border: #dee2e6; 
+  --border-2 :#ced4da; 
+}
+
 /* You can add global styles to this file, and also import other style files */
 /* width */
 ::-webkit-scrollbar {
@@ -105,4 +131,8 @@ body {
 }
 .dropdown-item:hover{
   background: var(--bg-shadow);
+}
+
+.btn-arrow{
+  color: var(--text-dark) !important;
 }
