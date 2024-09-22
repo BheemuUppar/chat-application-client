@@ -40,7 +40,8 @@
   --bg-transparent : rgba(255, 255, 255, 0.5); 
   --bg-active: #e2e6ea; 
 
-  --text-white: #000; 
+  /* --text-white: #000;  */
+  --text-white: #413e3e; 
   --text-muted : #6c757d; 
   --text-gray : #adb5bd; 
   --text-dark : #212529; 

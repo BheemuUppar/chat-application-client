@@ -4,6 +4,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   Output,
   SimpleChanges,
@@ -20,7 +21,7 @@ import { UtilService } from 'src/app/services/util.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
 })
-export class SidebarComponent implements OnChanges, OnInit {
+export class SidebarComponent implements OnChanges, OnInit, OnDestroy {
   user: any;
   searchText!: string;
   searchTextForGroup!: string;
@@ -34,6 +35,11 @@ export class SidebarComponent implements OnChanges, OnInit {
   inbox: any[] = [];
   @Input() onMessageReceive: any;
   isMenuVisible:boolean = false;
+
+  ngOnDestroy(): void {
+      this.userSevrice.currentChat.next(undefined);
+      console.log('removing current chat value')
+  }
 
   constructor(
     public userSevrice: UserService,

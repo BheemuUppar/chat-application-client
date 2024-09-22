@@ -151,9 +151,9 @@
 
                     </div>
                     <div class="status flex-grow-1 justify-content-end">
-                        <div class="d-flex flex-column align-items-center">
+                        <div class="d-flex flex-column align-items-end">
                             <small>{{dateService.formatDate(user.last_message_time)}}</small>
-                            <small class="unread_count" style="background-color: var(--bg-online);"
+                            <small class="unread_count me-3" style="background-color: var(--bg-online);"
                                 *ngIf="user.unread_count != 0">{{user.unread_count}}</small>
                         </div>
                     </div>
