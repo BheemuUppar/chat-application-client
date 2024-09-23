@@ -13,8 +13,11 @@
       <div>
         <h5 class="mb-0" style="color: var(--text-white);">{{currentChat.contact_name
           }}</h5>
-        <small *ngIf="!currentChat.isgroup " style="color: var(--text-muted);">{{userService.isOnline(currentChat.contact_id) == true ? 'Active Now' :
+        <small *ngIf="!currentChat.isgroup && utilService.getTypingUsers(currentChat.inbox_id).length == 0" style="color: var(--text-muted);">{{userService.isOnline(currentChat.contact_id) == true ? 'Active Now' :
           'Last Seen '+dateService.formatDate(currentChat.contact_last_seen)}} </small>
+        <small *ngIf="utilService.getTypingUsers(currentChat.inbox_id).length > 0">
+          <app-typing-effect [user]="currentChat" [name]="currentChat.isgroup ? utilService.getTypingUsers(currentChat.inbox_id)[0].user_name : undefined" ></app-typing-effect>
+        </small>
       </div>
     </div>
     <div class="options">
@@ -133,12 +136,14 @@
             </div>
           </div>
         </div>
+        
         <!-- Received Message End -->
 
       </div>
     </div>
   </div>
   <div class="inputs position-relative " [ngClass]="{'flex-grow-1 d-flex flex-column':  messageFiles.length > 0}">
+    
     <div class="flex-grow-1 p-5 text-white" *ngIf="messageFiles.length > 0">
       <button class="btn  text-white p-0" (click)="resetSelectedFiles()" style="position: absolute; right: 0; top: 0;">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
@@ -177,7 +182,7 @@
       </span>
 
       <input type="text" class="p-3 flex-grow-1" placeholder="Type a message" name="message_text"
-        (keypress)="onEnterPress($event)" [(ngModel)]="message_text">
+        (keypress)="onEnterPress($event)" (input)="onTyping($event)" [(ngModel)]="message_text">
       <button type="button" class="send-btn" (click)="sendMessage()">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
           viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->

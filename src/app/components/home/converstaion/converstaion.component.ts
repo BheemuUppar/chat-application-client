@@ -10,6 +10,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { Event } from '@angular/router';
 import { DateService } from 'src/app/services/date.service';
 import { SocketService } from 'src/app/services/socket.service';
 import { UserService } from 'src/app/services/user.service';
@@ -47,9 +48,10 @@ export class ConverstaionComponent
   ngOnInit(): void {
     this.user = this.userService.user;
     this.userService.currenChat$.subscribe((user: any) => {
-     
+      this.debounceTyping()
       if (user == undefined) {
         this.currentChat = user;
+        this.resetSelectedFiles()
         return;
       }
       if (
@@ -58,12 +60,13 @@ export class ConverstaionComponent
         this.currentChat.unread_count > 0
         
       ) {
-   
+       
         this.currentChat = user;
         console.log(this.currentChat)
         this.resetSelectedFiles();
         this.getMessages();
         this.scrollToBottom();
+
       }
     });
     this.userService.readNewMessage$.subscribe(() => {
@@ -280,7 +283,9 @@ export class ConverstaionComponent
     });
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.resetSelectedFiles();
+  }
 
   resetSelectedFiles() {
     this.messageFiles = [];
@@ -322,6 +327,8 @@ export class ConverstaionComponent
   >();
   changeView(view: 'sidebar' | 'conversation' | 'info') {
     if (view == 'sidebar') {
+      this.resetSelectedFiles()
+      this.debounceTyping()
       this.userService.currentChat.next(undefined);
     }
     setTimeout(() => {
@@ -334,5 +341,48 @@ export class ConverstaionComponent
       message_id: msg.message_id,
       inbox_id: msg.inbox_id,
     });
+  }
+
+  
+timeout:any
+  onTyping(event?:any){
+    if(this.timeout){
+      clearTimeout(this.timeout)
+      this.timeout = setTimeout(()=>{
+        this.debounceTyping()
+      }, 300)
+    }else{
+      this.timeout = setTimeout(()=>{
+        this.debounceTyping()
+      }, 300)
+    }
+  }
+  debounceTyping(){
+    if(this.currentChat){
+      let payload :any = {
+        user_id:this.user.user_id,
+        user_name : this.user.name,
+        is_typing : undefined,
+        isgroup:this.currentChat.isgroup,
+        inbox_id:this.currentChat.inbox_id
+      }
+      if(this.currentChat.isgroup){
+        payload['to'] = this.currentChat.group_members.map((member:any)=>{
+          return member.id;
+        })
+      }else{
+        payload['to'] = [this.currentChat.contact_id]
+      };
+     if(this.message_text != ''){
+        payload.is_typing = true;
+        console.log("typing..")
+        console.log(payload)
+        
+      }else{
+        payload.is_typing = false;
+        console.log("notTyping");
+      }
+     this.socketService.emit('startTyping', payload)
+    }
   }
 }

@@ -29,6 +29,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ChatListComponent } from './components/home/sidebar/chat-list/chat-list.component';
 import { LoaderComponent } from './components/shared/file-preview/loader/loader.component';
 import { AppHttpInterceptor } from './interceptor/http';
+import { TypingEffectComponent } from './components/shared/typing-effect/typing-effect.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +46,8 @@ import { AppHttpInterceptor } from './interceptor/http';
     FilePreviewComponent,
     UserProfileComponent,
     ChatListComponent,
-    LoaderComponent
+    LoaderComponent,
+    TypingEffectComponent
   ],
   imports: [
     BrowserModule,

@@ -138,16 +138,20 @@
                     </div>
                     <div class="name ms-3">
                         <h6 class=" m-0 ">{{user.contact_name}}</h6>
-                       
-                        <small class="last_msg" *ngIf="user.last_message" [ngClass]="{'fw-bold text-success' : user.unread_count > 0 }">{{
-                        user.sender_id == userSevrice.user.user_id ?
-                            'You : '+ user.last_message : user.isgroup ? getSenderName(user.group_members, user.sender_id)+' : '  + user.last_message : user.last_message }}</small>
-                        <small class="last_msg" *ngIf="!user.last_message && user.message_file == null" [ngClass]="{'fw-bold text-success' : user.unread_count > 0 }"><b
-                                style="font-style: italic;">No Messages</b></small>
-                        <small class="last_msg" *ngIf="user.message_file " [ngClass]="{'fw-bold text-success' : user.unread_count > 0 }">
-                            {{user.sender_id == userSevrice.user.user_id ?
-                            'You : '+ 'Sent a file' : ' Received a file' }}
-                        </small>
+                       <div *ngIf="utilService.getTypingUsers(user.inbox_id).length == 0">
+                           <small class="last_msg" *ngIf="user.last_message" [ngClass]="{'fw-bold text-success' : user.unread_count > 0 }">{{
+                           user.sender_id == userSevrice.user.user_id ?
+                               'You : '+ user.last_message : user.isgroup ? getSenderName(user.group_members, user.sender_id)+' : '  + user.last_message : user.last_message }}</small>
+                           <small class="last_msg" *ngIf="!user.last_message && user.message_file == null" [ngClass]="{'fw-bold text-success' : user.unread_count > 0 }"><b
+                                   style="font-style: italic;">No Messages</b></small>
+                           <small class="last_msg" *ngIf="user.message_file " [ngClass]="{'fw-bold text-success' : user.unread_count > 0 }">
+                               {{user.sender_id == userSevrice.user.user_id ?
+                               'You : '+ 'Sent a file' : ' Received a file' }}
+                           </small>
+                       </div>
+                       <small *ngIf="utilService.getTypingUsers(user.inbox_id).length > 0">
+                        <app-typing-effect [user]="user" [name]="user.isgroup ? utilService.getTypingUsers(user.inbox_id)[0].user_name : undefined"  ></app-typing-effect>
+                      </small>
 
                     </div>
                     <div class="status flex-grow-1 justify-content-end">

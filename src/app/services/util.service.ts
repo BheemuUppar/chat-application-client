@@ -1,7 +1,8 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FilePreviewComponent } from '../components/shared/file-preview/file-preview.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { SocketService } from './socket.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -10,6 +11,7 @@ export class UtilService {
   private msgSentAudio = new Audio('../../assets/media/sentAudio.mp3');
   private incomingMessageAudio = new Audio('../../assets/media/incoming-msg.mp3');
   private notifationAudio = new Audio('../../assets/media/notification.mp3');
+  public typingUsers = [];
 
   fileTypeMap: any = {
     // Video files
@@ -98,8 +100,9 @@ export class UtilService {
     sh: 'code',
   };
 
-  constructor(private dialog : MatDialog, ) {
-    this.loadTheme()
+  constructor(private dialog : MatDialog ) {
+    this.loadTheme();
+    
   }
 
   downloadFile(base64String: string, fileName: string, fileType: string) {
@@ -163,7 +166,6 @@ export class UtilService {
       
     })
   }
-
   
   openSnackBar(message: string, action: string = 'close') {
     this._snackBar.open(message, action, {
@@ -176,6 +178,7 @@ export class UtilService {
   playMessageSent(){
     this.msgSentAudio.play()
   }
+
   playIncomingMessage(){
     this.incomingMessageAudio.play();
   }
@@ -210,5 +213,11 @@ toggleTheme(){
       localStorage.setItem('theme', 'dark')
 
     }
+  }
+  getTypingUsers(inbox_id:number):any[]{
+    let obj = this.typingUsers.filter((obj:any)=>{
+      return obj.inbox_id == inbox_id 
+    });
+    return obj
   }
 }

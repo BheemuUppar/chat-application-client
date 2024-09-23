@@ -72,6 +72,12 @@ export class SidebarComponent implements OnChanges, OnInit, OnDestroy {
     this.socketService.on('groupAdded', (data) => {
       this.getInbox();
     });
+    this.socketService.on('typing', (data:any)=>{
+      this.utilService.typingUsers = data.filter((value:any, index:any, self:any) => 
+        index === self.findIndex((obj:any) => obj.id === value.id)
+      );
+      console.log(this.utilService.typingUsers)
+    })
     this.userSevrice.currenChat$.subscribe((user:any)=>{
       this.currentChat = user
     })

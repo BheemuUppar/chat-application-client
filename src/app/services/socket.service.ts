@@ -8,7 +8,9 @@ import { UserService } from './user.service';
 export class SocketService {
   private socket!: Socket;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) {
+   
+  }
 
   connect(): void {
     this.socket = io('http://localhost:3000', {

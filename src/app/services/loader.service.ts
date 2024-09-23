@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { SocketService } from './socket.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,10 @@ import { Observable } from 'rxjs';
 export class LoaderService {
 isLoading : boolean = false;
 
-  constructor() { }
+  constructor() { 
+  
+    
+  }
 
   showLoader(){
     this.isLoading = true
