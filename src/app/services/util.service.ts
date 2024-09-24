@@ -171,7 +171,7 @@ export class UtilService {
     this._snackBar.open(message, action, {
     horizontalPosition:'right',
     verticalPosition:'top',
-    duration:1000
+    duration:3000
     });
     this.playNotificationSound()
   }
