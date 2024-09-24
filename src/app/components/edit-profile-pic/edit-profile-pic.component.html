@@ -8,7 +8,8 @@
         <img [src]="url ? url :'../../../assets/images/default-user-profile.png'" class="profile_pic" height="250"
             width="250" alt="">
     </div>
-    <input type="file" name="" id='input_file' accept="image/png" hidden>
+    <input type="file" name="" id="input_file" accept="image/png, image/jpg, image/jpeg, image/gif" hidden>
+
     <span>
         <button (click)="onClickUpload()"> click to upload</button>
     </span>

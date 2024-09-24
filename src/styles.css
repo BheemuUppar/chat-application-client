@@ -137,3 +137,7 @@ body {
 .btn-arrow{
   color: var(--text-dark) !important;
 }
+
+button[disabled='true']{
+  cursor:not-allowed;
+}
