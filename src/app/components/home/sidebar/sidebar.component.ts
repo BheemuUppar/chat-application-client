@@ -91,7 +91,7 @@ export class SidebarComponent implements OnChanges, OnInit, OnDestroy {
     this.userSevrice.getAllInbox().subscribe((res: any) => {
       this.myChatUsers = res;
       for(let user of this.myChatUsers){
-        if( this.currentChat &&  user.inbox_id == this.currentChat.inbox_id){
+        if( !this.currentChat.inbox_id ||  (this.currentChat &&  user.inbox_id == this.currentChat.inbox_id)){
           // this.currentChat = user;
           this.userSevrice.currentChat.next(user);
           break
