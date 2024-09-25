@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-contact-info',
@@ -15,8 +16,9 @@ export class ContactInfoComponent implements OnInit {
     'sidebar' | 'conversation' | 'info'
   >();
   count: { image: number; document: number } = { image: 0, document: 0 };
+  profileFile: any;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private utilService:UtilService) {}
   ngOnInit(): void {
     this.userService.currenChat$.subscribe((chat: any) => {
       this.inbox_id = chat.inbox_id;
@@ -62,5 +64,43 @@ export class ContactInfoComponent implements OnInit {
 
   changeView(view: 'sidebar' | 'conversation' | 'info') {
     this.viewChange.emit(view);
+  }
+  triggerFileInput() {
+    const fileInput = document.getElementById('groupFile') as HTMLInputElement;
+    fileInput.click();
+  }
+  onGroupProfileUpload(event: any) {
+    let files = event.target.files;
+    if (files.length === 0) return;
+    this.profileFile = files[0];
+    const mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      // this.message = 'Only images are supported.';
+      return;
+    }
+
+    const reader = new FileReader();
+    // this.imagePath = files;
+
+    reader.readAsDataURL(files[0]);
+    reader.onload = (_event) => {
+      this.currentChat.profile_path = reader.result;
+      this.save()
+    };
+  }
+
+  save() {
+    if (this.profileFile != undefined) {
+      this.userService.changeGroupProfilePic(this.currentChat.inbox_id, this.profileFile).subscribe({
+        next: (res: any) => {
+          this.utilService.openSnackBar('Profile updated successfully');
+        },
+        error: (err) => {
+          this.utilService.openSnackBar(err.message);
+        },
+      });
+    }else{
+      this.utilService.openSnackBar("Please Select image to proceed");
+    }
   }
 }

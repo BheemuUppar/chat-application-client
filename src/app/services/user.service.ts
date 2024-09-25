@@ -29,6 +29,20 @@ export class UserService {
     return this.http.post(url, formData);
   }
 
+  changeGroupProfilePic(id: string | null, file: File) {
+    let url = 'http://localhost:3000/users/upload/groupProfile';
+    // let payload = {
+    //   id: id,
+    //   file: file,
+    // };
+    const formData = new FormData();
+
+    // Append only the file to FormData
+    formData.append('inbox_id', String(id));
+    formData.append('file', file);
+    return this.http.post(url, formData);
+  }
+
 
   createGroup(params:FormData){
     return this.http.post('http://localhost:3000/users/creategroup', params)

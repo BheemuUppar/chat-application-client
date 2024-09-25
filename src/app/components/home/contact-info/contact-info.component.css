@@ -184,3 +184,79 @@ a{
     align-items: center;
     justify-content: center;
 }
+
+.profile-img {
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  
+  .user-details {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .user-details h3 {
+    margin: 5px 0;
+  }
+  
+  .profile-actions {
+    display: flex;
+    justify-content: center;
+  }
+  
+.image-wrapper {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    cursor: pointer;
+  }
+  
+  .image-wrapper img {
+    border-radius: 50%;
+  }
+  
+  .hover-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Spacing between the icons */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  
+  .image-wrapper:hover .hover-icon {
+    opacity: 1;
+    pointer-events: all;
+  }
+  
+  input[type="file"] {
+    display: none;
+  }
+  
+  .search_users {
+    margin-left: 10px;
+    width: 100%;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-transparent); /* Semi-transparent overlay */
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .image-wrapper:hover .overlay {
+    opacity: 1;
+  }
