@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { SocketService } from './socket.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/assets/dev.environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,12 +12,12 @@ export class AuthService {
   constructor(private http: HttpClient, private socketService:SocketService, private router:Router) {}
 
   registerUser(params:any) {
-    let url = 'http://localhost:3000/auth/register';
+    let url = environment.register;
     return this.http.post(url, params);
   }
 
   loginUser(params: { username: string; password: string }) {
-    let url = 'http://localhost:3000/auth/login';
+    let url = environment.login;
     return this.http.post(url, params).pipe(
       map((res: any) => {
         if (res.token) {

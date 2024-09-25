@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, map, Subject } from 'rxjs';
+import { environment } from 'src/assets/dev.environment';
 
 @Injectable({
   providedIn: 'root',
@@ -16,11 +17,11 @@ export class UserService {
   contactInfoVisible:boolean = false;
 
   saveProfilePic(id: string | null, file: File) {
-    let url = 'http://localhost:3000/users/upload/profile';
-    let payload = {
-      id: id,
-      file: file,
-    };
+    let url = environment.saveProfilePic;
+    // let payload = {
+    //   id: id,
+    //   file: file,
+    // };
     const formData = new FormData();
 
     // Append only the file to FormData
@@ -30,7 +31,7 @@ export class UserService {
   }
 
   changeGroupProfilePic(id: string | null, file: File) {
-    let url = 'http://localhost:3000/users/upload/groupProfile';
+    let url = environment.changeGroupProfilePic;
     // let payload = {
     //   id: id,
     //   file: file,
@@ -45,7 +46,7 @@ export class UserService {
 
 
   createGroup(params:FormData){
-    return this.http.post('http://localhost:3000/users/creategroup', params)
+    return this.http.post(environment.createGroup, params)
   }
 
   get user() {
@@ -57,7 +58,7 @@ export class UserService {
   }
 
   getUserData(id: any) {
-    let url = 'http://localhost:3000/users/getuser/' + id;
+    let url = environment.getUserData + id;
     return this.http.get(url).pipe(
       map((res: any) => {
         localStorage.setItem('user', JSON.stringify(res.data));
@@ -71,7 +72,7 @@ export class UserService {
   }
 
   searchUsers(query: string | number) {
-    let url = 'http://localhost:3000/users/search?search=' + query;
+    let url = environment.searchUser + query;
     return this.http.get(url).pipe(
       map((res: any) => {
         let myId = this.user.user_id;
@@ -86,20 +87,20 @@ export class UserService {
 
   getAllInbox(){
   let id = this.user.user_id;
-  let url = 'http://localhost:3000/users/getAllChats/'+id
+  let url = environment.getAllInbox+id
   return this.http.get(url)
   }
 
   getAllMessages(inbox_id:number){
-  let url = 'http://localhost:3000/users/getAllMessage/'+inbox_id
+  let url = environment.getAllMessages+inbox_id
   return this.http.get(url)
   }
 
   getChatInfo(inbox_id:number){
-    return this.http.get('http://localhost:3000/users/group/info/'+inbox_id)
+    return this.http.get(environment.getGroupInfo+inbox_id)
   }
   getChatInfoChat(user_id:number,inbox_id:number){
-    return this.http.get('http://localhost:3000/users/chat/info/'+user_id + '/' + inbox_id)
+    return this.http.get(environment.getChatInfo+user_id + '/' + inbox_id)
   }
   
 }

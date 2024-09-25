@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { UserService } from './user.service';
+import { environment } from 'src/assets/dev.environment';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class SocketService {
   }
 
   connect(): void {
-    this.socket = io('http://localhost:3000', {
+    this.socket = io(environment.baseUrl, {
       query: { id: this.userService.user.user_id ,
         email:this.userService.user.email
       },
