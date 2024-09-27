@@ -13,7 +13,4 @@ export const environment = {
     getAllMessages:`${baseUrl}users/getAllMessage/`,
     getGroupInfo:`${baseUrl}users/group/info/`,
     getChatInfo:`${baseUrl}users/chat/info/`
-    
-
-    
 }
