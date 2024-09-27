@@ -1,7 +1,7 @@
 import { Injectable, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FilePreviewComponent } from '../components/shared/file-preview/file-preview.component';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { SocketService } from './socket.service';
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,9 @@ import { SocketService } from './socket.service';
 export class UtilService {
   private _snackBar = inject(MatSnackBar);
   private msgSentAudio = new Audio('../../assets/media/sentAudio.mp3');
-  private incomingMessageAudio = new Audio('../../assets/media/incoming-msg.mp3');
+  private incomingMessageAudio = new Audio(
+    '../../assets/media/incoming-msg.mp3'
+  );
   private notifationAudio = new Audio('../../assets/media/notification.mp3');
   public typingUsers = [];
 
@@ -100,9 +102,8 @@ export class UtilService {
     sh: 'code',
   };
 
-  constructor(private dialog : MatDialog ) {
+  constructor(private dialog: MatDialog) {
     this.loadTheme();
-    
   }
 
   downloadFile(base64String: string, fileName: string, fileType: string) {
@@ -135,9 +136,8 @@ export class UtilService {
       URL.revokeObjectURL(link.href);
     } catch (error) {
       console.error('Error decoding base64 string:', error);
-      
+
       this.openSnackBar('failed to download');
-      
     }
   }
 
@@ -155,69 +155,73 @@ export class UtilService {
     return this.fileTypeMap[file_type] ? this.fileTypeMap[file_type] : '';
   }
 
-  openPreview(file:string, fileName:string, fileType:string, mimeType:string){
-    let dialogRef = this.dialog.open(FilePreviewComponent , {
-      disableClose:true,
-      hasBackdrop:true,
-      height:'97vh',
-      width:'98vw',
-      maxWidth:'98vw',
-      data:{file:file, fileName:fileName , fileType :fileType, mimeType:mimeType},
-      
-    })
+  openPreview(
+    file: string,
+    fileName: string,
+    fileType: string,
+    mimeType: string
+  ) {
+    let dialogRef = this.dialog.open(FilePreviewComponent, {
+      disableClose: true,
+      hasBackdrop: true,
+      height: '97vh',
+      width: '98vw',
+      maxWidth: '98vw',
+      data: {
+        file: file,
+        fileName: fileName,
+        fileType: fileType,
+        mimeType: mimeType,
+      },
+    });
   }
-  
+
   openSnackBar(message: string, action: string = 'close') {
     this._snackBar.open(message, action, {
-    horizontalPosition:'right',
-    verticalPosition:'top',
-    duration:3000
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      duration: 3000,
     });
-    this.playNotificationSound()
+    this.playNotificationSound();
   }
-  playMessageSent(){
-    this.msgSentAudio.play()
+  playMessageSent() {
+    this.msgSentAudio.play();
   }
 
-  playIncomingMessage(){
+  playIncomingMessage() {
     this.incomingMessageAudio.play();
   }
-  playNotificationSound(){
-    this.notifationAudio.play()
+  playNotificationSound() {
+    this.notifationAudio.play();
   }
-theme = localStorage.getItem('theme') ??  "dark"
-  
-loadTheme (){
-  console.log(this.theme)
-  if(this.theme == 'light-theme'){
-    document.body.classList.add('light-theme')
-    localStorage.setItem('theme', 'light-theme')
-  }
-  else{
-    document.body.classList.remove('light-theme');
-    localStorage.setItem('theme', 'dark')
+  theme = localStorage.getItem('theme') ?? 'dark';
 
-  }
-
-}
-toggleTheme(){
-    console.log(this.theme)
-    if(this.theme == 'dark'){
-      this.theme = 'light-theme';
-      document.body.classList.add('light-theme')
-      localStorage.setItem('theme', 'light-theme')
+  loadTheme() {
+    console.log(this.theme);
+    if (this.theme == 'light-theme') {
+      document.body.classList.add('light-theme');
+      localStorage.setItem('theme', 'light-theme');
+    } else {
+      document.body.classList.remove('light-theme');
+      localStorage.setItem('theme', 'dark');
     }
-    else{
+  }
+  toggleTheme() {
+    console.log(this.theme);
+    if (this.theme == 'dark') {
+      this.theme = 'light-theme';
+      document.body.classList.add('light-theme');
+      localStorage.setItem('theme', 'light-theme');
+    } else {
       this.theme = 'dark';
       document.body.classList.remove('light-theme');
-      localStorage.setItem('theme', 'dark')
-
+      localStorage.setItem('theme', 'dark');
     }
   }
-  getTypingUsers(inbox_id:number):any[]{
-    let obj = this.typingUsers.filter((obj:any)=>{
-      return obj.inbox_id == inbox_id 
+  getTypingUsers(inbox_id: number): any[] {
+    let obj = this.typingUsers.filter((obj: any) => {
+      return obj.inbox_id == inbox_id;
     });
-    return obj
+    return obj;
   }
 }

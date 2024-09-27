@@ -31,7 +31,7 @@
                             <span class="ms-2">Profile</span>
                         </button>
 
-                        <button mat-menu-item (click)="goTo('newGroup')" >
+                        <button mat-menu-item (click)="goTo('newGroup')">
                             <span>
                                 <svg viewBox="0 0 24 24" class="" fill="currentColor">
 
@@ -69,7 +69,9 @@
                         <button mat-menu-item (click)="utilService.toggleTheme()">
                             <span>
                                 <!-- Sun Icon -->
-                                <svg *ngIf="utilService.theme == 'dark' " xmlns="http://www.w3.org/2000/svg"  fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun" viewBox="0 0 24 24">
+                                <svg *ngIf="utilService.theme == 'dark' " xmlns="http://www.w3.org/2000/svg"
+                                    fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-sun" viewBox="0 0 24 24">
                                     <circle cx="12" cy="12" r="5"></circle>
                                     <path d="M12 1v2"></path>
                                     <path d="M12 21v2"></path>
@@ -80,11 +82,13 @@
                                     <path d="M4.22 19.78l1.42-1.42"></path>
                                     <path d="M18.36 5.64l1.42-1.42"></path>
                                 </svg>
-  <!-- Moon Icon -->
-<svg *ngIf="utilService.theme != 'dark' " xmlns="http://www.w3.org/2000/svg"  fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon" viewBox="0 0 24 24">
-    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-  </svg>
-  
+                                <!-- Moon Icon -->
+                                <svg *ngIf="utilService.theme != 'dark' " xmlns="http://www.w3.org/2000/svg"
+                                    fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-moon" viewBox="0 0 24 24">
+                                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                                </svg>
+
                             </span>
                             <span class="ms-2">change theme</span>
                         </button>
@@ -124,11 +128,10 @@
 
     <div class="chat_list_wrapper pe-2">
         <ul class="list-unstyled chat_list" *ngIf="getFilteredChats().length > 0">
-          
+
             <li class="chat_contact  px-3 d-flex"
                 [ngClass]="{'active': currentChat &&   ( user.inbox_id == currentChat.inbox_id )}"
-                *ngFor="let user of getFilteredChats()" (click)="setCurrentChat(user)"
-                >
+                *ngFor="let user of getFilteredChats()" (click)="setCurrentChat(user)">
                 <!-- <mat-checkbox *ngIf="isSelectionMode" class="example-margin"
                     (change)="onSelection($event, user.contact_id)"
                     [checked]="selectedUsers.includes(user.contact_id)"></mat-checkbox> -->
@@ -138,20 +141,25 @@
                     </div>
                     <div class="name ms-3">
                         <h6 class=" m-0 ">{{user.contact_name}}</h6>
-                       <div *ngIf="utilService.getTypingUsers(user.inbox_id).length == 0">
-                           <small class="last_msg" *ngIf="user.last_message" [ngClass]="{'fw-bold text-success' : user.unread_count > 0 }">{{
-                           user.sender_id == userSevrice.user.user_id ?
-                               'You : '+ user.last_message : user.isgroup ? getSenderName(user.group_members, user.sender_id)+' : '  + user.last_message : user.last_message }}</small>
-                           <small class="last_msg" *ngIf="!user.last_message && user.message_file == null" [ngClass]="{'fw-bold text-success' : user.unread_count > 0 }"><b
-                                   style="font-style: italic;">No Messages</b></small>
-                           <small class="last_msg" *ngIf="user.message_file " [ngClass]="{'fw-bold text-success' : user.unread_count > 0 }">
-                               {{user.sender_id == userSevrice.user.user_id ?
-                               'You : '+ 'Sent a file' : ' Received a file' }}
-                           </small>
-                       </div>
-                       <small *ngIf="utilService.getTypingUsers(user.inbox_id).length > 0">
-                        <app-typing-effect [user]="user" [name]="user.isgroup ? utilService.getTypingUsers(user.inbox_id)[0].user_name : undefined"  ></app-typing-effect>
-                      </small>
+                        <div *ngIf="utilService.getTypingUsers(user.inbox_id).length == 0">
+                            <small class="last_msg" *ngIf="user.last_message"
+                                [ngClass]="{'fw-bold text-success' : user.unread_count > 0 }">{{
+                                user.sender_id == userSevrice.user.user_id ?
+                                'You : '+ user.last_message : user.isgroup ? getSenderName(user.group_members,
+                                user.sender_id)+' : ' + user.last_message : user.last_message }}</small>
+                            <small class="last_msg" *ngIf="!user.last_message && user.message_file == null"
+                                [ngClass]="{'fw-bold text-success' : user.unread_count > 0 }"><b
+                                    style="font-style: italic;">No Messages</b></small>
+                            <small class="last_msg" *ngIf="user.message_file "
+                                [ngClass]="{'fw-bold text-success' : user.unread_count > 0 }">
+                                {{user.sender_id == userSevrice.user.user_id ?
+                                'You : '+ 'Sent a file' : ' Received a file' }}
+                            </small>
+                        </div>
+                        <small *ngIf="utilService.getTypingUsers(user.inbox_id).length > 0">
+                            <app-typing-effect [user]="user"
+                                [name]="user.isgroup ? utilService.getTypingUsers(user.inbox_id)[0].user_name : undefined"></app-typing-effect>
+                        </small>
 
                     </div>
                     <div class="status flex-grow-1 justify-content-end">
@@ -249,7 +257,7 @@
                     </div>
                 </li>
             </ng-container>
-   </ul>
+        </ul>
 
         <p *ngIf="myChatUsers.length == 0">No chats</p>
 
@@ -304,7 +312,8 @@
 
 
     <div>
-        <button class="float-end btn-transparent btn-arrow" mat-button color="primary" matTooltip="Create group" (click)="createGroup()">
+        <button class="float-end btn-transparent btn-arrow" mat-button color="primary" matTooltip="Create group"
+            (click)="createGroup()">
             <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
                 <path
                     d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l370.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z" />
